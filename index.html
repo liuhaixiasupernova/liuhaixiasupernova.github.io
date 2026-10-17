@@ -1,0 +1,2461 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Haixia Liu: a playful journey through animals, the world, the stars, AI ideas and kindness.">
+<title>The Sunny Trail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&family=Press+Start+2P&display=swap">
+<style>
+[hidden]{display:none!important}
+
+/* Layout: four colour-banded chapters in a fixed order (Play, Learn, Help, Connect). Each chapter after the first sits behind a pixel padlock that opens only when the previous test is passed. One deliberate bright look. */
+:root{
+  color-scheme: light;
+  --ink:#231a52;
+  --paper:#ffffff;
+  --sun:#ffcc2e;
+  --sun-deep:#f0a500;
+  --coral:#ff4f6d;
+  --mint:#2ee6a6;
+  --grape:#6a3df0;
+  --grape-deep:#2a1470;
+  --sky:#3fb6ff;
+  --sky-2:#8fd8ff;
+  --blush:#ffb8cf;
+  --muted:#4b4380;
+  --f-pixel:'Press Start 2P','Courier New',monospace;
+  --f-body:'Nunito','Trebuchet MS',system-ui,sans-serif;
+  --gutter:clamp(16px,4vw,40px);
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:64px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background-color:var(--sky);color:var(--ink);font-family:var(--f-body);font-weight:600;font-size:1.1rem;line-height:1.6;-webkit-text-size-adjust:100%}
+.wrap{max-width:1040px;margin-inline:auto;padding-inline:var(--gutter)}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+a{color:var(--ink)}
+:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
+h1,h2,h3,p{margin-top:0}
+
+/* Top bar */
+.hud{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--ink);color:#fff;border-bottom:4px solid #000}
+.hud-in{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4rem .6rem;padding-block:.5rem}
+.logo{display:inline-flex;align-items:center;gap:.55rem;font:400 .6rem var(--f-pixel);color:#fff;text-decoration:none;letter-spacing:.04em;white-space:nowrap}
+.sunpix{width:14px;height:14px;background:var(--sun);box-shadow:0 0 0 2px var(--sun-deep);flex:none}
+.pips{display:flex;gap:.35rem;list-style:none;margin:0;padding:0}
+.pips a{display:block;min-width:34px;text-align:center;padding:.45rem .4rem;font:400 .5rem var(--f-pixel);color:#fff;text-decoration:none;border:2px solid rgba(255,255,255,.6)}
+.pips a.open{background:var(--sun);border-color:var(--sun);color:var(--ink)}
+.pips a.done{background:var(--mint);border-color:var(--mint);color:var(--ink)}
+.pips a.locked{border-style:dashed;opacity:.75}
+.hud-r{display:flex;align-items:center;gap:.4rem}
+.pts{font:400 .55rem var(--f-pixel);color:var(--sun);white-space:nowrap}
+.tog{font:400 .5rem var(--f-pixel);letter-spacing:.04em;padding:.5rem .5rem;border:2px solid #fff;background:transparent;color:#fff;cursor:pointer}
+.tog[aria-pressed="true"]{background:var(--mint);border-color:var(--mint);color:var(--ink)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.9rem 1.2rem;font:400 .7rem var(--f-pixel);letter-spacing:.04em;line-height:1.35;text-decoration:none;color:var(--ink);background:var(--paper);border:3px solid var(--ink);box-shadow:0 5px 0 var(--ink);cursor:pointer;transition:transform .08s ease,box-shadow .08s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.btn[disabled]{opacity:.5;cursor:not-allowed;transform:none;box-shadow:0 5px 0 var(--ink)}
+.btn-sun{background:var(--sun)}
+.btn-coral{background:var(--coral)}
+.btn-mint{background:var(--mint)}
+.btn-grape{background:var(--grape);color:#fff}
+.btn-sm{padding:.65rem .8rem;font-size:.6rem}
+.cta-row{display:flex;flex-wrap:wrap;gap:1rem 1.1rem}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#3fb6ff 0%,#8fd8ff 52%,#ffd2b8 100%);padding-block:clamp(36px,7vw,80px) clamp(44px,7vw,76px)}
+.hero-sky{position:absolute;inset:0;pointer-events:none}
+.bigsun{position:absolute;right:clamp(-40px,4vw,60px);bottom:-30px;width:clamp(130px,24vw,280px);aspect-ratio:1/1;background:var(--ink);clip-path:polygon(30% 0,70% 0,100% 30%,100% 70%,70% 100%,30% 100%,0 70%,0 30%);display:grid;place-items:center}
+.bigsun i{display:grid;place-items:center;width:92%;height:92%;background:var(--sun);clip-path:polygon(30% 0,70% 0,100% 30%,100% 70%,70% 100%,30% 100%,0 70%,0 30%)}
+.bigsun b{display:block;width:70%;height:70%;background:#fff08a;clip-path:polygon(30% 0,70% 0,100% 30%,100% 70%,70% 100%,30% 100%,0 70%,0 30%)}
+.cloud{position:absolute;opacity:.95}
+.c1{top:8%;left:-140px;animation:drift 70s linear infinite}
+.c2{top:34%;left:-140px;animation:drift 95s linear -40s infinite}
+.c3{top:62%;left:-140px;animation:drift 120s linear -80s infinite}
+@keyframes drift{to{transform:translateX(calc(100vw + 300px))}}
+.hero-in{position:relative}
+.kicker{margin:0 0 1rem;font:400 .7rem var(--f-pixel);letter-spacing:.06em}
+h1{margin:0 0 1.2rem;font:400 clamp(1.25rem,4.6vw,2.5rem)/1.5 var(--f-pixel);text-wrap:balance;max-width:20ch}
+.lede{margin:0 0 1.8rem;max-width:36em;font-size:clamp(1.12rem,2.2vw,1.32rem);font-weight:800;line-height:1.55}
+.road{display:flex;flex-wrap:wrap;align-items:stretch;gap:.6rem;margin:2.2rem 0 0;padding:0;list-style:none}
+.road li{padding:.6rem .75rem;border:3px solid var(--ink);background:var(--paper);box-shadow:3px 3px 0 var(--ink);min-width:0}
+.road li b{display:block;font:400 .62rem var(--f-pixel);line-height:1.5}
+.road li span{display:block;font-size:.88rem;line-height:1.35;font-weight:700}
+.road li:nth-child(1){background:#b8f5dc}
+.road li:nth-child(2){background:#e2d9ff}
+.road li:nth-child(3){background:#ffc5d3}
+.road li:nth-child(4){background:#fff08a}
+.road li:nth-child(5){background:#ffd8a8}
+.road li.locked{border-style:dashed;box-shadow:none;opacity:.88}
+.sub{margin:1.8rem 0 0;font:400 .66rem var(--f-pixel);letter-spacing:.06em;line-height:1.8}
+
+/* Chapters */
+.ground-top{height:16px;background:#2fd06a;border-top:4px solid var(--ink);border-bottom:4px solid #1ea34f}
+.chap{padding-block:clamp(40px,6vw,76px)}
+.chap.play{background:#bff3e0}
+.chap.learn{background-color:var(--grape-deep);background-image:radial-gradient(rgba(255,255,255,.55) 1.5px,transparent 2px),radial-gradient(rgba(255,255,255,.3) 1px,transparent 1.5px);background-size:97px 97px,53px 53px;background-position:12px 20px,30px 8px;color:#fff}
+.chap.help{background:var(--blush)}
+.chap.connect{background:var(--sun)}
+.eyebrow{margin:0 0 .8rem;font:400 .66rem var(--f-pixel);letter-spacing:.08em}
+.learn .eyebrow{color:var(--sun)}
+h2{margin:0 0 1rem;font:400 clamp(1.05rem,2.8vw,1.6rem)/1.5 var(--f-pixel);text-wrap:balance}
+h3{font:400 .85rem/1.55 var(--f-pixel);margin:0 0 .6rem}
+.intro{max-width:40em;margin:0 0 1.6rem;font-weight:800}
+.learn .intro{color:#ece7ff}
+.panel{background:var(--paper);color:var(--ink);border:4px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:clamp(16px,3vw,28px);min-width:0}
+.learn .panel{border-color:#fff;box-shadow:6px 6px 0 #12083a}
+.panel .eyebrow{color:var(--grape)}
+.act{margin-top:clamp(28px,4vw,48px)}
+.act>h3{margin-bottom:.4rem}
+.act>p{max-width:40em;margin-bottom:1rem}
+.chip{display:inline-block;flex:none;padding:.25rem .5rem;font:400 .5rem var(--f-pixel);border:2px solid var(--ink);color:var(--ink);background:#fff}
+.chip.c-health,.chip.joy{background:var(--coral)}
+.chip.c-ai{background:var(--sky)}
+.chip.c-mind{background:var(--sun)}
+.chip.help{background:#ff9ab0}
+.chip.ok{background:var(--mint)}
+
+/* Canvases */
+.stage{position:relative;padding:0;overflow:hidden;background:#2f9bff}
+canvas.px{display:block;width:100%;height:auto;image-rendering:pixelated;image-rendering:crisp-edges;outline:none;touch-action:none;background:#2f9bff}
+#zoo{aspect-ratio:200/112}
+#ride,#cosmos,#village{aspect-ratio:16/9}
+.toast{position:absolute;left:8px;right:8px;bottom:8px;margin:0;padding:.5rem .75rem;background:var(--paper);color:var(--ink);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);font:800 clamp(.82rem,2.2vw,1rem)/1.35 var(--f-body)}
+.toast:empty{display:none}
+.over{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:1rem;padding:12px;text-align:center;background:rgba(35,26,82,.55);color:#fff}
+.over .big{margin:0;font:400 clamp(.8rem,3.4vw,1.5rem)/1.5 var(--f-pixel);text-shadow:3px 3px 0 var(--ink)}
+.over .small{margin:0;font:800 clamp(.8rem,2.2vw,1rem) var(--f-body);max-width:30em}
+
+/* Animals */
+.tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:.5rem;margin:0 0 1rem}
+.tab{position:relative;min-width:0;padding:.7rem .3rem;font:400 .52rem var(--f-pixel);line-height:1.4;color:var(--ink);background:var(--paper);border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);cursor:pointer;overflow-wrap:anywhere}
+.tab[aria-selected="true"]{background:var(--sun);transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+.tab.done::after{content:"\2713";position:absolute;top:-10px;right:-6px;padding:.1rem .3rem;font:400 .55rem var(--f-pixel);background:var(--mint);border:2px solid var(--ink)}
+.zoo-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(16px,3vw,28px);align-items:start}
+.zoo-side{display:grid;gap:.9rem;min-width:0}
+.zoo-side p{margin:0}
+.fact{padding:.7rem .9rem;background:#fff8d6;border:3px dashed var(--ink);font-size:1rem}
+.meter{height:14px;background:#e9e5ff;border:3px solid var(--ink)}
+.meter i{display:block;height:100%;width:0;background:var(--coral);transition:width .2s}
+.chal{padding:.9rem;border:3px solid var(--ink);background:#e2d9ff;display:grid;gap:.6rem}
+.chal .count{font:400 1.3rem var(--f-pixel);color:var(--coral)}
+.btnrow{display:flex;flex-wrap:wrap;gap:.6rem}
+.pad{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.8rem 1.4rem;margin-top:1.2rem}
+.padgrp{display:flex;gap:.7rem;flex-wrap:wrap}
+.pbtn{min-width:72px;min-height:56px;padding:.4rem .8rem;font:400 .62rem var(--f-pixel);color:var(--ink);background:var(--sun);border:3px solid var(--ink);box-shadow:0 5px 0 var(--ink);cursor:pointer;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.pbtn.alt{background:#ff9ad0}
+.pbtn[aria-pressed="true"]{background:var(--mint)}
+.pbtn.on,.pbtn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.keys{margin:.8rem 0 0;font-size:1rem;color:var(--muted);max-width:44em}
+.wonders{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 0;padding:0;list-style:none}
+.wonders li{padding:.35rem .6rem;font:400 .5rem var(--f-pixel);border:2px dashed var(--ink);background:#fff}
+.wonders li.got{border-style:solid;background:var(--sun)}
+.checklist{list-style:none;margin:0 0 1rem;padding:0;display:grid;gap:.5rem}
+.checklist li{display:flex;gap:.7rem;align-items:center}
+.checklist li::before{content:"";width:18px;height:18px;border:3px solid var(--ink);background:#fff;flex:none}
+.checklist li.done::before{background:var(--mint)}
+
+/* Quiz */
+.quiz{display:grid;gap:1rem;margin-top:1.6rem}
+.quiz h3{margin:0;font-size:clamp(.82rem,2.3vw,1.1rem)}
+.qz-meta{display:flex;flex-wrap:wrap;align-items:center;gap:.7rem;margin:0;font:400 .56rem var(--f-pixel);color:var(--muted)}
+.opts{display:grid;gap:.8rem}
+.opt{display:block;width:100%;text-align:left;padding:.85rem 1rem;font:800 1.05rem/1.4 var(--f-body);color:var(--ink);background:var(--paper);border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);cursor:pointer}
+.opt:hover:not([disabled]){background:#fff7cf}
+.opt.good{background:#b9f7de}
+.opt.bad{background:#ffd0d8}
+.opt[disabled]{cursor:default}
+.fb{margin:0;min-height:1.6em;font-weight:800}
+.score{font:400 .8rem var(--f-pixel);line-height:1.6}
+.missed{margin:0;padding-left:1.2rem;display:grid;gap:.4rem}
+
+/* Locks */
+.lockcard{display:grid;justify-items:start;gap:.9rem;padding:clamp(18px,3vw,30px);background:rgba(255,255,255,.85);color:var(--ink);border:4px dashed var(--ink)}
+.learn .lockcard{background:rgba(255,255,255,.95)}
+.lockcard p{margin:0;max-width:38em}
+.padlock{width:40px;height:44px;position:relative;margin-top:10px}
+.padlock::before{content:"";position:absolute;left:8px;top:-12px;width:24px;height:22px;border:5px solid var(--ink);border-bottom:0}
+.padlock::after{content:"";position:absolute;left:0;top:10px;width:40px;height:34px;background:var(--sun);border:4px solid var(--ink)}
+
+/* Learn */
+.lr-card{display:grid;gap:1rem}
+.lr-card .term{font:400 clamp(1rem,3vw,1.5rem)/1.4 var(--f-pixel);margin:0}
+.lr-card .hook{font-weight:800;font-size:1.2rem;margin:0}
+.lr-card .tech{padding:.7rem .9rem;background:#eee9ff;border-left:6px solid var(--grape);font-size:1rem;margin:0}
+.demo{padding:1rem;border:3px solid var(--ink);background:#fff8d6;display:grid;gap:.8rem;min-width:0}
+.demo canvas{display:block;width:100%;height:auto;background:#fff;border:3px solid var(--ink);aspect-ratio:2/1;touch-action:none}
+.demo label{font:400 .56rem var(--f-pixel);display:block;line-height:1.7}
+.demo input[type=range]{width:100%;accent-color:var(--grape)}
+.demo .read{font-weight:800;font-size:1rem;margin:0}
+.bars{display:grid;gap:.4rem}
+.bar{display:grid;grid-template-columns:7.5em minmax(0,1fr) 3em;gap:.5rem;align-items:center;font-weight:800;font-size:.95rem}
+.bar i{display:block;height:16px;background:var(--grape);border:2px solid var(--ink);width:0;transition:width .2s}
+.toks{display:flex;flex-wrap:wrap;gap:.35rem}
+.toks span{padding:.2rem .45rem;border:2px solid var(--ink);background:#c9f7e4;font:700 .95rem ui-monospace,Menlo,Consolas,monospace}
+.toks span:nth-child(3n+2){background:#ffe0ec}
+.toks span:nth-child(3n){background:#fff08a}
+.demo input[type=text]{width:100%;padding:.6rem .8rem;border:3px solid var(--ink);font:700 1rem var(--f-body);color:var(--ink);background:#fff}
+.sent{display:flex;flex-wrap:wrap;gap:.35rem}
+.sent button{padding:.4rem .6rem;border:3px solid var(--ink);font:700 1rem var(--f-body);color:var(--ink);background:#fff;cursor:pointer}
+.sent button[aria-pressed="true"]{outline:3px solid var(--coral)}
+.emap{position:relative;height:260px;border:3px solid var(--ink);background:repeating-linear-gradient(0deg,#fff,#fff 24px,#f1ecff 25px)}
+.emap button{position:absolute;transform:translate(-50%,-50%);padding:.2rem .45rem;border:2px solid var(--ink);font:700 .9rem var(--f-body);color:var(--ink);background:#fff;cursor:pointer}
+.emap button.near{background:var(--sun)}
+.emap button.sel{background:var(--coral)}
+.book{display:grid;gap:.8rem;margin-top:1.8rem}
+.book ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.5rem}
+.book li{padding:.4rem .6rem;border:2px solid var(--ink);background:var(--sun);font:400 .5rem var(--f-pixel)}
+
+/* Help */
+.help-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(16px,3vw,28px);align-items:start}
+.acts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem}
+.acts .btn{padding:.8rem .3rem;font-size:.55rem}
+.status{min-height:3.2em;font-weight:800}
+.realacts{display:grid;gap:.6rem;margin:0;padding:0;list-style:none}
+.realacts label{display:flex;gap:.7rem;align-items:flex-start;cursor:pointer}
+.realacts input{width:22px;height:22px;accent-color:var(--coral);flex:none;margin-top:.15rem}
+
+/* Connect */
+.tiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1rem 1.1rem;margin:0 0 1.6rem}
+.tile{position:relative;min-height:76px;padding:.8rem .5rem;font:400 .62rem var(--f-pixel);line-height:1.4;color:var(--ink);background:var(--c,#fff);border:3px solid var(--ink);box-shadow:0 5px 0 var(--ink);cursor:pointer;overflow-wrap:anywhere}
+.tile:hover{transform:translateY(-2px)}
+.modal{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:12px;background:rgba(35,26,82,.7)}
+.sheet{width:min(860px,100%);max-height:calc(100% - 8px);overflow:auto;background:var(--paper);color:var(--ink);border:4px solid var(--ink);box-shadow:8px 8px 0 #000}
+.sheet-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 1rem;background:var(--ink);color:#fff;position:sticky;top:0;z-index:2}
+.sheet-top b{font:400 .6rem var(--f-pixel);line-height:1.6}
+.sheet-top .btn{padding:.5rem .7rem;font-size:.55rem;box-shadow:none}
+.sheet-in{padding:clamp(14px,3vw,26px);display:grid;gap:1.2rem}
+.sheet-in h3{font-size:clamp(.8rem,2.4vw,1.05rem)}
+.stabs{display:flex;gap:.5rem;flex-wrap:wrap}
+.stab{padding:.6rem .8rem;font:400 .55rem var(--f-pixel);color:var(--ink);background:#fff;border:3px solid var(--ink);cursor:pointer}
+.stab[aria-selected="true"]{background:var(--sun)}
+.cos{display:grid;gap:.9rem}
+.co{padding:1rem;border:3px solid var(--ink);display:grid;gap:.6rem;background:var(--c,#fff)}
+.co h4{margin:0;font:400 .72rem/1.5 var(--f-pixel)}
+.co p{margin:0}
+.co .tag{font-size:.9rem;font-weight:800}
+.hired{padding:1rem;background:#b9f7de;border:3px solid var(--ink);display:grid;gap:.5rem}
+.fine{font-size:.9rem;color:var(--muted)}
+
+footer{background:var(--grape-deep);color:#fff;border-top:6px solid var(--sun)}
+footer .wrap{padding-block:1.6rem 2.4rem;display:grid;gap:.6rem;justify-items:start}
+footer p{margin:0}
+footer .px{font:400 .6rem var(--f-pixel);line-height:1.9;letter-spacing:.04em;color:var(--sun)}
+.reset{font:400 .52rem var(--f-pixel);padding:.5rem .7rem;background:transparent;border:2px solid #fff;cursor:pointer;color:#fff}
+
+
+.chap.conf{background:#ffd8a8}
+.slogan{margin:0 0 .8rem;font:400 clamp(.8rem,2.4vw,1.15rem)/1.6 var(--f-pixel);color:var(--coral);text-shadow:2px 2px 0 var(--ink)}
+.cf-rooms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1.4rem 0}
+.room{display:grid;gap:.6rem;align-content:start;padding:.9rem;border:4px solid var(--ink);background:#fff;box-shadow:5px 5px 0 var(--ink);min-width:0}
+.room[data-sel="true"]{background:#fff7cf;outline:4px solid var(--coral);outline-offset:2px}
+.room h4{margin:0;font:400 .62rem/1.5 var(--f-pixel)}
+.room .topic{margin:0;font-weight:800;font-size:.98rem;min-height:3.6em;overflow-wrap:anywhere}
+.room .topic.empty{color:var(--muted);font-weight:700}
+.seats{display:flex;gap:.4rem;flex-wrap:wrap;min-height:70px}
+.seat{width:52px;height:70px;border:3px dashed var(--ink);background:#f3efff;display:grid;place-items:center;padding:0;cursor:pointer}
+.seat.full{border-style:solid;background:#fff}
+.fig{display:block;width:48px;height:66px;image-rendering:pixelated}
+.cf-box{margin-top:1.2rem;display:grid;gap:.9rem}
+.cf-box h3{margin:0}
+.cf-own{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.5rem .6rem;align-items:end}
+.cf-own label{grid-column:1/-1;font:400 .56rem var(--f-pixel);line-height:1.7}
+.cf-own input{min-width:0;padding:.65rem .8rem;border:3px solid var(--ink);font:700 1rem var(--f-body);color:var(--ink);background:#fff}
+.cf-guests{display:flex;flex-wrap:wrap;gap:.6rem}
+.guest{display:grid;justify-items:center;gap:.2rem;padding:.4rem .5rem;min-width:84px;border:3px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;font:400 .46rem/1.5 var(--f-pixel)}
+.guest[aria-pressed="true"]{background:var(--sun);transform:translateY(3px)}
+.cf-card{display:grid;gap:.6rem;padding:1rem;border:3px solid var(--ink);background:#fff8d6}
+.cf-card h4{margin:0;font:400 .72rem/1.5 var(--f-pixel)}
+.cf-card p{margin:0}
+.says{display:grid;gap:.6rem}
+.say{padding:.7rem .9rem;border:3px solid var(--ink);background:#e9f9ff;position:relative}
+.say b{font:400 .56rem var(--f-pixel);display:block;margin-bottom:.25rem}
+.say.yes{background:#c9f7e4}
+.slide{padding:1rem;border:3px solid var(--ink);background:#e2d9ff;font-weight:800;font-size:1.1rem}
+.aud{display:flex;flex-wrap:wrap;gap:.6rem}
+.agree{display:flex;gap:.7rem;align-items:flex-start;cursor:pointer;font-weight:800}
+.agree input{width:24px;height:24px;accent-color:var(--coral);flex:none}
+#cf-hall{aspect-ratio:320/90}
+@media (max-width:820px){.cf-rooms{grid-template-columns:1fr}}
+@media (max-width:560px){.hud-r{width:100%;justify-content:space-between}.logo span.nm{display:none}}
+
+@media (max-width:820px){
+  .zoo-grid,.help-grid{grid-template-columns:1fr}
+  .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tabs{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:480px){
+  .logo span.nm{display:none}
+  .tog{font-size:.46rem;padding:.45rem .4rem}
+  .acts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .bar{grid-template-columns:5.5em minmax(0,1fr) 2.6em}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .c1{left:6%}.c2{left:52%}.c3{left:24%}
+}
+</style>
+</head>
+<body>
+
+<header class="hud">
+  <div class="wrap hud-in">
+    <a class="logo" href="#top"><span class="sunpix"></span><span class="nm">Sunny Trail</span></a>
+    <ul class="pips" id="pips" aria-label="Your path">
+      <li><a href="#play" data-stage="play" class="open">PLAY</a></li>
+      <li><a href="#learn" data-stage="learn" class="locked">LEARN</a></li>
+      <li><a href="#help" data-stage="help" class="locked">HELP</a></li>
+      <li><a href="#connect" data-stage="connect" class="locked">JOIN</a></li>
+      <li><a href="#conf" data-stage="conf" class="locked">PARTY</a></li>
+    </ul>
+    <div class="hud-r">
+      <span class="pts" id="pts" aria-label="Joy points">0 PTS</span>
+      <button type="button" class="tog" id="t-sfx" aria-pressed="true">SFX</button>
+      <button type="button" class="tog" id="t-mus" aria-pressed="true">MUSIC</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="top">
+    <div class="hero-sky" aria-hidden="true">
+      <div class="bigsun"><i><b></b></i></div>
+      <svg class="cloud c1" viewBox="0 0 56 24" width="112" height="48" shape-rendering="crispEdges"><g fill="#fff"><rect x="12" y="0" width="20" height="4"/><rect x="8" y="4" width="32" height="4"/><rect x="0" y="8" width="56" height="8"/><rect x="4" y="16" width="48" height="4"/></g><rect x="4" y="20" width="48" height="4" fill="#d6f1ff"/></svg>
+      <svg class="cloud c2" viewBox="0 0 56 24" width="84" height="36" shape-rendering="crispEdges"><g fill="#fff"><rect x="12" y="0" width="20" height="4"/><rect x="8" y="4" width="32" height="4"/><rect x="0" y="8" width="56" height="8"/><rect x="4" y="16" width="48" height="4"/></g><rect x="4" y="20" width="48" height="4" fill="#d6f1ff"/></svg>
+      <svg class="cloud c3" viewBox="0 0 56 24" width="140" height="60" shape-rendering="crispEdges"><g fill="#fff"><rect x="12" y="0" width="20" height="4"/><rect x="8" y="4" width="32" height="4"/><rect x="0" y="8" width="56" height="8"/><rect x="4" y="16" width="48" height="4"/></g><rect x="4" y="20" width="48" height="4" fill="#d6f1ff"/></svg>
+    </div>
+    <div class="wrap hero-in">
+      <p class="kicker">Hello, I'm Haixia.</p>
+      <h1>Come and play. The world is wonderful.</h1>
+      <p class="lede">Hop like a kangaroo, ride across the world and fly to the stars. I care about your health, so let's get moving, have fun, and see where the trail leads. Each round ends with one quick question that opens the next.</p>
+      <div class="cta-row">
+        <a class="btn btn-sun" href="#play" id="hero-go">Start playing</a>
+      </div>
+      <ol class="road" id="roadmap" aria-label="The four rounds">
+        <li data-stage="play"><b>1 PLAY</b><span>Move like animals, ride the world, fly to the stars.</span></li>
+        <li data-stage="learn" class="locked"><b>2 LEARN</b><span>One AI idea a visit, explained with toys.</span></li>
+        <li data-stage="help" class="locked"><b>3 HELP</b><span>Kindness that always comes back around.</span></li>
+        <li data-stage="connect" class="locked"><b>4 JOIN</b><span>Find your team and your opportunities.</span></li>
+        <li data-stage="conf" class="locked"><b>5 PARTY</b><span>The Futuristic AI Conference. Everyone is invited.</span></li>
+      </ol>
+      <p class="sub">Haixia Liu</p>
+    </div>
+  </section>
+
+  <div class="ground-top" aria-hidden="true"></div>
+
+  <!-- ================= PLAY ================= -->
+  <section class="chap play" id="play">
+    <div class="wrap">
+      <p class="eyebrow">Round 1</p>
+      <h2>Play: move, ride, fly</h2>
+      <p class="intro">Three short acts. Get up, move like an animal, ride across the world and fly to the stars. Finish them, answer one quick question, and the next round opens.</p>
+
+      <div class="act" id="act-zoo">
+        <h3>Act 1: Animal friends</h3>
+        <p>Pick an animal and move like it for ten seconds. Do one, or do them all. Seated is fine too.</p>
+        <div class="tabs" id="zoo-tabs" role="tablist" aria-label="Animals"></div>
+        <div class="zoo-grid">
+          <div class="panel stage"><canvas id="zoo" class="px" width="200" height="112" tabindex="0" aria-label="Animal pen. Tap the animal to pet it."></canvas></div>
+          <div class="zoo-side">
+            <div>
+              <h3 id="an-name">Gorilla</h3>
+              <p id="an-line"></p>
+            </div>
+            <div class="meter" aria-hidden="true"><i id="an-meter"></i></div>
+            <p class="fine" id="an-pets">Pets: 0 of 5</p>
+            <div class="btnrow">
+              <button type="button" class="btn btn-sun btn-sm" id="an-pet">Pet it</button>
+              <button type="button" class="btn btn-coral btn-sm" id="an-move">Do its move</button>
+                          </div>
+            <div class="chal" id="chal" hidden>
+              <p id="chal-text"></p>
+              <div class="count" id="chal-count" aria-live="off"></div>
+              <button type="button" class="btn btn-sun btn-sm" id="chal-done" hidden>I did it!</button>
+            </div>
+            <p class="fact" id="an-fact"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="act" id="act-ride">
+        <h3>Act 2: The beautiful ride</h3>
+        <p>Pedal across one planet, from a sunrise meadow to the northern lights. Roll through the glowing signs for a little wonder.</p>
+        <div class="panel stage">
+          <canvas id="ride" class="px" width="320" height="180" tabindex="0" aria-label="Side-scrolling bicycle ride through meadow, forest, mountains, coast and arctic night."></canvas>
+          <p class="toast" id="ride-toast" role="status" aria-live="polite"></p>
+        </div>
+        <div class="pad">
+          <div class="padgrp">
+            <button type="button" class="pbtn" id="r-pedal" aria-label="Pedal, hold to ride">PEDAL</button>
+            <button type="button" class="pbtn alt" id="r-bell" aria-label="Ring the bell">BELL</button>
+            <button type="button" class="pbtn" id="r-auto" aria-pressed="false">AUTO</button>
+          </div>
+          <div class="padgrp"><button type="button" class="btn btn-coral" id="r-launch" hidden>Launch the rocket</button></div>
+        </div>
+        <p class="keys">Hold PEDAL, or press Right arrow, D or Space. AUTO rides for you. B rings the bell.</p>
+        <ul class="wonders" id="wonders" aria-label="Wonders collected"></ul>
+      </div>
+
+      <div class="act" id="act-cosmos">
+        <h3>Act 3: Fly to the stars</h3>
+        <p>Your rocket leaves the ground. Each jump takes you much farther out. Look how big it all is.</p>
+        <div class="panel stage">
+          <canvas id="cosmos" class="px" width="320" height="180" tabindex="0" aria-label="Zoom out from Earth through the Moon, Sun, solar system, galaxy and the whole universe."></canvas>
+        </div>
+        <div class="pad">
+          <div class="padgrp"><button type="button" class="btn btn-sun" id="c-next" disabled>Blast off first (finish the ride)</button></div>
+        </div>
+        <p class="fact" id="c-fact" role="status" aria-live="polite">Finish the ride, then launch the rocket from the last sign.</p>
+      </div>
+
+      <div class="act" id="act-test">
+        <h3>One quick question</h3>
+        <p>Answer it and Round 2 opens.</p>
+        <ul class="checklist" id="play-check">
+          <li id="ck-zoo">Move like one animal (any one you like)</li>
+          <li id="ck-ride">Ride to the launch field</li>
+          <li id="ck-cosmos">Fly all the way out</li>
+        </ul>
+        <button type="button" class="btn btn-sun" id="play-test-btn" disabled>Take the quick question</button>
+        <div class="panel quiz" id="quiz-play" hidden></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LEARN ================= -->
+  <section class="chap learn" id="learn">
+    <div class="wrap">
+      <p class="eyebrow">Round 2</p>
+      <h2>Learn: one AI idea, the fun way</h2>
+      <div class="lockcard" id="lock-learn">
+        <div class="padlock" aria-hidden="true"></div>
+        <p><b>Locked.</b> Answer the quick question in Round 1 to open this round.</p>
+      </div>
+      <div id="body-learn" hidden>
+        <p class="intro">Every visit hands you one random AI idea, with a toy to play with. Play, then answer one question to move on. Want more? Ask for another idea.</p>
+        <div class="panel" id="lr-panel">
+          <p class="qz-meta"><span class="chip c-ai" id="lr-tag"></span><span id="lr-meta"></span></p>
+          <div class="lr-card" id="lr-card"></div>
+          <div class="btnrow" id="lr-actions"></div>
+        </div>
+        <div class="panel quiz" id="quiz-learn" hidden></div>
+        <div class="panel book" id="jargon">
+          <h3 style="margin:0">Your jargon book</h3>
+          <p class="fine" id="jargon-count"></p>
+          <ul id="jargon-list"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= HELP ================= -->
+  <section class="chap help" id="help">
+    <div class="wrap">
+      <p class="eyebrow">Round 3</p>
+      <h2>Help: kindness that comes back around</h2>
+      <div class="lockcard" id="lock-help">
+        <div class="padlock" aria-hidden="true"></div>
+        <p><b>Locked.</b> Answer the question in Round 2 to open this round.</p>
+      </div>
+      <div id="body-help" hidden>
+        <p class="intro">In this village nothing is free: whoever you help is invited to help someone else. Listen to what each neighbour needs, and watch the kindness travel. I care about people who are unwell, and I believe AI can help them when many kinds of people build it together.</p>
+        <div class="help-grid">
+          <div class="panel stage"><canvas id="village" class="px" width="320" height="180" tabindex="0" aria-label="A village of six neighbours who each need something."></canvas><p class="toast" id="vtoast" role="status" aria-live="polite"></p></div>
+          <div class="zoo-side">
+            <h3 id="hp-title">Pick a neighbour</h3>
+            <p class="status" id="hp-status">Tap someone, read what they need, then choose how to help.</p>
+            <div class="acts" id="hp-acts"></div>
+            <p class="fine" id="hp-chain"></p>
+          </div>
+        </div>
+        <div class="act">
+          <h3>Try it for real today</h3>
+          <p>Tick what you actually do. Each one is worth points here, and a lot more outside.</p>
+          <ul class="realacts" id="realacts"></ul>
+        </div>
+        <div class="act">
+          <h3>One quick question</h3>
+          <p>Answer it and the last two rounds open.</p>
+          <button type="button" class="btn btn-sun" id="help-test-btn" disabled>Finish the village first</button>
+          <div class="panel quiz" id="quiz-help" hidden></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONNECT ================= -->
+  <section class="chap connect" id="connect">
+    <div class="wrap">
+      <p class="eyebrow">Round 4</p>
+      <h2>Join: find your team</h2>
+      <div class="lockcard" id="lock-connect">
+        <div class="padlock" aria-hidden="true"></div>
+        <p><b>Locked.</b> Answer the question in Round 3 to open this round.</p>
+      </div>
+      <div id="body-connect" hidden>
+        <p class="intro">You do not need me for this. Choose who you are, and a small world of pretend organisations opens, each hiring people like you for good-hearted work. Try an interview, find a teammate with a different gift, and see where you fit. Nothing here asks for your details.</p>
+        <div class="tiles" id="tiles"></div>
+        <p class="fine" id="connect-note"></p>
+        <div id="community" hidden></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONFERENCE ================= -->
+  <section class="chap conf" id="conf">
+    <div class="wrap">
+      <p class="eyebrow">Round 5</p>
+      <h2>The Futuristic AI Conference</h2>
+      <div class="lockcard" id="lock-conf">
+        <div class="padlock" aria-hidden="true"></div>
+        <p><b>Locked.</b> Answer the question in Round 3 to open this round.</p>
+      </div>
+      <div id="body-conf" hidden>
+        <p class="slogan">AI4Good: by everyone, for everyone.</p>
+        <p class="intro">Welcome to the one AI conference where every badge is welcome. Farmers, doctors, grandparents, children, even aliens. You are the organiser: toss a topic into a room, seat some guests, and hear what they really think.</p>
+        <div class="panel stage"><canvas id="cf-hall" class="px" width="320" height="90" aria-label="The conference hall with bunting and guests."></canvas></div>
+
+        <div class="cf-rooms" id="cf-rooms"></div>
+
+        <div class="panel cf-box">
+          <h3>1. Throw a topic into <span id="cf-sel-name">Room 1</span></h3>
+          <div class="btnrow">
+            <button type="button" class="btn btn-sun btn-sm" id="cf-throw">Throw a surprise topic</button>
+          </div>
+          <div class="cf-own">
+            <label for="cf-own">Or write your own</label>
+            <input id="cf-own" type="text" maxlength="120" placeholder="What should AI do for people?" autocomplete="off">
+            <button type="button" class="btn btn-sm" id="cf-add">Throw it in</button>
+          </div>
+        </div>
+
+        <div class="panel cf-box">
+          <h3>2. Invite guests</h3>
+          <p class="fine">Tap a guest to hear their story. Then seat them in a room.</p>
+          <div class="cf-guests" id="cf-guests"></div>
+          <div class="cf-card" id="cf-card" hidden></div>
+        </div>
+
+        <div class="panel cf-box" id="cf-stage" hidden></div>
+
+        <div class="cta-row">
+          <button type="button" class="btn btn-coral" id="cf-party" disabled>Close with a celebration</button>
+        </div>
+        <p class="fine" id="cf-note">Run at least one session, then celebrate together.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="sheet">
+    <div class="sheet-top"><b id="modal-title">The Commons</b><button type="button" class="btn" id="modal-close">Close</button></div>
+    <div class="sheet-in" id="modal-body"></div>
+  </div>
+</div>
+
+
+<div class="modal" id="terms" hidden role="dialog" aria-modal="true" aria-labelledby="terms-title">
+  <div class="sheet">
+    <div class="sheet-top"><b id="terms-title">Before we play</b></div>
+    <div class="sheet-in">
+      <p>This page invites you to move your body: like an animal, on a bike, or on the spot. Please do only what feels comfortable and safe for you, stop if anything hurts or feels wrong, and check with a health professional first if you have any health concerns.</p>
+      <p><b>The terms.</b> By ticking the box you accept that you take part at your own risk, and that Haixia Liu is not responsible for any physical or mental harm or damage that may result from using this page.</p>
+      <p><b>Your privacy.</b> This is a static page. It has no accounts, no forms and no tracking, and it does not collect or send any data about you. Your progress is saved only in your own browser, and the Start over button at the bottom erases it.</p>
+      <p class="fine">Fine print: the fonts load from Google Fonts, and whoever hosts the page may keep ordinary server logs.</p>
+      <label class="agree" for="terms-ok"><input type="checkbox" id="terms-ok"><span>I accept the terms above.</span></label>
+      <div class="cta-row"><button type="button" class="btn btn-sun" id="terms-go" disabled>Let's play</button></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>The trail is pretend. The people who need us are real.</p>
+    <p class="px">Made with love by Haixia Liu</p>
+    <p class="px">AI4Good: by everyone, for everyone.</p>
+    <div class="btnrow"><button type="button" class="reset" id="terms-open">Terms and privacy</button><button type="button" class="reset" id="reset-all">Start over</button></div>
+  </div>
+</footer>
+<script>
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var INK = '#231a52';
+  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function scrollTo(node, block) {
+    try { node.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: block || 'start' }); } catch (e) {}
+  }
+  function focusSoft(node) { try { node.focus({ preventScroll: true }); } catch (e) { try { node.focus(); } catch (x) {} } }
+
+  /* =============== SAVED PROGRESS (this browser only) =============== */
+  var KEY = 'sunny-trail-v4';
+  function defaults() {
+    return { pts: 0, pets: {}, moved: {}, pledged: {}, wonders: {}, rideDone: false, cosmosDone: false,
+             pass: { play: false, learn: false, help: false }, mastered: [], real: {}, villageDone: false, bestRide: 0, hired: {}, role: false, teamed: false, accepted: false, partied: false };
+  }
+  function load() {
+    var d = defaults(), s = null;
+    try { s = JSON.parse(window.localStorage.getItem(KEY)); } catch (e) { s = null; }
+    if (!s || typeof s !== 'object') return d;
+    if (typeof s.pts === 'number' && s.pts >= 0 && s.pts < 1e6) d.pts = Math.floor(s.pts);
+    ['pets', 'moved', 'pledged', 'wonders', 'real', 'hired'].forEach(function (k) { if (s[k] && typeof s[k] === 'object' && !Array.isArray(s[k])) d[k] = s[k]; });
+    d.role = s.role === true; d.teamed = s.teamed === true; d.accepted = s.accepted === true; d.partied = s.partied === true; d.rideDone = s.rideDone === true; d.cosmosDone = s.cosmosDone === true; d.villageDone = s.villageDone === true;
+    if (typeof s.bestRide === 'number') d.bestRide = s.bestRide;
+    if (s.pass && typeof s.pass === 'object') { d.pass.play = s.pass.play === true; d.pass.learn = s.pass.learn === true; d.pass.help = s.pass.help === true; }
+    if (Array.isArray(s.mastered)) d.mastered = s.mastered.filter(function (x) { return typeof x === 'number'; });
+    return d;
+  }
+  var ST = load();
+  function save() { try { window.localStorage.setItem(KEY, JSON.stringify(ST)); } catch (e) {} }
+
+  /* =============== SOUND (synthesised, no samples) =============== */
+  var Snd = (function () {
+    var ctx = null, master = null, sfx = null, mus = null;
+    var sfxOn = true, musOn = true, timer = null, running = false, step = 0, nextT = 0;
+    var SD = 60 / 128 / 2;
+    var LEAD = [659,0,784,659, 587,0,523,0,  659,0,784,880, 784,0,659,0,
+                880,0,784,659, 587,659,784,0, 659,587,523,0, 587,0,523,0];
+    var BASS = [131,0,131,0, 131,0,131,0,  98,0,98,0, 98,0,98,0,
+                110,0,110,0, 110,0,110,0,  87,0,87,0, 87,0,87,0];
+    function unlock() {
+      if (!ctx) {
+        var AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return false;
+        try { ctx = new AC(); } catch (e) { ctx = null; return false; }
+        master = ctx.createGain(); master.gain.value = 0.7; master.connect(ctx.destination);
+        sfx = ctx.createGain(); sfx.gain.value = sfxOn ? 1 : 0; sfx.connect(master);
+        mus = ctx.createGain(); mus.gain.value = musOn ? 0.4 : 0; mus.connect(master);
+      }
+      if (ctx.state === 'suspended' && ctx.resume) { try { ctx.resume(); } catch (e) {} }
+      if (musOn) startMusic();
+      return true;
+    }
+    function tone(dest, f, t, d, type, v, to) {
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = type || 'square';
+      o.frequency.setValueAtTime(f, t);
+      if (to) o.frequency.exponentialRampToValueAtTime(to, t + d);
+      g.gain.setValueAtTime(v || 0.12, t);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + d);
+      o.connect(g); g.connect(dest);
+      o.start(t); o.stop(t + d + 0.03);
+    }
+    function noise(dest, t, d, v, f0, f1, type) {
+      var len = Math.floor(ctx.sampleRate * d), buf = ctx.createBuffer(1, len, ctx.sampleRate), data = buf.getChannelData(0), i;
+      for (i = 0; i < len; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / len);
+      var src = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain();
+      src.buffer = buf; f.type = type || 'lowpass'; f.frequency.setValueAtTime(f0, t);
+      if (f1) f.frequency.exponentialRampToValueAtTime(f1, t + d);
+      g.gain.value = v;
+      src.connect(f); f.connect(g); g.connect(dest); src.start(t);
+    }
+    function playStep(i, t) {
+      if (LEAD[i]) tone(mus, LEAD[i], t, SD * 1.5, 'square', 0.05);
+      if (BASS[i]) tone(mus, BASS[i], t, SD * 1.8, 'triangle', 0.14);
+    }
+    function sched() {
+      if (!ctx) return;
+      while (nextT < ctx.currentTime + 0.3) { playStep(step % 32, nextT); nextT += SD; step++; }
+    }
+    function startMusic() { if (running || !ctx) return; running = true; step = 0; nextT = ctx.currentTime + 0.1; timer = setInterval(sched, 90); }
+    function stopMusic() { running = false; if (timer) { clearInterval(timer); timer = null; } }
+    function ok() { return !!ctx; }
+    function T() { return ctx.currentTime; }
+    return {
+      unlock: unlock,
+      setSfx: function (v) { sfxOn = v; if (sfx) sfx.gain.value = v ? 1 : 0; },
+      setMusic: function (v) { musOn = v; if (mus) mus.gain.value = v ? 0.4 : 0; if (v) { if (ctx) startMusic(); } else stopMusic(); },
+      pop: function () { if (!ok()) return; tone(sfx, 500, T(), 0.07, 'square', 0.08, 900); },
+      collect: function (n) {
+        if (!ok()) return; var t = T(), b = 880 * Math.pow(1.0595, Math.min(n || 0, 7));
+        tone(sfx, b, t, 0.06, 'square', 0.09); tone(sfx, b * 1.26, t + 0.06, 0.06, 'square', 0.09); tone(sfx, b * 1.5, t + 0.12, 0.14, 'square', 0.09);
+      },
+      heal: function () { if (!ok()) return; var t = T(), n = [523, 659, 784, 1047, 1319], i; for (i = 0; i < n.length; i++) tone(sfx, n[i], t + i * 0.07, 0.12, 'square', 0.09); },
+      nope: function () { if (!ok()) return; tone(sfx, 260, T(), 0.18, 'triangle', 0.2, 150); },
+      bell: function () { if (!ok()) return; var t = T(); tone(sfx, 1760, t, 0.28, 'sine', 0.14); tone(sfx, 1760, t + 0.16, 0.34, 'sine', 0.14); },
+      thump: function () { if (!ok()) return; tone(sfx, 130, T(), 0.16, 'sine', 0.4, 45); },
+      beat: function () { if (!ok()) return; tone(sfx, 150, T(), 0.1, 'sine', 0.35, 50); },
+      roar: function () { if (!ok()) return; var t = T(); tone(sfx, 180, t, 0.6, 'sawtooth', 0.14, 70); noise(sfx, t, 0.6, 0.25, 900, 200, 'lowpass'); },
+      trumpet: function () { if (!ok()) return; var t = T(); tone(sfx, 280, t, 0.18, 'sawtooth', 0.12, 560); tone(sfx, 560, t + 0.18, 0.4, 'sawtooth', 0.1, 420); },
+      squeak: function () { if (!ok()) return; var t = T(); tone(sfx, 900, t, 0.08, 'square', 0.07, 1300); tone(sfx, 1300, t + 0.09, 0.08, 'square', 0.07, 800); },
+      hop: function () { if (!ok()) return; tone(sfx, 260, T(), 0.12, 'square', 0.1, 520); },
+      splash: function () { if (!ok()) return; noise(sfx, T(), 0.3, 0.3, 1600, 400, 'lowpass'); },
+      whoosh: function () { if (!ok()) return; noise(sfx, T(), 1.2, 0.35, 300, 3000, 'bandpass'); },
+      star: function () { if (!ok()) return; var t = T(), i; for (i = 0; i < 4; i++) tone(sfx, 1046 * Math.pow(1.26, i), t + i * 0.06, 0.2, 'sine', 0.09); },
+      tick: function () { if (!ok()) return; tone(sfx, 1200, T(), 0.03, 'square', 0.05); },
+      fanfare: function () {
+        if (!ok()) return; var t = T(), n = [[523,.12],[784,.12],[659,.12],[784,.12],[1047,.4]], at = t, i;
+        for (i = 0; i < n.length; i++) { tone(sfx, n[i][0], at, n[i][1] + 0.05, 'square', 0.1); tone(sfx, n[i][0] / 2, at, n[i][1] + 0.05, 'triangle', 0.14); at += n[i][1]; }
+      }
+    };
+  })();
+
+  (function () {
+    var bs = $('#t-sfx'), bm = $('#t-mus');
+    bs.addEventListener('click', function () {
+      var on = bs.getAttribute('aria-pressed') !== 'true';
+      bs.setAttribute('aria-pressed', on ? 'true' : 'false');
+      Snd.unlock(); Snd.setSfx(on); if (on) Snd.pop();
+    });
+    bm.addEventListener('click', function () {
+      var on = bm.getAttribute('aria-pressed') !== 'true';
+      bm.setAttribute('aria-pressed', on ? 'true' : 'false');
+      Snd.unlock(); Snd.setMusic(on);
+    });
+    $('#hero-go').addEventListener('click', function () { Snd.unlock(); Snd.pop(); });
+    document.addEventListener('pointerdown', function first() { document.removeEventListener('pointerdown', first); }, { once: true });
+  })();
+
+  /* =============== POINTS, LOCKS, PATH =============== */
+  var STAGES = ['play', 'learn', 'help', 'connect', 'conf'];
+  function isOpen(k) { return k === 'play' || (k === 'learn' && ST.pass.play) || (k === 'help' && ST.pass.learn) || (k === 'connect' && ST.pass.help) || (k === 'conf' && ST.pass.help); }
+  function isDone(k) { return k !== 'connect' && k !== 'conf' && ST.pass[k] === true; }
+  function updHud() { $('#pts').textContent = ST.pts + ' PTS'; }
+  function addPts(n) { ST.pts += n; save(); updHud(); }
+  function applyLocks() {
+    STAGES.forEach(function (k) {
+      var open = isOpen(k), a = $('.pips a[data-stage="' + k + '"]'), li = $('#roadmap li[data-stage="' + k + '"]');
+      a.className = isDone(k) ? 'done' : open ? 'open' : 'locked';
+      if (li) li.className = open ? '' : 'locked';
+      if (k !== 'play') { $('#lock-' + k).hidden = open; $('#body-' + k).hidden = !open; }
+    });
+  }
+  function unlock(stage, next) {
+    ST.pass[stage] = true; save(); applyLocks(); Snd.fanfare();
+    if (next) { var t = $('#' + next); if (t) setTimeout(function () { scrollTo(t); }, 500); }
+  }
+  $$('.pips a').forEach(function (a) {
+    a.addEventListener('click', function () { Snd.unlock(); Snd.pop(); });
+  });
+
+  /* =============== SHARED QUIZ ENGINE =============== */
+  /* Item: {q, o:[correct, wrong, wrong], e}. The correct answer is always first; options are shuffled when shown. */
+  function runQuiz(box, cfg) {
+    var qs, i, right, missed, answered;
+    function start() {
+      qs = shuffle(cfg.pool).slice(0, cfg.n || cfg.pool.length); i = 0; right = 0; missed = [];
+      box.hidden = false; render();
+    }
+    function render() {
+      box.textContent = '';
+      var item = qs[i], order = shuffle([0, 1, 2]);
+      answered = false;
+      box.appendChild(el('p', 'eyebrow', cfg.title));
+      var meta = el('p', 'qz-meta'); meta.appendChild(el('span', 'chip', cfg.quiet ? 'QUICK CHECK' : qs.length === 1 ? 'ONE QUESTION' : 'QUESTION ' + (i + 1) + ' OF ' + qs.length));
+      box.appendChild(meta);
+      box.appendChild(el('h3', null, item.q));
+      var opts = el('div', 'opts');
+      var fb = el('p', 'fb'); fb.setAttribute('role', 'status');
+      var nx = el('button', 'btn btn-sun'); nx.type = 'button'; nx.hidden = true;
+      nx.textContent = i < qs.length - 1 ? 'Next question' : (cfg.quiet ? (cfg.nextLabel || 'Continue') : 'See my result');
+      order.forEach(function (idx) {
+        var b = el('button', 'opt', item.o[idx]); b.type = 'button';
+        b.addEventListener('click', function () {
+          if (answered) return; answered = true;
+          var good = idx === 0;
+          $$('.opt', opts).forEach(function (x) { x.disabled = true; });
+          b.classList.add(good ? 'good' : 'bad');
+          if (!good) { $$('.opt', opts).forEach(function (x) { if (x.textContent === item.o[0]) x.classList.add('good'); }); missed.push(item); Snd.nope(); }
+          else { right++; Snd.heal(); }
+          fb.textContent = (good ? 'Yes! ' : 'Not quite. ') + (item.e || '');
+          nx.hidden = false; focusSoft(nx);
+        });
+        opts.appendChild(b);
+      });
+      box.appendChild(opts); box.appendChild(fb); box.appendChild(nx);
+      nx.addEventListener('click', function () { Snd.pop(); if (i < qs.length - 1) { i++; render(); } else finish(); });
+    }
+    function finish() {
+      if (cfg.quiet) { box.hidden = true; if (cfg.onPass) cfg.onPass(right, qs.length); return; }
+      box.textContent = '';
+      var pass = right >= cfg.pass;
+      box.appendChild(el('p', 'eyebrow', cfg.title));
+      if (qs.length > 1) box.appendChild(el('p', 'score', right + ' OF ' + qs.length + ' RIGHT'));
+      if (pass) {
+        box.appendChild(el('h3', null, cfg.passTitle || 'You passed!'));
+        box.appendChild(el('p', null, cfg.passText || ''));
+        addPts(cfg.reward || 20);
+        var go = el('button', 'btn btn-mint'); go.type = 'button'; go.textContent = cfg.goLabel || 'Open the next round';
+        go.addEventListener('click', function () { box.hidden = true; if (cfg.onPass) cfg.onPass(); });
+        box.appendChild(go); Snd.fanfare(); focusSoft(go);
+      } else {
+        box.appendChild(el('h3', null, 'So close. Let us look again.'));
+        box.appendChild(el('p', null, (qs.length === 1 ? 'Just one right answer opens the next round. Here is the answer:' : 'You need ' + cfg.pass + ' right to move on. Here is what to remember:')));
+        var ul = el('ul', 'missed');
+        missed.forEach(function (m) { ul.appendChild(el('li', null, m.o[0] + '. ' + (m.e || ''))); });
+        box.appendChild(ul);
+        var again = el('button', 'btn btn-sun'); again.type = 'button'; again.textContent = 'Try again with fresh questions';
+        again.addEventListener('click', function () { Snd.pop(); start(); });
+        box.appendChild(again); focusSoft(again);
+      }
+    }
+    return { start: start };
+  }
+
+  /* =============== SHARED CANVAS LOOP =============== */
+  var Loop = (function () {
+    var items = [], last = 0, acc = 0;
+    function add(cv, upd, draw) {
+      var it = { cv: cv, upd: upd, draw: draw, vis: true };
+      if ('IntersectionObserver' in window) {
+        it.vis = false;
+        new IntersectionObserver(function (e) { it.vis = e[0].isIntersecting; }, { threshold: 0.01 }).observe(cv);
+      }
+      items.push(it); return it;
+    }
+    function frame(ts) {
+      requestAnimationFrame(frame);
+      var dt = Math.min(100, ts - last), n = 0, k; last = ts;
+      if (document.hidden) return;
+      acc += dt;
+      while (acc >= 16.667 && n < 5) { for (k = 0; k < items.length; k++) if (items[k].vis && items[k].upd) items[k].upd(); acc -= 16.667; n++; }
+      if (n === 5) acc = 0;
+      for (k = 0; k < items.length; k++) if (items[k].vis && items[k].draw) items[k].draw();
+    }
+    requestAnimationFrame(frame);
+    return { add: add };
+  })();
+
+  /* drawing helpers (screen coordinates) */
+  function R(g, x, y, w, h, c) { g.fillStyle = c; g.fillRect(Math.round(x), Math.round(y), w, h); }
+  function D(g, cx, cy, r, c) {
+    g.fillStyle = c; var dy, w;
+    for (dy = -r; dy <= r; dy++) { w = Math.floor(Math.sqrt(r * r - dy * dy)); g.fillRect(Math.round(cx - w), Math.round(cy + dy), w * 2 + 1, 1); }
+  }
+  function sprite(g, map, pal, x, y, s, flip) {
+    var r, c, ch, col, w;
+    for (r = 0; r < map.length; r++) {
+      w = map[r].length;
+      for (c = 0; c < w; c++) {
+        ch = map[r].charAt(c); if (ch === '.') continue;
+        col = pal[ch]; if (!col) continue;
+        g.fillStyle = col;
+        g.fillRect(Math.round(x + (flip ? (w - 1 - c) : c) * s), Math.round(y + r * s), s, s);
+      }
+    }
+  }
+  var HEARTMAP = ['.XX.XX.', 'XXXXXXX', 'XXXXXXX', '.XXXXX.', '..XXX..', '...X...'];
+  function heart(g, x, y, s, c) {
+    g.fillStyle = c; var r, k;
+    for (r = 0; r < 6; r++) for (k = 0; k < 7; k++) if (HEARTMAP[r].charAt(k) === 'X') g.fillRect(Math.round(x + k * s), Math.round(y + r * s), s, s);
+  }
+  function label(g, s, x, y, c) { g.fillStyle = INK; g.fillText(s, Math.round(x) + 1, Math.round(y) + 1); g.fillStyle = c || '#fff'; g.fillText(s, Math.round(x), Math.round(y)); }
+  function setFont(g) { g.font = '8px "Press Start 2P", monospace'; g.textBaseline = 'top'; }
+
+  /* =============== PLAY ACT 1: ANIMAL FRIENDS =============== */
+  var GORILLA = [
+    "................", ".....kkkkkk.....", "....kbbbbbbk....", "...kbbbbbbbbk...", "...kbbccccbbk...", "...kbckcckcbk...", "...kbccddccbk...",
+    "..kbbbccccbbbk..", ".kbbbbccccbbbbk.", "kbbbbbbccbbbbbbk", "kbbbkbbbbbbkbbbk", ".kbbk.kbbbbk.kbk", ".kbbk..kbbk..kbk", ".kkkk..kkkk..kkk"];
+  var KANGAROO = [
+    "..kk........kk..", ".kaak......kaak.", ".kapk......kpak.", ".kaakkkkkkkkaak.", "..kaaaaaaaaaak..", "..kackaaaakcak..", "..kaaaaddaaaak..",
+    "...kaaaaaaaak...", "..kaaaccccaaak..", ".kaaaaccccaaaak.", ".kaaaaccccaaaak.", ".kbbaaccccaabbk.", ".kbbk..kkkk.kbbk", "kbbbk......kbbbk"];
+  var ELEPHANT = [
+    "................", "..kkkk....kkkk..", ".kbbbbkkkkbbbbk.", ".kbppbaaaabppbk.", ".kbppbkaakbppbk.", ".kbbbbaaaabbbbk.", "..kkbbaaaabbkk..",
+    "....kaaaaaak....", "....kaaccaak....", "....kaaccaak....", "...kaaaccaaak...", "..kaaaaaaaaaak..", "..kaabkaaaakbak.", "..kkkk....kkkk.."];
+  var PENGUIN = [
+    "................", ".....kkkkkk.....", "....kaaaaaak....", "...kaaaaaaaak...", "...kawaaaawak...", "...kaaaooaaak...", "..kaaaaaaaaaak..",
+    ".kaaacccccccaaak", ".kaaccccccccaak.", ".kaaccccccccaak.", "..kaccccccccak..", "..kaaccccccaak..", "...kkaaaaaakk...", "....ooo..ooo...."];
+  var LION = [
+    "................", "....kkkkkkkk....", "..kkbbbbbbbbkk..", ".kbbbbbbbbbbbbk.", ".kbbaaaaaaaabbk.", "kbbaakaaaakaabbk", "kbbaaaaddaaaabbk",
+    "kbbaaccccccaabbk", "kbbaacckkccaabbk", ".kbbaaccccaabbk.", "..kbbbaaaabbbk..", "..kkbbbbbbbbkk..", "...kaakkkkaak...", "..kaak....kaak.."];
+  var TURTLE = [
+    "................", "................", "......kkkk......", "....kkaaaakk....", "..kkaaddaaddaakk", ".kaaddaaaaddaaak", "kbbbaaaaaaaabbbk",
+    "kkbbbbbbbbbbbbkk", "kcck...kk...kcck", ".kk..kccccck..kk", "....kcckkcck....", "....kccccccck...", "....kkkkkkkk....", "................"];
+
+  var ANIMALS = [
+    { id: 'gorilla', name: 'Gorilla', sp: GORILLA, pal: { b: '#4d4560', c: '#d9b99b', d: '#7a4a3a', k: INK }, bg: 'jungle', cue: 36, shout: 'OO! OO!',
+      line: 'Loosen up those shoulders! Gorilla rolls are great for a stiff neck and desk-tired arms.',
+      moveText: 'Gorilla roll: roll your shoulders left and right, then beat your chest with soft fists five times. Seated? Do it with your arms.',
+      fact: 'Good for you: loosens shoulders and neck.' },
+    { id: 'kangaroo', name: 'Kangaroo', sp: KANGAROO, pal: { a: '#d9944a', b: '#a8642a', c: '#f6d9a8', d: '#7a3b1a', p: '#ffb3c1', k: INK }, bg: 'outback', cue: 31, shout: 'BOING!',
+      line: 'Boing! Hopping gets your heart pumping and wakes up your whole body.',
+      moveText: 'Kangaroo hops: hop on the spot to the beat for ten seconds, or bounce your shoulders if you are seated. Keep your tail (the one you imagine) steady.',
+      fact: 'Good for you: gets your heart pumping.' },
+    { id: 'elephant', name: 'Elephant', sp: ELEPHANT, pal: { a: '#9aa4b8', b: '#6f7a92', c: '#d7dce8', p: '#ffb3c1', k: INK }, bg: 'savanna', cue: 120, shout: 'PWOOO!',
+      line: 'Swing, stomp, trumpet! A big stretch for your arms and back.',
+      moveText: 'Trunk trumpet: swing one arm like a trunk, stomp slowly, and trumpet three times. Go on, make the sound out loud!',
+      fact: 'Good for you: stretches arms and back.' },
+    { id: 'penguin', name: 'Penguin', sp: PENGUIN, pal: { a: '#2b2d52', c: '#ffffff', o: '#ff9f1c', w: '#ffffff', k: INK }, bg: 'ice', cue: 24, shout: 'WADDLE!',
+      line: 'Waddle time! Warm up your legs and practise your balance.',
+      moveText: 'Penguin waddle: keep your arms straight by your sides, waddle on the spot, and flap your hands. Finish by hugging your arms in a huddle.',
+      fact: 'Good for you: warms up legs and balance.' },
+    { id: 'lion', name: 'Lion', sp: LION, pal: { a: '#f2b441', b: '#b8651b', c: '#fff2c4', d: '#8a3b2e', k: INK }, bg: 'plains', cue: 200, shout: 'ROAAR!',
+      line: 'Big breath in, big roar out. Open up your chest and lungs.',
+      moveText: 'Lion roar: take a big breath, open your mouth wide and roar, two times. Stretch your face. Yes, really!',
+      fact: 'Good for you: opens chest and lungs, and it is a great stress-buster.' },
+    { id: 'turtle', name: 'Sea turtle', sp: TURTLE, pal: { a: '#3fbf6b', b: '#2a8f4e', c: '#a8e6a0', d: '#f2e394', k: INK }, bg: 'sea', cue: 90, shout: 'SLOW...',
+      line: 'Slow and smooth. Gentle movement helps your mind settle.',
+      moveText: 'Turtle glide: move in slow motion, sweeping your arms like flippers through the water. The slower the better.',
+      fact: 'Good for you: slow movement calms the mind.' }
+  ];
+
+  var zcv = $('#zoo'), zg = zcv.getContext('2d');
+  var Z = { cur: 0, t: 0, chal: null, parts: [], happy: 0 };
+
+  function refreshPlayCheck() {
+    var movedN = ANIMALS.filter(function (a) { return ST.moved[a.id]; }).length;
+    var oks = { zoo: movedN >= 1, ride: ST.rideDone, cosmos: ST.cosmosDone };
+    Object.keys(oks).forEach(function (k) { $('#ck-' + k).className = oks[k] ? 'done' : ''; });
+    var all = oks.zoo && oks.ride && oks.cosmos;
+    var b = $('#play-test-btn');
+    b.disabled = !all && !ST.pass.play;
+    b.textContent = ST.pass.play ? 'Take another quick question' : (all ? 'Take the quick question' : 'Finish the three acts first');
+  }
+
+  function buildTabs() {
+    var box = $('#zoo-tabs'); box.textContent = '';
+    ANIMALS.forEach(function (a, i) {
+      var b = el('button', 'tab' + (ST.moved[a.id] ? ' done' : ''), a.name.toUpperCase()); b.type = 'button';
+      b.setAttribute('role', 'tab'); b.setAttribute('aria-selected', i === Z.cur ? 'true' : 'false'); b.id = 'tab-' + a.id;
+      b.addEventListener('click', function () { Z.cur = i; Z.chal = null; $('#chal').hidden = true; Snd.unlock(); Snd.squeak(); buildTabs(); showAnimal(); });
+      box.appendChild(b);
+    });
+  }
+  function showAnimal() {
+    var a = ANIMALS[Z.cur], n = ST.pets[a.id] || 0;
+    $('#an-name').textContent = a.name;
+    $('#an-line').textContent = a.line;
+    $('#an-fact').textContent = a.fact;
+    $('#an-pets').textContent = 'Pets: ' + n + (ST.moved[a.id] ? '  |  Move done' : '');
+    $('#an-meter').style.width = (n * 20) + '%';
+    $('#an-move').textContent = 'Do its move';
+  }
+  function petIt(px, py) {
+    var a = ANIMALS[Z.cur], n = ST.pets[a.id] || 0;
+    Snd.unlock(); Snd.collect(n);
+    Z.happy = 24;
+    for (var i = 0; i < 3; i++) Z.parts.push({ x: (px != null ? px : 100) + (Math.random() - 0.5) * 30, y: (py != null ? py : 50) - 6, vy: -0.5 - Math.random() * 0.5, life: 50 });
+    if (n < 5) { ST.pets[a.id] = n + 1; addPts(1); if (n + 1 === 5) { Snd.heal(); $('#an-line').textContent = 'Best friends now! ' + a.name + ' loves it.'; } }
+    showAnimal();
+  }
+  $('#an-pet').addEventListener('click', function () { petIt(); });
+  zcv.addEventListener('pointerdown', function (e) {
+    var r = zcv.getBoundingClientRect(); petIt((e.clientX - r.left) / r.width * 200, (e.clientY - r.top) / r.height * 112);
+  });
+  $('#an-move').addEventListener('click', function () {
+    if (Z.chal) return;
+    var a = ANIMALS[Z.cur]; Snd.unlock(); Snd.pop();
+    Z.chal = { left: 600, f: 0, fin: false };
+    $('#chal').hidden = false; $('#chal-text').textContent = a.moveText; $('#chal-count').textContent = '10';
+    $('#chal-done').hidden = true;
+  });
+  $('#chal-done').addEventListener('click', function () {
+    var a = ANIMALS[Z.cur];
+    if (!ST.moved[a.id]) { ST.moved[a.id] = true; addPts(10); }
+    Z.chal = null; $('#chal').hidden = true; Snd.heal();
+    $('#an-line').textContent = 'Nice! You moved like a ' + a.name.toLowerCase() + '. ' + a.fact;
+    buildTabs(); showAnimal(); refreshPlayCheck(); save();
+  });
+
+  function zooUpdate() {
+    Z.t++;
+    if (Z.happy > 0) Z.happy--;
+    Z.parts = Z.parts.filter(function (p) { p.y += p.vy; p.life--; return p.life > 0; });
+    if (Z.chal && !Z.chal.fin) {
+      var a = ANIMALS[Z.cur];
+      Z.chal.f++; Z.chal.left--;
+      if (Z.chal.f % a.cue === 1) {
+        if (a.id === 'gorilla') Snd.thump(); else if (a.id === 'kangaroo') Snd.hop(); else if (a.id === 'elephant') Snd.trumpet();
+        else if (a.id === 'penguin') Snd.squeak(); else if (a.id === 'lion') Snd.roar(); else Snd.splash();
+      }
+      if (Z.chal.left % 60 === 0) { $('#chal-count').textContent = String(Math.max(0, Math.ceil(Z.chal.left / 60))); }
+      if (Z.chal.left <= 0) { Z.chal.fin = true; $('#chal-count').textContent = 'Well done!'; $('#chal-done').hidden = false; focusSoft($('#chal-done')); }
+    }
+  }
+  function zooDraw() {
+    var g = zg, a = ANIMALS[Z.cur], t = Z.t, f = Z.chal ? Z.chal.f : 0, moving = Z.chal && !Z.chal.fin, i, dx = 0, dy = 0, flip = false;
+    var sky = { jungle: ['#2fb87a', '#5fd69a', '#9ff0c0'], outback: ['#ff9a5a', '#ffc27a', '#ffe3a8'], savanna: ['#ff7aa8', '#ffa27a', '#ffd89a'], ice: ['#1c3a7a', '#3f78c0', '#9ad0ff'], plains: ['#59b8ff', '#8fd3ff', '#cdeeff'], sea: ['#0f8fa8', '#23b5b5', '#7fe0d0'] }[a.bg];
+    var ground = { jungle: '#1ea34f', outback: '#c0653a', savanna: '#d9a443', ice: '#eaf6ff', plains: '#e0b04a', sea: '#1d6fc9' }[a.bg];
+    R(g, 0, 0, 200, 38, sky[0]); R(g, 0, 38, 200, 34, sky[1]); R(g, 0, 72, 200, 24, sky[2]);
+    if (a.bg === 'jungle') {
+      [[18, 70], [176, 66], [150, 74]].forEach(function (p) { R(g, p[0] - 3, p[1], 6, 30, '#6b3b1d'); D(g, p[0], p[1] - 6, 14, '#2a9d5c'); D(g, p[0] - 9, p[1] - 1, 9, '#3fbf74'); D(g, p[0] + 10, p[1], 9, '#1f8a4c'); });
+    } else if (a.bg === 'outback' || a.bg === 'savanna' || a.bg === 'plains') {
+      D(g, 160, 40, 16, '#fff0a8'); D(g, 160, 40, 12, '#ffd23f');
+      if (a.bg === 'savanna') { R(g, 30, 60, 4, 36, '#6b3b1d'); R(g, 14, 56, 38, 5, '#2a8f4e'); D(g, 24, 56, 8, '#2a8f4e'); D(g, 42, 56, 8, '#2a8f4e'); }
+      if (a.bg === 'plains') { D(g, 30, 86, 12, '#a89a8a'); D(g, 46, 90, 8, '#8f8272'); }
+      if (a.bg === 'outback') { D(g, 28, 88, 8, '#7ab04a'); D(g, 176, 90, 7, '#7ab04a'); }
+    } else if (a.bg === 'ice') {
+      for (i = 0; i < 22; i++) R(g, (i * 53 + t * 0.3) % 200, (i * 29 + t * 0.5) % 90, 1, 1, '#fff');
+      R(g, 0, 70, 200, 6, '#6fb1e8'); R(g, 20, 72, 40, 8, '#d9efff'); R(g, 140, 74, 50, 7, '#d9efff');
+    } else {
+      for (i = 0; i < 8; i++) D(g, (i * 31 + 10) % 200, 100 - ((t * 0.4 + i * 17) % 80), 2, 'rgba(255,255,255,.55)');
+    }
+    R(g, 0, 96, 200, 16, ground);
+    if (a.bg === 'sea') { for (i = 0; i < 10; i++) R(g, i * 22 + (t % 22), 98, 12, 2, 'rgba(255,255,255,.6)'); R(g, 0, 106, 200, 6, '#14509a'); }
+    else for (i = 0; i < 14; i++) R(g, (i * 37) % 200, 100 + (i % 3) * 4, 6, 1, 'rgba(0,0,0,.12)');
+    dy = Math.round(Math.sin(t / 22) * 1.5);
+    if (moving) {
+      if (a.id === 'gorilla') { dx = Math.round(Math.sin(f / 7) * 8); dy = (f % 36 < 6) ? 3 : 0; }
+      else if (a.id === 'kangaroo') { dy = -Math.round(Math.abs(Math.sin(f * Math.PI / a.cue)) * 24); }
+      else if (a.id === 'elephant') { dx = Math.round(Math.sin(f / 14) * 4); dy = (f % 120 < 40) ? -4 : 0; }
+      else if (a.id === 'penguin') { dx = Math.round(Math.sin(f / 5) * 5); flip = Math.floor(f / 10) % 2 === 0; }
+      else if (a.id === 'lion') { dy = (f % 200 < 50) ? Math.round(Math.sin(f) * 2) - 3 : 0; }
+      else { dx = Math.round(Math.sin(f / 30) * 6); dy = Math.round(Math.sin(f / 15) * 3); }
+    } else if (Z.happy > 0) { dy = -Math.round(Math.abs(Math.sin(Z.happy / 4)) * 5); }
+    if (a.bg === 'sea' && !moving) dy += Math.round(Math.sin(t / 20) * 3) - 4;
+    R(g, 100 + dx - 30, 96, 60, 3, 'rgba(0,0,0,.15)');
+    sprite(g, a.sp, a.pal, 52 + dx, 14 + dy + (a.id === 'turtle' ? 8 : 0), 6, flip);
+    for (i = 0; i < Z.parts.length; i++) heart(g, Z.parts[i].x, Z.parts[i].y, 1, '#ff4f6d');
+    setFont(g);
+    if (moving && Z.chal.f % a.cue < 50) label(g, a.shout, 70, 4, '#ffcc2e');
+    if (!moving && Z.happy === 0 && t % 240 < 70) label(g, 'TAP ME', 76, 4, '#ffffff');
+  }
+  Loop.add(zcv, zooUpdate, zooDraw);
+  buildTabs(); showAnimal();
+
+  /* =============== PLAY ACT 2: THE BEAUTIFUL RIDE =============== */
+  var rcv = $('#ride'), rg = rcv.getContext('2d');
+  var END_D = 5200;
+  function hx(c) { return [parseInt(c.slice(1, 3), 16), parseInt(c.slice(3, 5), 16), parseInt(c.slice(5, 7), 16)]; }
+  function mix(a, b, u) {
+    var x = hx(a), y = hx(b), r = Math.round(x[0] + (y[0] - x[0]) * u), g = Math.round(x[1] + (y[1] - x[1]) * u), bl = Math.round(x[2] + (y[2] - x[2]) * u);
+    return 'rgb(' + r + ',' + g + ',' + bl + ')';
+  }
+  function mixc(a, b, u) { return mix(a, b, u); }
+  var BIOMES = [
+    { d: 0,    name: 'SUNRISE MEADOW',    s0: '#ff9a5a', s1: '#ffe6a8', far: '#f7b6c8', mid: '#8fe08a', gr: '#4fc25a', gr2: '#2fa046', stars: 0 },
+    { d: 900,  name: 'WHISPERING FOREST', s0: '#6fd0ff', s1: '#d6f7ff', far: '#7fc3a8', mid: '#2fa36a', gr: '#2e9a54', gr2: '#1d7a3c', stars: 0 },
+    { d: 1900, name: 'HIGH MOUNTAINS',    s0: '#3f9bff', s1: '#cfeaff', far: '#b8c6ee', mid: '#8aa0d8', gr: '#78d08a', gr2: '#4fa860', stars: 0 },
+    { d: 2900, name: 'OCEAN COAST',       s0: '#ff6f9f', s1: '#ffd27a', far: '#ff9ac0', mid: '#f08aa0', gr: '#f5d391', gr2: '#d9b36a', stars: 0 },
+    { d: 3900, name: 'ARCTIC NIGHT',      s0: '#0b1040', s1: '#2b7fb0', far: '#35508f', mid: '#6a8fc8', gr: '#eaf6ff', gr2: '#b9d6f0', stars: 1 },
+    { d: 4800, name: 'LAUNCH FIELD',      s0: '#070a30', s1: '#1a2a78', far: '#1e2b66', mid: '#2a3d8a', gr: '#2fd06a', gr2: '#1ea34f', stars: 1 }
+  ];
+  function biomeAt(d) {
+    var i = 0, k;
+    for (k = 0; k < BIOMES.length; k++) if (d >= BIOMES[k].d) i = k;
+    var a = BIOMES[i], b = BIOMES[Math.min(i + 1, BIOMES.length - 1)], span = 420, u = 0;
+    if (i < BIOMES.length - 1) { u = (d - (b.d - span)) / span; u = u < 0 ? 0 : u > 1 ? 1 : u; }
+    u = u * u * (3 - 2 * u);
+    return { i: u > 0.5 ? i + 1 : i, s0: mixc(a.s0, b.s0, u), s1: mixc(a.s1, b.s1, u), far: mixc(a.far, b.far, u), mid: mixc(a.mid, b.mid, u), gr: mixc(a.gr, b.gr, u), gr2: mixc(a.gr2, b.gr2, u), stars: a.stars + (b.stars - a.stars) * u, name: (u > 0.5 ? b : a).name };
+  }
+  var WONDERS = [
+    { d: 520,  id: 'meadow',   t: 'Meadow: sunshine, flowers and a happy buzz. Take a deep breath in.' },
+    { d: 1450, id: 'forest',   t: 'Forest: cool shade and fresh air. Roll your shoulders back.' },
+    { d: 2450, id: 'mountain', t: 'Mountains: the view from up here goes on forever. Stand tall!' },
+    { d: 3350, id: 'ocean',    t: 'Ocean: sparkling water all the way to the sky. Breathe out slowly.' },
+    { d: 4350, id: 'aurora',   t: 'Northern lights: the sky is dancing for you. Wiggle a little too.' },
+    { d: 5050, id: 'home',     t: 'All of that is on one small planet. Ready to zoom out?' }
+  ];
+  var RD = { d: 0, v: 0, t: 0, pedal: false, auto: false, bell: 0, started: false, toastT: null };
+  function buildWonders() {
+    var ul = $('#wonders'); ul.textContent = '';
+    WONDERS.forEach(function (w) { var li = el('li', ST.wonders[w.id] ? 'got' : '', w.id.toUpperCase()); ul.appendChild(li); });
+  }
+  function rtoast(m) {
+    var t = $('#ride-toast'); t.textContent = m;
+    if (RD.toastT) clearTimeout(RD.toastT);
+    RD.toastT = setTimeout(function () { t.textContent = ''; }, 7500);
+  }
+  function hash(n) { var x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
+  function setPedal(v) { RD.pedal = v; $('#r-pedal').classList.toggle('on', v); if (v) { Snd.unlock(); RD.started = true; } }
+  var rp = $('#r-pedal');
+  rp.addEventListener('pointerdown', function (e) { e.preventDefault(); setPedal(true); try { rp.setPointerCapture(e.pointerId); } catch (x) {} });
+  ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(function (ev) { rp.addEventListener(ev, function () { setPedal(false); }); });
+  rp.addEventListener('keydown', function (e) { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); setPedal(true); } });
+  rp.addEventListener('keyup', function (e) { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); setPedal(false); } });
+  rp.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+  function ring() { Snd.unlock(); Snd.bell(); RD.bell = 24; }
+  $('#r-bell').addEventListener('click', ring);
+  $('#r-auto').addEventListener('click', function () {
+    RD.auto = !RD.auto; this.setAttribute('aria-pressed', RD.auto ? 'true' : 'false'); Snd.unlock(); Snd.pop(); if (RD.auto) RD.started = true;
+  });
+  rcv.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D' || e.key === ' ') { e.preventDefault(); setPedal(true); }
+    else if (e.key === 'b' || e.key === 'B') { e.preventDefault(); ring(); }
+  });
+  rcv.addEventListener('keyup', function (e) { if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D' || e.key === ' ') { e.preventDefault(); setPedal(false); } });
+  rcv.addEventListener('pointerdown', function () { Snd.unlock(); focusSoft(rcv); });
+
+  function rideUpdate() {
+    RD.t++;
+    if (RD.bell > 0) RD.bell--;
+    var go = RD.pedal || (RD.auto && RD.d < END_D);
+    if (go) RD.v += 0.05; else RD.v *= 0.97;
+    if (RD.v > 2.6) RD.v = 2.6;
+    if (RD.v < 0.01) RD.v = 0;
+    if (RD.d < END_D) RD.d += RD.v; else { RD.d = END_D; RD.v *= 0.9; }
+    var i, w;
+    for (i = 0; i < WONDERS.length; i++) {
+      w = WONDERS[i];
+      if (!ST.wonders[w.id] && RD.d >= w.d) {
+        ST.wonders[w.id] = true; addPts(5); Snd.star(); rtoast(w.t); buildWonders();
+      }
+    }
+    if (RD.d > ST.bestRide) ST.bestRide = RD.d;
+    if (RD.d >= END_D - 2 && !ST.rideDone) {
+      ST.rideDone = true; save(); refreshPlayCheck();
+      $('#r-launch').hidden = false; Snd.fanfare();
+    }
+    if (ST.rideDone) $('#r-launch').hidden = false;
+  }
+
+  function mountain(g, d, par, base, col, snow, hmul) {
+    var x, wx, h, top;
+    for (x = 0; x < 320; x += 2) {
+      wx = x + d * par;
+      h = 24 + 18 * Math.sin(wx / 52) + 10 * Math.sin(wx / 23 + 1.3) + 7 * Math.sin(wx / 11);
+      h *= hmul; if (h < 4) h = 4;
+      top = base - h;
+      R(g, x, top, 2, h, col);
+      if (snow && h > 30 * hmul) R(g, x, top, 2, Math.min(6, (h - 30 * hmul) * 0.6 + 2), '#ffffff');
+    }
+  }
+  function decor(g, kind, sx, gy, sc, b) {
+    var i;
+    if (kind === 'tree') {
+      R(g, sx - 2, gy - 18, 4, 18, '#7d3c28'); D(g, sx, gy - 24, 11, b.i === 1 ? '#1f8a4c' : '#3fbf6b'); D(g, sx - 6, gy - 20, 7, b.i === 1 ? '#2a9d5c' : '#59d57f');
+    } else if (kind === 'pine') {
+      R(g, sx - 1, gy - 8, 3, 8, '#5a3825');
+      for (i = 0; i < 4; i++) R(g, sx - 12 + i * 3, gy - 12 - i * 9, 25 - i * 6, 9, i % 2 ? '#1d7a3c' : '#2a9d5c');
+      if (b.i >= 4) for (i = 0; i < 4; i++) R(g, sx - 12 + i * 3, gy - 12 - i * 9, 25 - i * 6, 2, '#ffffff');
+    } else if (kind === 'flower') {
+      R(g, sx, gy - 6, 1, 6, '#2fa046'); R(g, sx - 1, gy - 9, 3, 3, ['#ff4f6d', '#ffcc2e', '#ff9ad0', '#ffffff'][Math.floor(hash(sx * 0.37) * 4)]); R(g, sx, gy - 8, 1, 1, '#ffcc2e');
+    } else if (kind === 'mill') {
+      R(g, sx - 6, gy - 32, 12, 32, '#fff3e0'); R(g, sx - 8, gy - 36, 16, 5, '#c0453a'); R(g, sx - 2, gy - 12, 4, 12, '#7d3c28');
+      var ang = RD.t / 30, k;
+      for (k = 0; k < 4; k++) { var a2 = ang + k * Math.PI / 2; for (i = 3; i < 17; i += 2) R(g, sx + Math.cos(a2) * i, gy - 32 + Math.sin(a2) * i, 2, 2, '#ffffff'); }
+    } else if (kind === 'rock') {
+      D(g, sx, gy - 3, 5, b.i === 4 ? '#dbe8f7' : '#9aa0b8'); D(g, sx + 4, gy - 2, 4, '#7d849c');
+    } else if (kind === 'light') {
+      R(g, sx - 4, gy - 40, 8, 40, '#ffffff'); R(g, sx - 4, gy - 30, 8, 5, '#ff4f6d'); R(g, sx - 4, gy - 18, 8, 5, '#ff4f6d'); R(g, sx - 5, gy - 46, 10, 6, '#231a52');
+      D(g, sx, gy - 43, 2, (RD.t % 40 < 20) ? '#fff08a' : '#ffcc2e');
+      if (RD.t % 40 < 20) for (i = 1; i < 30; i += 3) R(g, sx + i, gy - 43 - Math.floor(i / 6), 2, 1, 'rgba(255,240,138,.7)');
+    } else if (kind === 'ice') {
+      R(g, sx - 9, gy - 14, 18, 14, '#d9efff'); R(g, sx - 5, gy - 22, 10, 8, '#ffffff'); R(g, sx - 2, gy - 28, 5, 6, '#ffffff');
+    } else if (kind === 'hut') {
+      R(g, sx - 9, gy - 12, 18, 12, '#e8c89a'); for (i = 0; i < 6; i++) R(g, sx - 11 + i * 2, gy - 14 - i * 2, 22 - i * 4, 2, '#c0453a'); R(g, sx - 2, gy - 8, 4, 8, '#7d3c28');
+    } else if (kind === 'rocket') {
+      R(g, sx - 5, gy - 34, 10, 30, '#ffffff'); R(g, sx - 3, gy - 42, 6, 8, '#ff4f6d'); R(g, sx - 2, gy - 38, 1, 1, '#ff4f6d');
+      R(g, sx - 9, gy - 12, 5, 12, '#ff4f6d'); R(g, sx + 4, gy - 12, 5, 12, '#ff4f6d'); D(g, sx, gy - 24, 3, '#3fb6ff'); R(g, sx - 4, gy - 4, 8, 4, '#6a6f9a');
+    }
+  }
+  function drawRider(g, x, y, sp) {
+    var ph = RD.t * (0.08 + sp * 0.08), leg = Math.sin(ph) * 3, i;
+    function wheel(cx) {
+      var a;
+      for (a = 0; a < 16; a++) { var an = a / 16 * Math.PI * 2; R(g, cx + Math.cos(an) * 6, y + Math.sin(an) * 6, 1, 1, INK); }
+      var s = RD.t * sp * 0.25; R(g, cx + Math.cos(s) * 5, y + Math.sin(s) * 5, 1, 1, '#9aa3c7'); R(g, cx - Math.cos(s) * 5, y - Math.sin(s) * 5, 1, 1, '#9aa3c7'); R(g, cx, y, 1, 1, INK);
+    }
+    wheel(x - 9); wheel(x + 9);
+    R(g, x - 9, y, 9, 1, '#ff4f6d'); R(g, x, y - 8, 1, 8, '#ff4f6d'); R(g, x - 9, y, 1, -7, '#ff4f6d'); R(g, x - 10, y - 8, 4, 1, INK);
+    R(g, x + 6, y - 9, 1, 9, '#ff4f6d'); R(g, x + 5, y - 10, 5, 1, INK);
+    R(g, x - 2, y - 17, 6, 8, '#2ee6a6');
+    R(g, x - 1, y - 24, 5, 5, '#ffd3a8'); R(g, x - 2, y - 26, 7, 3, '#ffcc2e'); R(g, x + 1, y - 22, 1, 1, INK);
+    R(g, x + 3, y - 15, 5, 2, '#ffd3a8');
+    R(g, x - 1 + leg, y - 9, 3, 6, '#2b3a8c'); R(g, x + 2 - leg, y - 9, 3, 6, '#2b3a8c');
+    if (RD.bell > 0) { label(g, 'RING!', x - 2, y - 40, '#ffcc2e'); }
+    if (sp > 1.6) for (i = 0; i < 3; i++) R(g, x - 24 - i * 8, y - 14 + i * 5, 6, 1, 'rgba(255,255,255,.7)');
+  }
+  function rideDraw() {
+    var g = rg, d = RD.d, b = biomeAt(d), i, x, gy = 146, wx;
+    setFont(g);
+    for (i = 0; i < 12; i++) R(g, 0, i * 12, 320, 12, mix(b.s0, b.s1, i / 11));
+    if (b.stars > 0.01) {
+      g.globalAlpha = b.stars;
+      for (i = 0; i < 46; i++) if ((RD.t + i * 9) % 70 < 60) R(g, (((i * 71 + 13 - d * 0.03) % 320) + 320) % 320, (i * 37) % 100, i % 4 === 0 ? 2 : 1, i % 4 === 0 ? 2 : 1, '#ffffff');
+      g.globalAlpha = 1;
+    }
+    if (b.i === 4 || (b.i === 3 && b.stars > 0.01)) {
+      g.globalAlpha = Math.min(1, b.stars) * 0.55;
+      var band;
+      for (band = 0; band < 3; band++) for (x = 0; x < 320; x += 2) {
+        var ay = 26 + band * 8 + Math.sin((x + d * 0.1) / 28 + band + RD.t / 90) * 8;
+        R(g, x, ay, 2, 22 - band * 4, band === 1 ? '#7afcc8' : band === 0 ? '#4af0b0' : '#a78bff');
+      }
+      g.globalAlpha = 1;
+    }
+    var sunY = 74 - Math.min(1, d / 3000) * 20 + Math.max(0, (d - 3000) / 700) * 80;
+    if (sunY < 150 && b.stars < 0.5) { D(g, 250, sunY, 15, mix('#fff3b0', '#ffd0a0', Math.min(1, d / 3000))); D(g, 250, sunY, 11, '#ffd23f'); }
+    if (b.i >= 5 || (b.i === 4 && b.stars > 0.9)) { D(g, 70, 34, 10, '#f4f1e0'); D(g, 74, 32, 8, '#fffdf0'); }
+    var cx;
+    for (i = 0; i < 6; i++) {
+      cx = (((i * 160 + 40 - d * 0.1 + RD.t * 0.05) % 420) + 420) % 420 - 50;
+      if (b.stars < 0.7) { D(g, cx, 24 + (i * 19) % 40, 6, 'rgba(255,255,255,.9)'); D(g, cx + 9, 21 + (i * 19) % 40, 8, 'rgba(255,255,255,.9)'); D(g, cx + 19, 24 + (i * 19) % 40, 6, 'rgba(255,255,255,.9)'); }
+    }
+    mountain(g, d, 0.12, 110, b.far, b.i === 2 || b.i === 4, b.i === 2 ? 1.5 : 1);
+    mountain(g, d, 0.3, 128, b.mid, b.i === 2 || b.i >= 4, b.i === 2 ? 1.2 : 0.7);
+    if (b.i === 3) { R(g, 0, 118, 320, 28, '#2a8fd0'); for (i = 0; i < 18; i++) R(g, (i * 29 + RD.t * 0.4) % 330 - 8, 122 + (i % 4) * 5, 10, 1, 'rgba(255,255,255,.7)'); }
+    R(g, 0, gy, 320, 34, b.gr); R(g, 0, gy, 320, 3, b.gr2);
+    for (i = 0; i < 12; i++) R(g, (((i * 53 - d) % 320) + 320) % 320, gy + 10 + (i % 4) * 7, 8, 1, b.gr2);
+    var tile = 46, first = Math.floor(d / tile) - 2, last = first + Math.ceil(320 / tile) + 4, n, sxp, kind, rr;
+    for (n = first; n <= last; n++) {
+      rr = hash(n); sxp = Math.round(n * tile - d + rr * 20);
+      if (sxp < -30 || sxp > 350) continue;
+      var bi = biomeAt(n * tile).i;
+      if (bi === 0) kind = rr < 0.2 ? 'tree' : rr < 0.8 ? 'flower' : (n % 9 === 0 ? 'mill' : 'rock');
+      else if (bi === 1) kind = rr < 0.6 ? 'tree' : rr < 0.85 ? 'pine' : 'flower';
+      else if (bi === 2) kind = rr < 0.5 ? 'pine' : rr < 0.8 ? 'rock' : (n % 7 === 0 ? 'hut' : 'flower');
+      else if (bi === 3) kind = (n % 11 === 0) ? 'light' : rr < 0.5 ? 'rock' : 'flower';
+      else if (bi === 4) kind = rr < 0.4 ? 'pine' : rr < 0.7 ? 'ice' : 'rock';
+      else kind = 'rock';
+      if (kind === 'flower') { decor(g, kind, sxp, gy + 6, 1, { i: bi }); decor(g, kind, sxp + 7, gy + 9, 1, { i: bi }); decor(g, kind, sxp + 13, gy + 5, 1, { i: bi }); }
+      else decor(g, kind, sxp, gy + 4, 1, { i: bi });
+    }
+    var rx = Math.round(END_D + 130 - d); if (rx > -30 && rx < 350) decor(g, 'rocket', rx, gy + 4, 1, { i: 5 });
+    WONDERS.forEach(function (w) {
+      var sx = Math.round(w.d + 80 - d);
+      if (sx < -30 || sx > 350) return;
+      R(g, sx, gy - 28, 2, 28, '#7d3c28'); R(g, sx - 12, gy - 40, 26, 14, ST.wonders[w.id] ? '#ffcc2e' : '#ffffff'); R(g, sx - 12, gy - 40, 26, 1, INK); R(g, sx - 12, gy - 27, 26, 1, INK);
+      R(g, sx - 3, gy - 37, 8, 7, INK); R(g, sx - 1, gy - 35, 4, 3, '#3fb6ff'); R(g, sx - 6, gy - 38, 3, 2, INK);
+      if (!ST.wonders[w.id]) for (i = 0; i < 3; i++) if ((RD.t + i * 12) % 36 < 6) R(g, sx - 10 + i * 10, gy - 44 - (RD.t % 6), 2, 2, '#ffffff');
+    });
+    var by = gy + 8 + Math.round(Math.sin(RD.t * RD.v * 0.12) * (RD.v > 0.1 ? 1 : 0));
+    drawRider(g, 90, by, RD.v);
+    if (b.i === 3) { var bx = 200 + Math.round(Math.sin(RD.t / 40) * 30); R(g, bx, 40 + Math.round(Math.sin(RD.t / 12) * 2), 1, 1, INK); R(g, bx + 1, 41, 2, 1, INK); R(g, bx - 2, 41, 2, 1, INK); }
+    label(g, b.name, 6, 5, '#ffffff');
+    var pct = Math.min(1, d / END_D); R(g, 6, 18, 100, 4, 'rgba(35,26,82,.6)'); R(g, 6, 18, Math.round(100 * pct), 4, '#2ee6a6');
+    if (!RD.started) { R(g, 40, 70, 240, 40, 'rgba(35,26,82,.7)'); label(g, 'HOLD PEDAL TO RIDE', 62, 84, '#ffcc2e'); }
+  }
+  Loop.add(rcv, rideUpdate, rideDraw);
+  buildWonders();
+  if (ST.rideDone) { $('#r-launch').hidden = false; }
+
+  /* =============== PLAY ACT 3: FLY TO THE STARS =============== */
+  var ccv = $('#cosmos'), cg = ccv.getContext('2d');
+  var STAGES_C = [
+    { name: 'HOME', fact: 'Earth: our home, about 12,742 km across. Everyone you have ever met lives here.' },
+    { name: 'THE MOON', fact: 'The Moon is 384,400 km away. Light takes about 1.3 seconds to get there. You are already far from home.' },
+    { name: 'THE SUN', fact: 'The Sun is 150 million km away. Its light takes about 8 minutes to reach us, and a million Earths could fit inside it.' },
+    { name: 'THE SOLAR SYSTEM', fact: 'Neptune orbits about 4.5 billion km from the Sun. Its light takes over 4 hours to reach us. Eight planets, one family.' },
+    { name: 'THE NEAREST STAR', fact: 'Proxima Centauri is 4.2 light-years away. Our fastest spacecraft would need tens of thousands of years to get there.' },
+    { name: 'THE MILKY WAY', fact: 'Our galaxy is about 100,000 light-years across and holds hundreds of billions of stars. Our Sun is one tiny speck in it.' },
+    { name: 'NEIGHBOUR GALAXIES', fact: 'Andromeda, our nearest big galaxy, is about 2.5 million light-years away. Its light left before humans existed.' },
+    { name: 'THE WHOLE UNIVERSE', fact: 'The observable universe is about 93 billion light-years across, with hundreds of billions to trillions of galaxies. And somewhere in it, one small blue dot where we have each other.' }
+  ];
+  var CS = { i: 0, tr: 0, t: 0, started: false, stars: [] };
+  (function () { var k; for (k = 0; k < 90; k++) CS.stars.push({ a: Math.random() * Math.PI * 2, r: Math.random() * 190, s: 0.4 + Math.random() * 1.4 }); })();
+  function cosmosUi() {
+    var nb = $('#c-next');
+    if (!ST.rideDone) { nb.disabled = true; nb.textContent = 'Blast off first (finish the ride)'; return; }
+    nb.disabled = false;
+    if (ST.cosmosDone && CS.i >= STAGES_C.length - 1) nb.textContent = 'Fly again';
+    else if (!CS.started) nb.textContent = 'Blast off!';
+    else if (CS.i >= STAGES_C.length - 1) nb.textContent = 'Back to Earth';
+    else nb.textContent = 'Fly farther';
+  }
+  $('#r-launch').addEventListener('click', function () {
+    Snd.unlock(); Snd.whoosh(); CS.started = true; CS.i = 0; CS.tr = 0; cosmosUi();
+    $('#c-fact').textContent = STAGES_C[0].fact; scrollTo($('#cosmos'), 'center');
+  });
+  $('#c-next').addEventListener('click', function () {
+    Snd.unlock();
+    if (!CS.started) { CS.started = true; CS.i = 0; Snd.whoosh(); }
+    else if (CS.i >= STAGES_C.length - 1) {
+      if (!ST.cosmosDone) { ST.cosmosDone = true; addPts(10); save(); refreshPlayCheck(); }
+      CS.i = 0; CS.tr = 0; Snd.heal();
+      $('#c-fact').textContent = 'Welcome home. Everything we love is on that small dot. Take the quick question below.';
+      cosmosUi(); scrollTo($('#act-test'));
+      return;
+    } else { CS.i++; CS.tr = 90; Snd.whoosh(); addPts(2); }
+    $('#c-fact').textContent = STAGES_C[CS.i].fact;
+    if (CS.i >= STAGES_C.length - 1 && !ST.cosmosDone) { ST.cosmosDone = true; addPts(10); save(); refreshPlayCheck(); }
+    cosmosUi();
+  });
+  function cosUpdate() { CS.t++; if (CS.tr > 0) CS.tr--; }
+  function spiral(g, cx, cy, sc, rot) {
+    var k, a, r;
+    D(g, cx, cy, Math.max(2, 5 * sc), '#fff3c4');
+    for (k = 0; k < 260; k++) {
+      a = k * 0.18 + rot + (k % 2) * Math.PI; r = (k * 0.12) * sc;
+      R(g, cx + Math.cos(a) * r, cy + Math.sin(a) * r * 0.45, 2, 1, k % 3 === 0 ? '#9ad0ff' : k % 3 === 1 ? '#ffd9f0' : '#ffffff');
+    }
+  }
+  function cosDraw() {
+    var g = cg, i, s, t = CS.t, z = CS.tr / 90, k;
+    setFont(g);
+    R(g, 0, 0, 320, 180, '#050824');
+    for (i = 0; i < CS.stars.length; i++) {
+      s = CS.stars[i];
+      var rr = (s.r + (CS.tr > 0 ? (90 - CS.tr) * s.s * 2 : t * 0.05 * s.s)) % 200;
+      R(g, 160 + Math.cos(s.a) * rr, 90 + Math.sin(s.a) * rr * 0.6, CS.tr > 0 ? 2 : 1, 1, i % 5 === 0 ? '#ffd9f0' : '#ffffff');
+    }
+    if (!CS.started) {
+      D(g, 160, 100, 32, '#2a8fd0'); D(g, 150, 92, 14, '#3fbf6b'); D(g, 176, 108, 10, '#3fbf6b');
+      label(g, 'READY FOR LIFT-OFF', 80, 20, '#ffcc2e');
+      return;
+    }
+    var st = CS.i, sc = CS.tr > 0 ? 0.55 + 0.45 * (1 - z) : 1, cx = 160, cy = 100;
+    if (st === 0) {
+      D(g, cx, cy, 36 * sc, '#2a8fd0'); D(g, cx - 10 * sc, cy - 8 * sc, 14 * sc, '#3fbf6b'); D(g, cx + 14 * sc, cy + 10 * sc, 11 * sc, '#3fbf6b'); D(g, cx - 18 * sc, cy + 14 * sc, 6 * sc, '#eef6ff');
+      D(g, cx, cy, 36 * sc + 2, 'rgba(120,200,255,.15)');
+    } else if (st === 1) {
+      D(g, 60, 100, 14, '#2a8fd0'); D(g, 56, 96, 6, '#3fbf6b'); D(g, 250 - (CS.tr > 0 ? z * 80 : 0), 80, 7, '#cfd2dc'); D(g, 248 - (CS.tr > 0 ? z * 80 : 0), 78, 2, '#aab0c0');
+      for (k = 0; k < 40; k++) R(g, 74 + k * 4, 98 - Math.round(k * 0.45), 2, 1, 'rgba(255,255,255,.35)');
+    } else if (st === 2) {
+      D(g, 250, 90, 54, 'rgba(255,200,60,.25)'); D(g, 250, 90, 46, '#ffd23f'); D(g, 250, 90, 36, '#fff08a');
+      D(g, 40, 130, 2, '#3fb6ff');
+      for (k = 0; k < 12; k++) R(g, 50 + k * 14, 128 - k * 3, 6, 1, 'rgba(255,240,138,.5)');
+    } else if (st === 3) {
+      D(g, 40, 100, 14, '#ffd23f');
+      var cols = ['#b0a090', '#e8c080', '#3fb6ff', '#e86a4a', '#d9a066', '#e8d29a', '#6fd0ff', '#3f5fd0'];
+      for (k = 0; k < 8; k++) { var ox = 70 + k * 30, oy = 100 + Math.sin(t / 40 + k) * 3; R(g, ox, 100, 1, 1, 'rgba(255,255,255,.2)'); D(g, ox, oy, k < 4 ? 3 : 5, cols[k]); }
+      R(g, 56, 100, 250, 1, 'rgba(255,255,255,.12)');
+    } else if (st === 4) {
+      D(g, 60, 100, 4, '#ffd23f'); D(g, 270, 96, 5, '#ff7a59'); D(g, 270, 96, 9, 'rgba(255,122,89,.2)');
+      for (k = 0; k < 50; k++) R(g, 70 + k * 4, 100, 2, 1, 'rgba(255,255,255,.28)');
+      label(g, '4.2 LIGHT-YEARS', 105, 84, '#ffffff');
+    } else if (st === 5) {
+      spiral(g, 160, 96, 1.4, t / 400);
+      D(g, 214, 108, 2, '#ff4f6d'); label(g, 'YOU ARE HERE', 190, 120, '#ff9ab0');
+    } else if (st === 6) {
+      spiral(g, 90, 100, 0.55, t / 500); spiral(g, 230, 90, 0.9, -t / 600);
+      for (k = 0; k < 6; k++) D(g, 40 + k * 46, 150 + (k % 2) * 6, 2, '#cfe6ff');
+    } else {
+      for (k = 0; k < 190; k++) { var gx = 160 + Math.cos(k * 2.4) * (30 + k * 0.62) * 1.2, gy2 = 90 + Math.sin(k * 1.7) * (14 + k * 0.4); R(g, gx, gy2, 2, 1, k % 3 === 0 ? '#ffd9f0' : k % 3 === 1 ? '#9ad0ff' : '#ffffff'); }
+      for (k = 0; k < 40; k++) R(g, 160 + Math.cos(k * 0.9) * (20 + k * 3.4), 90 + Math.sin(k * 1.3) * (10 + k * 1.6), 1, 1, 'rgba(255,255,255,.18)');
+      D(g, 160, 92, 1, '#3fb6ff');
+      if (CS.tr === 0) label(g, 'ONE BLUE DOT', 106, 150, '#3fb6ff');
+    }
+    label(g, STAGES_C[st].name, 6, 5, '#ffcc2e');
+    var barW = 120; R(g, 6, 18, barW, 4, 'rgba(255,255,255,.2)'); R(g, 6, 18, Math.round(barW * (st / (STAGES_C.length - 1))), 4, '#2ee6a6');
+  }
+  Loop.add(ccv, cosUpdate, cosDraw);
+  cosmosUi();
+
+  /* =============== WONDER TEST =============== */
+  var PLAY_POOL = [
+    { q: 'About how long does sunlight take to reach Earth?', o: ['About 8 minutes', 'About 1 second', 'About 8 days'], e: 'Sunshine on your face left the Sun just minutes ago.' },
+    { q: 'About how much of Earth’s surface is ocean?', o: ['About 71%', 'About 10%', 'About 99%'], e: 'Lots of blue out there.' },
+    { q: 'What is the Milky Way?', o: ['Our home galaxy', 'A single bright star', 'A chocolate bar only'], e: 'Hundreds of billions of stars, and you live in it.' },
+    { q: 'Which is the tallest mountain above sea level?', o: ['Everest', 'Ben Nevis', 'The Moon'], e: 'About 8,849 metres up.' },
+    { q: 'What does a light-year measure?', o: ['Distance', 'Time', 'Brightness'], e: 'How far light travels in a year. Big!' },
+    { q: 'What makes the northern lights glow?', o: ['Particles from the Sun meeting Earth’s magnetic field', 'Reflected city lights', 'Sleeping whales'], e: 'The sky lights up like a dance floor.' },
+    { q: 'Which animal can hop the highest on this trail?', o: ['The kangaroo', 'The turtle', 'The mountain'], e: 'Boing!' }
+  ];
+  var playQuiz = runQuiz($('#quiz-play'), {
+    title: 'QUICK QUESTION', pool: PLAY_POOL, n: 1, pass: 1, reward: 25,
+    passTitle: 'Round 1 complete!', passText: 'Nicely done. Next: one fun AI idea.', goLabel: 'Open Round 2: Learn',
+    onPass: function () { unlock('play', 'learn'); refreshPlayCheck(); startLearn(); }
+  });
+  $('#play-test-btn').addEventListener('click', function () { Snd.unlock(); Snd.pop(); playQuiz.start(); scrollTo($('#quiz-play'), 'center'); });
+  refreshPlayCheck();
+
+  /* =============== ROUND 2: LEARN =============== */
+  var CON = [
+    { term: 'Latent space', tag: 'REPRESENTATION', demo: 'latent',
+      hook: 'The secret map where an AI keeps its ideas.',
+      story: 'Imagine every face you have ever seen squeezed onto one small map. Faces that feel alike sit close together. Nudge your pen a little east and the smile widens. That map is a latent space: a few hidden dials the AI uses to describe something complicated.',
+      tech: 'A latent space is a compact, learned representation in which nearby points correspond to similar data.',
+      q1: { q: 'In a latent space, what does "close together" usually mean?', o: ['The items are similar', 'They were made on the same day', 'They have the same file size'], e: 'Distance in the map stands for similarity.' },
+      q2: { q: 'Why is a latent space handy?', o: ['It describes complex data with a few hidden dials', 'It makes the screen brighter', 'It deletes the data'], e: 'A few dials can describe a whole face, sentence or sound.' } },
+    { term: 'Overfitting', tag: 'TRAINING', demo: 'overfit',
+      hook: 'When an AI memorises the homework and fails the exam.',
+      story: 'A student memorises last year’s answers word for word. New questions? Panic. An overfit model learned the quirks and noise of its practice examples instead of the real pattern. Drag the slider and watch the curve start to memorise.',
+      tech: 'Overfitting means low error on training data but high error on unseen data, because the model has fitted noise.',
+      q1: { q: 'A model scores 99% on its training data but 60% on new data. What is likely going on?', o: ['Overfitting', 'Perfect learning', 'The data is too clean'], e: 'Great on practice, poor on new cases is the signature of memorising.' },
+      q2: { q: 'Which helps reduce overfitting?', o: ['More varied training data', 'Memorising harder', 'Using one single example'], e: 'Variety forces the model to find the real pattern.' } },
+    { term: 'Underfitting', tag: 'TRAINING', demo: 'overfit',
+      hook: 'A model too simple to see the pattern.',
+      story: 'Draw one straight line through a rollercoaster and you miss every loop. An underfit model is too simple for the pattern it is trying to learn. Slide the curve to a low setting and watch it miss the wave.',
+      tech: 'Underfitting means the model cannot capture the structure in the data, so it performs poorly even on the training set.',
+      q1: { q: 'A straight line fitted to a clearly wavy pattern is an example of…', o: ['Underfitting', 'Overfitting', 'A perfect fit'], e: 'The model is too simple for the wave.' },
+      q2: { q: 'Underfitting happens when the model is…', o: ['Too simple for the pattern', 'So complex it memorises noise', 'Trained on too much data'], e: 'It cannot bend enough to follow the real shape.' } },
+    { term: 'Gradient descent', tag: 'OPTIMISATION', demo: 'gd',
+      hook: 'Finding the valley with your eyes closed.',
+      story: 'You stand on a foggy hill and want the lowest point. You feel the slope under your feet and step downhill, again and again. That is gradient descent, and it is how most AI models learn.',
+      tech: 'Gradient descent repeatedly updates a model’s parameters in the direction that reduces the loss.',
+      q1: { q: 'Gradient descent moves…', o: ['Downhill on the loss', 'Uphill on the loss', 'Randomly forever'], e: 'It follows the slope down towards a lower loss.' },
+      q2: { q: 'What does the gradient tell you?', o: ['Which direction is steepest', 'Who wrote the code', 'How many layers there are'], e: 'It points the way to change the parameters.' } },
+    { term: 'Learning rate', tag: 'OPTIMISATION', demo: 'gd',
+      hook: 'How big each step is.',
+      story: 'Tiny steps are safe but slow. Giant leaps can jump clean over the valley. A good learning rate takes confident, not reckless, steps. Try the slider and watch the ball.',
+      tech: 'The learning rate scales how far the parameters move on each update.',
+      q1: { q: 'A learning rate that is far too big can…', o: ['Overshoot and bounce around', 'Make training perfect', 'Delete the data'], e: 'Huge steps leap over the valley floor.' },
+      q2: { q: 'A very tiny learning rate mostly causes…', o: ['Slow training', 'Instant overfitting', 'Rainbow output'], e: 'Safe, but it takes ages to arrive.' } },
+    { term: 'Loss function', tag: 'OPTIMISATION', demo: 'gd',
+      hook: 'The AI’s score for how wrong it is.',
+      story: 'Like a golf score, lower is better. The loss turns "how wrong was I?" into one number, and training tries to shrink it. The height of the curve below is the loss.',
+      tech: 'A loss function measures the gap between a model’s predictions and the targets.',
+      q1: { q: 'Training tries to make the loss…', o: ['Smaller', 'Larger', 'Purple'], e: 'Smaller loss means fewer mistakes.' },
+      q2: { q: 'The loss measures…', o: ['How far predictions are from the truth', 'How fast the computer is', 'How long the dataset is'], e: 'It is a number for "how wrong".' } },
+    { term: 'Neural network', tag: 'MODELS', demo: null,
+      hook: 'Lots of tiny dials working as a team.',
+      story: 'Each artificial neuron takes some numbers, weighs them and passes a result along. Stack layers of them and the network can learn to spot edges, then shapes, then cats.',
+      tech: 'A neural network is a layered function with learnable weights.',
+      q1: { q: 'What gets adjusted when a neural network learns?', o: ['Its weights', 'Its screen colour', 'Its file name'], e: 'Weights are the dials that training turns.' },
+      q2: { q: 'Why do networks have layers?', o: ['Later layers build on simpler patterns found earlier', 'Layers make the network lighter', 'Layers stop learning'], e: 'Edges become shapes, shapes become objects.' } },
+    { term: 'Train and test data', tag: 'DATA', demo: null,
+      hook: 'Hide some questions until exam day.',
+      story: 'Keep a slice of data the AI never practises on. Its score there tells you how it will do in real life. A fair exam needs questions the student has not seen.',
+      tech: 'Splitting data into training and test sets lets you estimate performance on unseen examples.',
+      q1: { q: 'Why keep a test set aside?', o: ['To check performance on unseen data', 'To make training faster', 'To save disk space'], e: 'It is the honest exam.' },
+      q2: { q: 'If you tune a model by repeatedly peeking at the test set, you may…', o: ['Fool yourself about real performance', 'Always improve it for real', 'Delete the test set'], e: 'Peeking turns the exam into more practice.' } },
+    { term: 'Embedding', tag: 'REPRESENTATION', demo: 'embed',
+      hook: 'Turning words and pictures into coordinates.',
+      story: 'Words that mean similar things get nearby addresses. "Cat" lives near "kitten" and far from "volcano". Click a word on the map and see its closest neighbours.',
+      tech: 'An embedding maps items to vectors so that similar items have similar vectors.',
+      q1: { q: 'In an embedding, "kitten" is most likely closest to…', o: ['cat', 'volcano', 'tax'], e: 'Similar meanings sit close together.' },
+      q2: { q: 'Why turn words into numbers?', o: ['Computers can then measure similarity', 'To hide the words', 'To make them longer'], e: 'Numbers can be compared, added and measured.' } },
+    { term: 'Attention', tag: 'MODELS', demo: 'attn',
+      hook: 'Looking at the words that matter.',
+      story: 'Read "The animal didn’t cross the road because it was tired". What is "it"? Your mind looks back at "animal". Attention lets a model weigh which other words matter most for each word. Click a word to see where it looks.',
+      tech: 'Attention computes weights over inputs so a model can focus on the most relevant parts.',
+      q1: { q: 'Attention lets a model…', o: ['Focus on the most relevant parts of its input', 'Take a nap', 'Skip training'], e: 'It weighs what matters most.' },
+      q2: { q: 'In "The dog chased the ball because it was fast", attention helps decide what "it" means by…', o: ['Weighing related words', 'Counting letters', 'Ignoring context'], e: 'Context decides the meaning.' } },
+    { term: 'Token', tag: 'LANGUAGE', demo: 'token',
+      hook: 'The little chunks an AI reads.',
+      story: 'Language models rarely read letters or whole words. They read tokens, chunks like "un", "believ" and "able". Rare words get chopped into more pieces. Type something below.',
+      tech: 'A token is a unit of text, often a word or part of a word, that a language model reads and writes.',
+      q1: { q: 'A token is…', o: ['A small chunk of text a model reads', 'A coin', 'A password'], e: 'Often a word or a piece of a word.' },
+      q2: { q: 'A long, rare word is usually split into…', o: ['More tokens', 'Zero tokens', 'A picture'], e: 'Rare words are built from smaller pieces.' } },
+    { term: 'Temperature', tag: 'LANGUAGE', demo: 'temp',
+      hook: 'A dial from careful to adventurous.',
+      story: 'Ask an AI to finish "The sky is…". Low temperature says "blue" almost every time. High temperature sometimes says "sparkling". Same model, different courage.',
+      tech: 'Temperature rescales a model’s output probabilities: low values make it more predictable, high values more varied.',
+      q1: { q: 'Raising the temperature makes outputs…', o: ['More varied and surprising', 'Always identical', 'Silent'], e: 'Less likely words get a real chance.' },
+      q2: { q: 'For a precise factual answer you would usually use…', o: ['A low temperature', 'A very high temperature', 'No model at all'], e: 'You want the most likely answer.' } },
+    { term: 'Hallucination', tag: 'LANGUAGE', demo: null,
+      hook: 'Confident, fluent and wrong.',
+      story: 'A language model predicts likely words, not verified facts. Sometimes the likeliest-sounding sentence is false. When it matters, check.',
+      tech: 'A hallucination is generated content that sounds plausible but is false or unsupported.',
+      q1: { q: 'An AI hallucination is…', o: ['A fluent but false or invented answer', 'A dream', 'A hardware fault'], e: 'It sounds right and is not.' },
+      q2: { q: 'The best response to an important AI answer is to…', o: ['Check it against reliable sources', 'Trust it blindly', 'Delete it'], e: 'Verification is part of using AI well.' } },
+    { term: 'Data bias', tag: 'FAIRNESS', demo: null,
+      hook: 'If the examples leave people out, the AI will too.',
+      story: 'A system trained mostly on one kind of face struggles with others. Bias in, bias out. Diverse, carefully collected data is a form of fairness.',
+      tech: 'Bias arises when training data or design choices systematically under-represent or mistreat some groups.',
+      q1: { q: 'Where does AI bias often come from?', o: ['The data it learns from', 'Too much electricity', 'Its font'], e: 'Models copy the patterns, and gaps, in their data.' },
+      q2: { q: 'A fix that helps is…', o: ['More representative data and testing across groups', 'Ignoring it', 'Using fewer examples'], e: 'Test on everyone it will serve.' } },
+    { term: 'Clustering', tag: 'LEARNING STYLES', demo: 'cluster',
+      hook: 'Sorting without being told the labels.',
+      story: 'Hand an AI a pile of mixed buttons and ask for groups. Nobody says what the groups are. It finds what sticks together. Press Step to watch k-means work.',
+      tech: 'Clustering groups similar items without labels. In k-means, k is the number of groups.',
+      q1: { q: 'Clustering is called unsupervised because…', o: ['There are no labels telling it the right groups', 'Nobody watches the computer', 'It is not allowed'], e: 'It discovers structure by itself.' },
+      q2: { q: 'In k-means, k is…', o: ['The number of groups', 'The size of the screen', 'The learning rate'], e: 'You choose how many groups to look for.' } },
+    { term: 'Precision and recall', tag: 'EVALUATION', demo: 'thresh',
+      hook: 'Catch the real cases without false alarms.',
+      story: 'A health check flags people who may be ill. A low threshold finds more real cases (high recall) but raises more false alarms. A high threshold is calmer but misses cases. Slide it and see.',
+      tech: 'Precision is the share of flagged cases that are real. Recall is the share of real cases that were flagged.',
+      q1: { q: 'Lowering the decision threshold usually…', o: ['Catches more real cases but adds false alarms', 'Removes all errors', 'Does nothing'], e: 'More recall, less precision.' },
+      q2: { q: 'High recall means…', o: ['Most real cases are found', 'There are no false alarms', 'Training is fast'], e: 'Few real cases slip through.' } },
+    { term: 'Reinforcement learning', tag: 'LEARNING STYLES', demo: null,
+      hook: 'Learning by trying, with treats.',
+      story: 'A robot tries moves. Good outcomes earn reward, bad ones do not. Over time it favours what worked, like training a puppy but with maths.',
+      tech: 'In reinforcement learning an agent learns a policy by maximising cumulative reward from its actions.',
+      q1: { q: 'In reinforcement learning, the agent learns from…', o: ['Rewards for its actions', 'Labels from a teacher only', 'Random noise'], e: 'Reward is the teacher.' },
+      q2: { q: 'An agent that never explores new moves may…', o: ['Miss better options', 'Always win', 'Break physics'], e: 'Exploration finds better strategies.' } },
+    { term: 'Regularisation', tag: 'TRAINING', demo: null,
+      hook: 'A gentle rule that keeps models modest.',
+      story: 'Teach the model to prefer simple answers unless the data truly demands more. Like writing with a word limit, it stops the waffle.',
+      tech: 'Regularisation adds a penalty on model complexity to reduce overfitting.',
+      q1: { q: 'Regularisation mainly helps to…', o: ['Reduce overfitting', 'Increase the file size', 'Print faster'], e: 'Simpler answers generalise better.' },
+      q2: { q: 'It works by…', o: ['Penalising overly complex models', 'Adding random labels', 'Removing the test set'], e: 'Complexity has a cost.' } },
+    { term: 'Transfer learning', tag: 'TRAINING', demo: null,
+      hook: 'Borrowing skills from one task for another.',
+      story: 'Someone who plays piano learns the organ faster. A model trained on millions of photos can be fine-tuned with few examples to spot something new, saving time and data.',
+      tech: 'Transfer learning reuses a pretrained model as the starting point for a new task.',
+      q1: { q: 'Fine-tuning a pretrained model means…', o: ['Adjusting it for a new, specific task', 'Training from nothing', 'Erasing its memory'], e: 'You start from what it already knows.' },
+      q2: { q: 'Transfer learning is especially useful when you have…', o: ['Little data for the new task', 'Infinite data', 'No computer'], e: 'Borrowed knowledge fills the gap.' } },
+    { term: 'Explainable AI', tag: 'TRUST', demo: null,
+      hook: 'Asking the AI to show its working.',
+      story: 'In medicine, "the computer says so" is not enough. Explainable AI highlights which parts of an image or data drove a decision, so people can trust, question or correct it.',
+      tech: 'Explainability methods reveal which inputs or features influenced a model’s output.',
+      q1: { q: 'Why does explainability matter in health care?', o: ['Clinicians can check and trust decisions', 'It makes models slower', 'It is decoration'], e: 'People stay in charge of care.' },
+      q2: { q: 'A heat-map showing which pixels influenced a prediction is…', o: ['An explanation technique', 'A virus', 'A compression format'], e: 'It shows where the model looked.' } },
+    { term: 'Generative model', tag: 'MODELS', demo: null,
+      hook: 'Learning a pattern well enough to make new examples.',
+      story: 'Show a model thousands of paintings and it can produce a new one in a similar style. Show it text and it writes more text. It creates, but it does not guarantee truth.',
+      tech: 'A generative model learns the distribution of its training data and samples new data from it.',
+      q1: { q: 'A generative model can…', o: ['Create new text, images or sound like its training data', 'Only sort data', 'Only add numbers'], e: 'It samples fresh examples.' },
+      q2: { q: 'Is generated content always true?', o: ['No, it can be invented', 'Yes, always', 'Only on Fridays'], e: 'Creative does not mean correct.' } }
+  ];
+  CON.forEach(function (c, i) { c.id = i; });
+
+  var LR = { queue: [], i: 0, clean: [] };
+  var uid = 0;
+  function nextId() { uid++; return 'dm' + uid; }
+  function addClean(fn) { LR.clean.push(fn); }
+  function runClean() { LR.clean.forEach(function (f) { try { f(); } catch (e) {} }); LR.clean = []; }
+  function slider(box, text, min, max, step, val, onIn) {
+    var id = nextId(), l = el('label', null, text); l.setAttribute('for', id);
+    var r = el('input'); r.type = 'range'; r.id = id; r.min = min; r.max = max; r.step = step; r.value = val;
+    r.addEventListener('input', function () { onIn(parseFloat(r.value)); });
+    box.appendChild(l); box.appendChild(r); return r;
+  }
+  function canvasEl(w, h) { var c = el('canvas'); c.width = w; c.height = h; c.style.aspectRatio = w + '/' + h; return c; }
+  function gauss() { var u = 0, v = 0; while (u === 0) u = Math.random(); while (v === 0) v = Math.random(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+
+  var DEMOS = {};
+
+  /* Overfitting / underfitting */
+  function polyfit(xs, ys, deg) {
+    var n = deg + 1, A = [], b = [], i, j, k, m, f, t;
+    for (i = 0; i < n; i++) { A.push([]); for (j = 0; j < n; j++) A[i].push(0); b.push(0); }
+    for (k = 0; k < xs.length; k++) {
+      var pw = [1]; for (i = 1; i < 2 * n; i++) pw.push(pw[i - 1] * xs[k]);
+      for (i = 0; i < n; i++) { for (j = 0; j < n; j++) A[i][j] += pw[i + j]; b[i] += pw[i] * ys[k]; }
+    }
+    for (i = 0; i < n; i++) A[i][i] += 1e-8;
+    for (i = 0; i < n; i++) {
+      m = i; for (k = i + 1; k < n; k++) if (Math.abs(A[k][i]) > Math.abs(A[m][i])) m = k;
+      t = A[i]; A[i] = A[m]; A[m] = t; t = b[i]; b[i] = b[m]; b[m] = t;
+      for (k = i + 1; k < n; k++) { f = A[k][i] / A[i][i]; for (j = i; j < n; j++) A[k][j] -= f * A[i][j]; b[k] -= f * b[i]; }
+    }
+    var c = []; for (i = 0; i < n; i++) c.push(0);
+    for (i = n - 1; i >= 0; i--) { var s = b[i]; for (j = i + 1; j < n; j++) s -= A[i][j] * c[j]; c[i] = s / A[i][i]; }
+    return c;
+  }
+  function polyval(c, x) { var y = 0, i; for (i = c.length - 1; i >= 0; i--) y = y * x + c[i]; return y; }
+  DEMOS.overfit = function (box) {
+    var cv = canvasEl(400, 200), g = cv.getContext('2d'), deg = 1, tr, te, read = el('p', 'read');
+    function truth(x) { return Math.sin(2.4 * x) * 0.8; }
+    function gen() {
+      var i, x; tr = []; te = [];
+      for (i = 0; i < 10; i++) { x = -0.95 + i * (1.9 / 9); tr.push([x, truth(x) + gauss() * 0.17]); }
+      for (i = 0; i < 40; i++) { x = -1 + Math.random() * 2; te.push([x, truth(x) + gauss() * 0.17]); }
+    }
+    function px(x) { return 20 + (x + 1) / 2 * 360; }
+    function py(y) { return 100 - y * 70; }
+    function rmse(c, pts) { var s = 0; pts.forEach(function (p) { var d = polyval(c, p[0]) - p[1]; s += d * d; }); return Math.sqrt(s / pts.length); }
+    function draw() {
+      var c = polyfit(tr.map(function (p) { return p[0]; }), tr.map(function (p) { return p[1]; }), deg), x, y, first = true;
+      g.fillStyle = '#fff'; g.fillRect(0, 0, 400, 200);
+      g.strokeStyle = '#d6d0f5'; g.lineWidth = 1; g.beginPath(); g.moveTo(0, 100); g.lineTo(400, 100); g.stroke();
+      g.strokeStyle = '#9aa3c7'; g.setLineDash([4, 4]); g.beginPath();
+      for (x = -1; x <= 1.001; x += 0.02) { if (x === -1) g.moveTo(px(x), py(truth(x))); else g.lineTo(px(x), py(truth(x))); }
+      g.stroke(); g.setLineDash([]);
+      te.forEach(function (p) { g.fillStyle = '#3fb6ff'; g.fillRect(px(p[0]) - 2, py(p[1]) - 2, 4, 4); });
+      g.strokeStyle = '#6a3df0'; g.lineWidth = 3; g.beginPath();
+      for (x = -1; x <= 1.001; x += 0.01) { y = Math.max(-1.6, Math.min(1.6, polyval(c, x))); if (first) { g.moveTo(px(x), py(y)); first = false; } else g.lineTo(px(x), py(y)); }
+      g.stroke();
+      tr.forEach(function (p) { g.fillStyle = '#ff4f6d'; g.beginPath(); g.arc(px(p[0]), py(p[1]), 5, 0, 6.283); g.fill(); g.strokeStyle = INK; g.lineWidth = 1.5; g.stroke(); });
+      var e1 = rmse(c, tr), e2 = rmse(c, te), msg;
+      if (deg <= 2) msg = 'Too simple: it misses the wave, even on its own training dots (underfitting).';
+      else if (e2 > 0.3 && e2 > e1 * 1.8) msg = 'Memorising: nearly perfect on the red training dots, but wobbly on the blue new ones (overfitting).';
+      else msg = 'Nicely balanced: it follows the pattern without chasing every wobble.';
+      read.textContent = 'Training error ' + e1.toFixed(2) + ' | New-data error ' + e2.toFixed(2) + '. ' + msg;
+    }
+    gen(); box.appendChild(cv);
+    slider(box, 'Curve flexibility (how many bends it may have)', 1, 11, 1, 1, function (v) { deg = v; draw(); });
+    box.appendChild(read);
+    var nb = el('button', 'btn btn-sm', 'New data'); nb.type = 'button'; nb.addEventListener('click', function () { gen(); draw(); Snd.pop(); });
+    box.appendChild(nb);
+    box.appendChild(el('p', 'fine', 'Red dots: training examples. Blue squares: new cases it has not seen. Dashed line: the true pattern.'));
+    draw();
+  };
+
+  /* Latent space */
+  DEMOS.latent = function (box) {
+    var cv = canvasEl(300, 150), g = cv.getContext('2d'), z = [0.6, 0.2], read = el('p', 'read'), sx, sy, drag = false, dots = [], i;
+    for (i = 0; i < 40; i++) dots.push([Math.random() * 2 - 1, Math.random() * 2 - 1]);
+    function face(cx, cy, zx, zy) {
+      var eye = 3 + (zy + 1) * 2.5;
+      g.fillStyle = '#ffe08a'; g.beginPath(); g.arc(cx, cy, 52, 0, 6.283); g.fill(); g.strokeStyle = INK; g.lineWidth = 3; g.stroke();
+      g.fillStyle = INK; g.beginPath(); g.arc(cx - 18, cy - 10, eye, 0, 6.283); g.fill(); g.beginPath(); g.arc(cx + 18, cy - 10, eye, 0, 6.283); g.fill();
+      g.strokeStyle = INK; g.lineWidth = 4; g.beginPath(); g.moveTo(cx - 24, cy + 22); g.quadraticCurveTo(cx, cy + 22 + zx * 26, cx + 24, cy + 22); g.stroke();
+    }
+    function draw() {
+      g.fillStyle = '#fff'; g.fillRect(0, 0, 300, 150);
+      g.fillStyle = '#f1ecff'; g.fillRect(4, 4, 142, 142);
+      g.strokeStyle = '#d6d0f5'; g.lineWidth = 1; g.beginPath(); g.moveTo(75, 4); g.lineTo(75, 146); g.moveTo(4, 75); g.lineTo(146, 75); g.stroke();
+      dots.forEach(function (d) { g.fillStyle = '#b7a8f5'; g.fillRect(75 + d[0] * 66 - 1, 75 + d[1] * 66 - 1, 3, 3); });
+      sx = 75 + z[0] * 66; sy = 75 + z[1] * 66;
+      g.fillStyle = '#ff4f6d'; g.beginPath(); g.arc(sx, sy, 6, 0, 6.283); g.fill(); g.strokeStyle = INK; g.lineWidth = 2; g.stroke();
+      face(225, 75, z[0], -z[1]);
+      g.fillStyle = INK; g.font = '700 9px sans-serif'; g.fillText('smile →', 90, 144); g.fillText('eyes ↓', 8, 14);
+      read.textContent = 'Hidden dials: smile ' + z[0].toFixed(2) + ', eye size ' + (-z[1]).toFixed(2) + '. Drag the red dot on the map, or use the sliders.';
+    }
+    function setFromEvent(e) {
+      var r = cv.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * 300, y = (e.clientY - r.top) / r.height * 150;
+      z[0] = Math.max(-1, Math.min(1, (x - 75) / 66)); z[1] = Math.max(-1, Math.min(1, (y - 75) / 66)); s1.value = z[0]; s2.value = -z[1]; draw();
+    }
+    cv.addEventListener('pointerdown', function (e) { drag = true; try { cv.setPointerCapture(e.pointerId); } catch (x) {} setFromEvent(e); });
+    cv.addEventListener('pointermove', function (e) { if (drag) setFromEvent(e); });
+    cv.addEventListener('pointerup', function () { drag = false; });
+    box.appendChild(cv);
+    var s1 = slider(box, 'Dial 1: smile', -1, 1, 0.05, z[0], function (v) { z[0] = v; draw(); });
+    var s2 = slider(box, 'Dial 2: eye size', -1, 1, 0.05, -z[1], function (v) { z[1] = -v; draw(); });
+    box.appendChild(read); box.appendChild(el('p', 'fine', 'Real latent spaces have hundreds of dials, but the idea is the same: nearby points make similar things.'));
+    draw();
+  };
+
+  /* Gradient descent, learning rate and loss */
+  DEMOS.gd = function (box) {
+    var cv = canvasEl(400, 200), g = cv.getContext('2d'), x = 1, lr = 0.15, steps = 0, read = el('p', 'read'), timer = null;
+    function f(v) { return 0.12 * (v - 5.5) * (v - 5.5) + 0.9 * Math.sin(1.4 * v) + 1.2; }
+    function df(v) { return (f(v + 0.001) - f(v - 0.001)) / 0.002; }
+    var fmin = 1e9, fmax = -1e9, q; for (q = 0; q <= 10; q += 0.05) { fmin = Math.min(fmin, f(q)); fmax = Math.max(fmax, f(q)); }
+    function px(v) { return 10 + v / 10 * 380; }
+    function py(v) { return 185 - (v - fmin) / (fmax - fmin) * 160; }
+    function draw() {
+      var v, first = true;
+      g.fillStyle = '#fff'; g.fillRect(0, 0, 400, 200);
+      g.fillStyle = '#e9e5ff'; g.beginPath(); g.moveTo(px(0), 200);
+      for (v = 0; v <= 10.001; v += 0.05) g.lineTo(px(v), py(f(v)));
+      g.lineTo(px(10), 200); g.closePath(); g.fill();
+      g.strokeStyle = '#6a3df0'; g.lineWidth = 3; g.beginPath();
+      for (v = 0; v <= 10.001; v += 0.05) { if (first) { g.moveTo(px(v), py(f(v))); first = false; } else g.lineTo(px(v), py(f(v))); }
+      g.stroke();
+      var cx = px(Math.max(0, Math.min(10, x))), cy = py(f(Math.max(0, Math.min(10, x))));
+      g.fillStyle = '#ff4f6d'; g.beginPath(); g.arc(cx, cy - 8, 9, 0, 6.283); g.fill(); g.strokeStyle = INK; g.lineWidth = 2; g.stroke();
+      read.textContent = 'Steps ' + steps + ' | position ' + x.toFixed(2) + ' | loss (height) ' + f(Math.max(0, Math.min(10, x))).toFixed(2) + (Math.abs(df(x)) < 0.05 ? ' | settled in a valley!' : '');
+    }
+    function step() { x = x - lr * df(x) * 4; if (x < 0) x = 0; if (x > 10) x = 10; steps++; Snd.tick(); draw(); }
+    box.appendChild(cv);
+    slider(box, 'Learning rate (step size)', 0.02, 0.8, 0.01, lr, function (v) { lr = v; });
+    box.appendChild(read);
+    var row = el('div', 'btnrow');
+    var b1 = el('button', 'btn btn-sm btn-sun', 'Step'); b1.type = 'button'; b1.addEventListener('click', function () { Snd.unlock(); step(); });
+    var b2 = el('button', 'btn btn-sm', 'Run 30 steps'); b2.type = 'button';
+    b2.addEventListener('click', function () { Snd.unlock(); if (timer) clearInterval(timer); var n = 0; timer = setInterval(function () { step(); n++; if (n >= 30) { clearInterval(timer); timer = null; } }, 90); });
+    var b3 = el('button', 'btn btn-sm', 'Start again'); b3.type = 'button';
+    b3.addEventListener('click', function () { if (timer) { clearInterval(timer); timer = null; } x = 0.6 + Math.random() * 1.2; steps = 0; draw(); });
+    row.appendChild(b1); row.appendChild(b2); row.appendChild(b3); box.appendChild(row);
+    box.appendChild(el('p', 'fine', 'The curve is the loss: lower is better. Try a big step size and watch the ball overshoot.'));
+    addClean(function () { if (timer) clearInterval(timer); });
+    draw();
+  };
+
+  /* Temperature */
+  DEMOS.temp = function (box) {
+    var words = ['blue', 'clear', 'grey', 'falling', 'sparkling', 'purple'], logits = [3.2, 2.2, 1.6, 0.4, 0.2, -0.4], T = 1, bars = el('div', 'bars'), rows = [], out = el('p', 'read');
+    words.forEach(function (w) {
+      var r = el('div', 'bar'), a = el('span', null, w), b = el('i'), c = el('span', null, '0%');
+      r.appendChild(a); r.appendChild(b); r.appendChild(c); bars.appendChild(r); rows.push({ b: b, c: c });
+    });
+    function probs() { var m = Math.max.apply(null, logits), ex = logits.map(function (l) { return Math.exp((l - m) / T); }), s = ex.reduce(function (a, b) { return a + b; }, 0); return ex.map(function (e) { return e / s; }); }
+    function upd() { var p = probs(); p.forEach(function (v, i) { rows[i].b.style.width = Math.round(v * 100) + '%'; rows[i].c.textContent = Math.round(v * 100) + '%'; }); }
+    box.appendChild(el('p', 'read', 'The sky is ___'));
+    box.appendChild(bars);
+    slider(box, 'Temperature (careful to adventurous)', 0.1, 2.5, 0.05, 1, function (v) { T = v; upd(); });
+    var b = el('button', 'btn btn-sm btn-sun', 'Pick a word'); b.type = 'button';
+    b.addEventListener('click', function () {
+      Snd.unlock(); var p = probs(), r = Math.random(), s = 0, i;
+      for (i = 0; i < p.length; i++) { s += p[i]; if (r <= s) break; }
+      i = Math.min(i, words.length - 1); out.textContent = 'The sky is ' + words[i] + '.'; Snd.pop();
+    });
+    box.appendChild(b); box.appendChild(out); upd();
+  };
+
+  /* Attention */
+  DEMOS.attn = function (box) {
+    var toks = ['The', 'animal', 'didn’t', 'cross', 'the', 'road', 'because', 'it', 'was', 'tired'];
+    var W = { 7: { 1: 0.52, 5: 0.12, 9: 0.12, 6: 0.08, 7: 0.08 }, 3: { 1: 0.3, 5: 0.4, 2: 0.15, 3: 0.1 }, 9: { 1: 0.3, 7: 0.3, 8: 0.2, 9: 0.1 }, 5: { 3: 0.4, 4: 0.3, 5: 0.2 }, 1: { 0: 0.45, 2: 0.2, 1: 0.2, 3: 0.1 } };
+    var btns = [], read = el('p', 'read', 'Click a word to see which other words it pays attention to.'), row = el('div', 'sent');
+    function show(i) {
+      var w = W[i] || (function () { var o = {}; o[i] = 0.45; if (i > 0) o[i - 1] = 0.3; if (i < 9) o[i + 1] = 0.15; return o; })(), best = -1, bw = 0, k;
+      btns.forEach(function (b, j) { b.setAttribute('aria-pressed', j === i ? 'true' : 'false'); var a = w[j] || 0; b.style.background = a ? 'rgba(106,61,240,' + (0.12 + a * 1.4).toFixed(2) + ')' : '#fff'; b.style.color = a > 0.3 ? '#fff' : INK; });
+      for (k in w) if (Number(k) !== i && w[k] > bw) { bw = w[k]; best = Number(k); }
+      read.textContent = '"' + toks[i] + '" pays most attention to "' + (best >= 0 ? toks[best] : toks[i]) + '" (' + Math.round((bw || w[i]) * 100) + '%). Darker means more attention.';
+      Snd.tick();
+    }
+    toks.forEach(function (t, i) { var b = el('button', null, t); b.type = 'button'; b.setAttribute('aria-pressed', 'false'); b.addEventListener('click', function () { Snd.unlock(); show(i); }); btns.push(b); row.appendChild(b); });
+    box.appendChild(row); box.appendChild(read); show(7);
+  };
+
+  /* Tokens */
+  DEMOS.token = function (box) {
+    var id = nextId(), l = el('label', null, 'Type anything'); l.setAttribute('for', id);
+    var inp = el('input'); inp.type = 'text'; inp.id = inp.name = id; inp.value = 'Unbelievably helpful machine learning'; inp.maxLength = 120;
+    var out = el('div', 'toks'), cnt = el('p', 'read');
+    function isV(c) { return 'aeiouyAEIOUY'.indexOf(c) >= 0; }
+    function split(w) {
+      if (w.length <= 6 || !/^[A-Za-z]+$/.test(w)) return [w];
+      var parts = [], cur = '', i;
+      for (i = 0; i < w.length; i++) { cur += w[i]; if (cur.length >= 3 && isV(w[i]) && i + 1 < w.length && !isV(w[i + 1]) && w.length - i > 3) { parts.push(cur); cur = ''; } }
+      if (cur) parts.push(cur); return parts;
+    }
+    function upd() {
+      out.textContent = ''; var n = 0, words = inp.value.match(/[A-Za-z’']+|\d+|[^\sA-Za-z\d]/g) || [];
+      words.forEach(function (w) { split(w).forEach(function (p) { out.appendChild(el('span', null, p)); n++; }); });
+      cnt.textContent = n + ' token' + (n === 1 ? '' : 's') + ' for ' + words.length + ' word' + (words.length === 1 ? '' : 's') + '. Simplified: real tokenisers learn their pieces from data.';
+    }
+    inp.addEventListener('input', upd);
+    box.appendChild(l); box.appendChild(inp); box.appendChild(out); box.appendChild(cnt); upd();
+  };
+
+  /* Embeddings */
+  DEMOS.embed = function (box) {
+    var pts = [['cat', 18, 22], ['kitten', 11, 32], ['dog', 26, 14], ['puppy', 22, 30], ['apple', 70, 18], ['mango', 80, 28], ['banana', 66, 32], ['peach', 78, 12],
+      ['car', 20, 70], ['bus', 30, 80], ['bike', 12, 84], ['train', 36, 68], ['happy', 72, 70], ['joyful', 84, 78], ['sad', 64, 84], ['calm', 88, 64]];
+    var map = el('div', 'emap'), read = el('p', 'read', 'Click a word. Its three closest neighbours light up.'), bs = [];
+    function sel(i) {
+      var d = pts.map(function (p, j) { return [j, Math.hypot(p[1] - pts[i][1], p[2] - pts[i][2])]; }).filter(function (a) { return a[0] !== i; }).sort(function (a, b) { return a[1] - b[1]; }).slice(0, 3);
+      bs.forEach(function (b, j) { b.className = j === i ? 'sel' : d.some(function (a) { return a[0] === j; }) ? 'near' : ''; });
+      read.textContent = 'Closest to "' + pts[i][0] + '": ' + d.map(function (a) { return pts[a[0]][0]; }).join(', ') + '.'; Snd.tick();
+    }
+    pts.forEach(function (p, i) { var b = el('button', null, p[0]); b.type = 'button'; b.style.left = p[1] + '%'; b.style.top = p[2] + '%'; b.addEventListener('click', function () { Snd.unlock(); sel(i); }); bs.push(b); map.appendChild(b); });
+    box.appendChild(map); box.appendChild(read); box.appendChild(el('p', 'fine', 'A hand-made map. Real embeddings have hundreds of dimensions, learned from huge amounts of text.'));
+  };
+
+  /* Clustering */
+  DEMOS.cluster = function (box) {
+    var cv = canvasEl(400, 200), g = cv.getContext('2d'), pts, cents, k = 3, step = 0, read = el('p', 'read'), COL = ['#ff4f6d', '#3fb6ff', '#2ecf8a', '#ffb000', '#a78bff'];
+    function gen() {
+      var centres = [[90, 60], [290, 70], [180, 150]], i, c; pts = [];
+      centres.forEach(function (ce) { for (i = 0; i < 25; i++) pts.push({ x: ce[0] + gauss() * 28, y: ce[1] + gauss() * 22, c: -1 }); });
+      reset();
+    }
+    function reset() { var i; step = 0; cents = []; for (i = 0; i < k; i++) { var p = pts[Math.floor(Math.random() * pts.length)]; cents.push({ x: p.x, y: p.y }); } pts.forEach(function (p) { p.c = -1; }); draw(); }
+    function assignStep() {
+      pts.forEach(function (p) { var best = 0, bd = 1e9; cents.forEach(function (c, i) { var d = (p.x - c.x) * (p.x - c.x) + (p.y - c.y) * (p.y - c.y); if (d < bd) { bd = d; best = i; } }); p.c = best; });
+      cents.forEach(function (c, i) { var m = pts.filter(function (p) { return p.c === i; }); if (m.length) { c.x = m.reduce(function (s, p) { return s + p.x; }, 0) / m.length; c.y = m.reduce(function (s, p) { return s + p.y; }, 0) / m.length; } });
+      step++; Snd.tick(); draw();
+    }
+    function draw() {
+      g.fillStyle = '#fff'; g.fillRect(0, 0, 400, 200);
+      pts.forEach(function (p) { g.fillStyle = p.c < 0 ? '#9aa3c7' : COL[p.c]; g.beginPath(); g.arc(p.x, p.y, 4.5, 0, 6.283); g.fill(); g.strokeStyle = INK; g.lineWidth = 1; g.stroke(); });
+      cents.forEach(function (c, i) { g.fillStyle = COL[i]; g.fillRect(c.x - 7, c.y - 7, 14, 14); g.strokeStyle = INK; g.lineWidth = 3; g.strokeRect(c.x - 7, c.y - 7, 14, 14); });
+      read.textContent = step === 0 ? 'Grey dots have no group yet. Press Step.' : 'Step ' + step + ': every dot joined its nearest square, then each square moved to the middle of its group.';
+    }
+    box.appendChild(cv);
+    slider(box, 'k = number of groups to look for', 2, 5, 1, k, function (v) { k = v; reset(); });
+    box.appendChild(read);
+    var row = el('div', 'btnrow');
+    var b1 = el('button', 'btn btn-sm btn-sun', 'Step'); b1.type = 'button'; b1.addEventListener('click', function () { Snd.unlock(); assignStep(); });
+    var b2 = el('button', 'btn btn-sm', 'New dots'); b2.type = 'button'; b2.addEventListener('click', function () { gen(); Snd.pop(); });
+    row.appendChild(b1); row.appendChild(b2); box.appendChild(row); gen();
+  };
+
+  /* Precision and recall */
+  DEMOS.thresh = function (box) {
+    var cv = canvasEl(400, 200), g = cv.getContext('2d'), pts = [], thr = 0.5, read = el('p', 'read'), i;
+    function gen() { pts = []; for (i = 0; i < 30; i++) pts.push({ s: Math.max(0.02, Math.min(0.98, 0.66 + gauss() * 0.14)), sick: true, j: Math.random() }); for (i = 0; i < 50; i++) pts.push({ s: Math.max(0.02, Math.min(0.98, 0.36 + gauss() * 0.14)), sick: false, j: Math.random() }); }
+    function draw() {
+      var tp = 0, fp = 0, fn = 0;
+      g.fillStyle = '#fff'; g.fillRect(0, 0, 400, 200);
+      g.fillStyle = 'rgba(255,79,109,.12)'; g.fillRect(thr * 400, 0, 400 - thr * 400, 200);
+      pts.forEach(function (p) {
+        var f = p.s >= thr; if (p.sick && f) tp++; if (!p.sick && f) fp++; if (p.sick && !f) fn++;
+        g.fillStyle = p.sick ? '#ff4f6d' : '#3fb6ff'; g.beginPath(); g.arc(p.s * 400, 20 + p.j * 160, 6, 0, 6.283); g.fill(); g.strokeStyle = INK; g.lineWidth = 1.5; g.stroke();
+      });
+      g.strokeStyle = INK; g.lineWidth = 3; g.beginPath(); g.moveTo(thr * 400, 0); g.lineTo(thr * 400, 200); g.stroke();
+      var prec = tp + fp ? tp / (tp + fp) : 1, rec = tp + fn ? tp / (tp + fn) : 1;
+      read.textContent = 'Flagged: ' + (tp + fp) + ' | real cases found ' + tp + ' of 30 | false alarms ' + fp + ' | Precision ' + Math.round(prec * 100) + '% | Recall ' + Math.round(rec * 100) + '%';
+    }
+    gen(); box.appendChild(cv);
+    slider(box, 'Decision threshold (shaded area is flagged as ill)', 0.1, 0.9, 0.01, thr, function (v) { thr = v; draw(); });
+    box.appendChild(read);
+    var b = el('button', 'btn btn-sm', 'New patients'); b.type = 'button'; b.addEventListener('click', function () { gen(); draw(); Snd.pop(); });
+    box.appendChild(b); box.appendChild(el('p', 'fine', 'Red dots: people who really are ill. Blue dots: healthy people. The further right, the higher the model scored them.'));
+    draw();
+  };
+
+  /* ---------- learn flow ---------- */
+  function startLearn() {
+    var un = CON.filter(function (c) { return ST.mastered.indexOf(c.id) < 0; });
+    var pool = un.length ? un : CON;
+    LR.queue = [pick(pool).id];
+    LR.i = 0; $('#quiz-learn').hidden = true; $('#lr-panel').hidden = false;
+    renderJargon(); showConcept();
+  }
+  function showConcept() {
+    runClean();
+    var c = CON[LR.queue[0]], card = $('#lr-card'), acts = $('#lr-actions');
+    $('#lr-tag').textContent = c.tag;
+    $('#lr-meta').textContent = 'TODAY\u2019S IDEA';
+    card.textContent = ''; acts.textContent = '';
+    card.appendChild(el('h3', 'term', c.term));
+    card.appendChild(el('p', 'hook', c.hook));
+    card.appendChild(el('p', null, c.story));
+    card.appendChild(el('p', 'tech', 'Nerd version: ' + c.tech));
+    if (c.demo) { var dm = el('div', 'demo'); dm.appendChild(el('p', 'qz-meta', 'PLAY WITH IT')); card.appendChild(dm); DEMOS[c.demo](dm); }
+    var b = el('button', 'btn btn-sun', ST.pass.learn ? 'One quick question' : 'Take the quick question'); b.type = 'button';
+    b.addEventListener('click', function () { Snd.unlock(); Snd.pop(); checkConcept(c); });
+    acts.appendChild(b);
+    var shuf = el('button', 'btn btn-sm', 'Give me a different idea'); shuf.type = 'button';
+    shuf.addEventListener('click', function () {
+      var others = CON.filter(function (x) { return x.id !== c.id; });
+      LR.queue = [pick(others).id]; Snd.pop(); showConcept();
+    });
+    acts.appendChild(shuf);
+  }
+  function checkConcept(c) {
+    $('#lr-panel').hidden = true;
+    var again = ST.pass.learn;
+    runQuiz($('#quiz-learn'), {
+      title: 'QUICK QUESTION', pool: [c.q1, c.q2], n: 1, pass: 1, reward: again ? 10 : 25,
+      passTitle: again ? 'Another idea collected!' : 'Round 2 complete!',
+      passText: again ? 'Your jargon book just grew.' : 'Nice. Next, let us use that kindness for someone else.',
+      goLabel: again ? 'Show me another idea' : 'Open Round 3: Help',
+      onPass: function () {
+        if (ST.mastered.indexOf(c.id) < 0) ST.mastered.push(c.id);
+        save(); renderJargon();
+        var first = !ST.pass.learn;
+        if (first) unlock('learn', 'help');
+        startLearn();
+        if (!first) scrollTo($('#learn'));
+      }
+    }).start();
+    scrollTo($('#quiz-learn'), 'center');
+  }
+  function renderJargon() {
+    var ul = $('#jargon-list'); ul.textContent = '';
+    ST.mastered.slice().sort(function (a, b) { return a - b; }).forEach(function (id) { if (CON[id]) ul.appendChild(el('li', null, CON[id].term.toUpperCase())); });
+    $('#jargon-count').textContent = ST.mastered.length ? ST.mastered.length + ' of ' + CON.length + ' ideas mastered. Each visit deals you a fresh one.' : 'Pass a quick question and your ideas collect here.';
+  }
+
+  /* =============== ROUND 3: HELP (the kindness chain) =============== */
+  var vcv = $('#village'), vg = vcv.getContext('2d');
+  var ACTS = [
+    { id: 'smile', label: 'GIVE A SMILE', word: 'A SMILE?', fx: 'SMILE!', col: '#ffcc2e' },
+    { id: 'hug', label: 'GIVE A HUG', word: 'A HUG?', fx: 'HUG!', col: '#ff4f6d' },
+    { id: 'listen', label: 'LISTEN', word: 'AN EAR?', fx: 'I HEAR YOU', col: '#3fb6ff' },
+    { id: 'cheer', label: 'CHEER THEM ON', word: 'A CHEER?', fx: 'YOU CAN DO IT!', col: '#a78bff' },
+    { id: 'snack', label: 'SHARE A SNACK', word: 'A SNACK?', fx: 'YUM!', col: '#2ee6a6' },
+    { id: 'tip', label: 'TEACH A TIP', word: 'A TIP?', fx: 'AHA!', col: '#ff9a3c' }
+  ];
+  var NAMES = ['Pip', 'Mo', 'Juno', 'Kofi', 'Luz', 'Ravi'];
+  var SHIRT = ['#ff9f43', '#a66cff', '#ff6b8b', '#4dabf7', '#2ee6a6', '#ffcc2e'];
+  var HAIR = ['#3b2a20', '#222', '#8a4b1f', '#111', '#c9792b', '#2a2a40'];
+  var V = { v: [], sel: 0, t: 0, sched: [], busy: false, fx: [], helped: 0, gifts: [], done: false };
+
+  function newVillage() {
+    var needs = shuffle(ACTS.map(function (a) { return a.id; }));
+    V.v = NAMES.map(function (n, i) { return { n: n, x: 62 + i * 46, shirt: SHIRT[i], hair: HAIR[i], need: needs[i], mood: 0, say: '', sayT: 0, hop: 0 }; });
+    V.sel = 0; V.sched = []; V.busy = false; V.fx = []; V.helped = 0; V.gifts = []; V.done = false;
+    var old = $('#hp-again'); if (old) old.remove();
+    $('#hp-title').textContent = 'Pick a neighbour';
+    $('#hp-status').textContent = 'Tap someone, read what they need, then choose how to help. Listening comes first.';
+    $('#hp-chain').textContent = 'Nobody here is helped for free. Whoever you help will pass it on.';
+    renderActs(); vtoast('');
+  }
+  function actById(id) { return ACTS.filter(function (a) { return a.id === id; })[0]; }
+  function vtoast(m) { $('#vtoast').textContent = m; }
+  function renderActs() {
+    var box = $('#hp-acts'); box.textContent = '';
+    ACTS.forEach(function (a) {
+      var b = el('button', 'btn btn-sm', a.label); b.type = 'button'; b.style.background = a.col;
+      b.addEventListener('click', function () { doHelp(a.id); });
+      box.appendChild(b);
+    });
+  }
+  function selectV(i) {
+    if (V.busy) return;
+    V.sel = Math.max(0, Math.min(V.v.length - 1, i));
+    var v = V.v[V.sel];
+    $('#hp-title').textContent = v.n;
+    $('#hp-status').textContent = v.mood ? v.n + ' is smiling and has passed it on.' : v.n + ' says: "I could really use ' + actById(v.need).word.toLowerCase().replace('?', '') + '."';
+    Snd.squeak();
+  }
+  vcv.addEventListener('pointerdown', function (e) {
+    Snd.unlock(); focusSoft(vcv);
+    var r = vcv.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * 320, best = 0, bd = 1e9;
+    V.v.forEach(function (v, i) { var d = Math.abs(v.x - x); if (d < bd) { bd = d; best = i; } });
+    selectV(best);
+  });
+  vcv.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { e.preventDefault(); selectV(V.sel + 1); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); selectV(V.sel - 1); }
+  });
+  function later(frames, fn) { V.sched.push({ t: V.t + frames, fn: fn }); }
+  function burst(v, a) {
+    var i; for (i = 0; i < 10; i++) V.fx.push({ k: 'p', x: v.x + 8, y: 112, vx: (Math.random() - 0.5) * 2.4, vy: -Math.random() * 2.4 - 0.5, life: 40, c: a.col });
+    V.fx.push({ k: 't', x: v.x - 4, y: 70, life: 60, s: a.fx, c: a.col });
+  }
+  function giftFly(from, to, col, after) {
+    V.fx.push({ k: 'g', x0: from.x + 8, x1: to.x + 8, t: 0, dur: 45, c: col });
+    later(45, after);
+  }
+  function doHelp(actId) {
+    Snd.unlock();
+    if (V.busy) { vtoast('Watch the kindness spread first.'); return; }
+    if (V.done) { vtoast('The village is done. Try the replay button.'); return; }
+    var v = V.v[V.sel], a = actById(actId);
+    if (v.mood) { vtoast(v.n + ' is already smiling. Pick someone else.'); return; }
+    if (actId !== v.need) {
+      v.say = 'KIND, BUT...'; v.sayT = 90; Snd.nope();
+      $('#hp-status').textContent = v.n + ' says: "That is sweet, but what I really need is ' + actById(v.need).word.toLowerCase().replace('?', '') + '." Try listening to what people ask for.';
+      return;
+    }
+    V.busy = true; Snd.heal(); burst(v, a); v.hop = 30; addPts(5);
+    $('#hp-status').textContent = 'Just what ' + v.n + ' needed! Now watch what happens.';
+    later(40, function () { v.mood = 1; v.say = 'THANK YOU!'; v.sayT = 80; V.helped++; });
+    later(120, function () { passOn(v); });
+  }
+  function passOn(giver) {
+    var left = V.v.filter(function (x) { return !x.mood; });
+    if (!left.length) { finishVillage(giver); return; }
+    left.sort(function (p, q) { return Math.abs(p.x - giver.x) - Math.abs(q.x - giver.x); });
+    var to = left[0], a = actById(to.need);
+    giver.say = 'MY TURN!'; giver.sayT = 70; Snd.beat();
+    $('#hp-status').textContent = giver.n + ' feels better and now helps ' + to.n + ' with ' + a.word.toLowerCase().replace('?', '') + '.';
+    later(50, function () {
+      giftFly(giver, to, a.col, function () {
+        to.mood = 1; to.say = 'THANKS!'; to.sayT = 70; to.hop = 30; V.helped++; burst(to, a); Snd.heal(); addPts(3);
+        later(70, function () { passOn(to); });
+      });
+    });
+  }
+  function finishVillage(last) {
+    last.say = 'FOR YOU!'; last.sayT = 80;
+    later(40, function () {
+      V.fx.push({ k: 'g', x0: last.x + 8, x1: 12, t: 0, dur: 70, c: '#ffcc2e' });
+      later(70, function () {
+        V.busy = false; V.done = true; addPts(10); Snd.fanfare();
+        for (var i = 0; i < 20; i++) V.fx.push({ k: 'h', x: 8 + Math.random() * 20, y: 150, vy: -0.6 - Math.random(), life: 70 });
+        $('#hp-title').textContent = 'The circle is complete';
+        $('#hp-status').textContent = 'Everyone is smiling, and the last neighbour passed a gift back to you. That is how kindness works: it never needs to stop at one person.';
+        $('#hp-chain').textContent = 'You started a chain of 6. If each person helped just two more, the next wave would reach 12, then 24, then 48.';
+        ST.villageDone = true; save(); updHelpTest();
+        var again = el('button', 'btn btn-sm', 'Play the village again'); again.type = 'button'; again.id = 'hp-again';
+        again.addEventListener('click', function () { Snd.pop(); newVillage(); });
+        $('#hp-chain').parentNode.appendChild(again);
+      });
+    });
+  }
+  function updHelpTest() {
+    var b = $('#help-test-btn');
+    b.disabled = !(ST.villageDone || ST.pass.help);
+    b.textContent = ST.pass.help ? 'Take the Helper Test again' : (ST.villageDone ? 'Take the Helper Test' : 'Finish the village first');
+  }
+  function personDraw(g, x, y, shirt, hair, mood, hop) {
+    var by = y - Math.round(Math.abs(Math.sin(hop / 5)) * (hop > 0 ? 6 : 0));
+    R(g, x, by - 24, 16, 5, hair); R(g, x + 1, by - 20, 14, 10, '#ffd3a8');
+    R(g, x + 4, by - 17, 2, 2, INK); R(g, x + 10, by - 17, 2, 2, INK);
+    if (mood) { R(g, x + 4, by - 13, 8, 1, '#c0392b'); R(g, x + 3, by - 14, 1, 1, '#c0392b'); R(g, x + 12, by - 14, 1, 1, '#c0392b'); }
+    else { R(g, x + 5, by - 13, 6, 1, '#7a3b3b'); R(g, x + 4, by - 12, 1, 1, '#7a3b3b'); R(g, x + 11, by - 12, 1, 1, '#7a3b3b'); R(g, x + 3, by - 15, 1, 3, '#7ec8ff'); }
+    R(g, x + 2, by - 10, 12, 10, shirt); R(g, x - 1, by - 9, 3, 8, '#ffd3a8'); R(g, x + 14, by - 9, 3, 8, '#ffd3a8');
+    R(g, x + 3, by, 4, 6, '#2b3a8c'); R(g, x + 9, by, 4, 6, '#2b3a8c');
+  }
+  function bubble(g, s, cx, y) {
+    var w = s.length * 8 + 8, x = Math.round(cx - w / 2); x = Math.max(2, Math.min(316 - w, x));
+    R(g, x, y, w, 14, INK); R(g, x + 1, y + 1, w - 2, 12, '#ffffff'); R(g, Math.round(cx) - 2, y + 14, 4, 3, INK);
+    g.fillStyle = INK; g.fillText(s, x + 4, y + 3);
+  }
+  function vUpdate() {
+    V.t++;
+    var i, due = V.sched.filter(function (s) { return s.t <= V.t; });
+    V.sched = V.sched.filter(function (s) { return s.t > V.t; });
+    due.forEach(function (s) { s.fn(); });
+    V.v.forEach(function (v) { if (v.sayT > 0) v.sayT--; if (v.hop > 0) v.hop--; });
+    V.fx = V.fx.filter(function (f) {
+      f.life = f.life == null ? 999 : f.life - 1;
+      if (f.k === 'p') { f.x += f.vx; f.y += f.vy; f.vy += 0.1; }
+      else if (f.k === 'h') { f.y += f.vy; }
+      else if (f.k === 't') { f.y -= 0.4; }
+      else if (f.k === 'g') { f.t++; return f.t <= f.dur; }
+      return f.life > 0;
+    });
+  }
+  function vDraw() {
+    var g = vg, i, v, f;
+    setFont(g);
+    for (i = 0; i < 6; i++) R(g, 0, i * 20, 320, 20, ['#7fd0ff', '#9adcff', '#b4e6ff', '#d0f0ff', '#ffe8c4', '#ffd0a8'][i]);
+    D(g, 276, 28, 12, '#ffe27a'); D(g, 276, 28, 9, '#ffcc2e');
+    for (i = 0; i < 5; i++) { R(g, (i * 71 + 20) % 320, 112 - (i % 3) * 5 - 24, 48, 24 + (i % 3) * 5, ['#8fe0b8', '#7fd0a0', '#9fe8c8'][i % 3]); }
+    R(g, 0, 150, 320, 30, '#2fd06a'); R(g, 0, 150, 320, 3, '#7af0a0'); R(g, 0, 156, 320, 24, '#8a5a3a');
+    R(g, 0, 158, 320, 2, '#7a4a2a');
+    for (i = 0; i < 6; i++) { v = V.v[i]; if (!v) continue; /* houses in the back */
+      R(g, v.x - 8, 96, 32, 26, ['#ffe9c7', '#d9f7e6', '#ffe0ec'][i % 3]); for (var q = 0; q < 6; q++) R(g, v.x - 10 + q * 3, 94 - q * 2, 36 - q * 6, 2, i % 2 ? '#ff4f6d' : '#3fb6ff'); R(g, v.x + 4, 108, 8, 14, '#7d3c28');
+    }
+    R(g, 0, 148, 320, 3, '#2fd06a');
+    personDraw(g, 12, 150, '#2ee6a6', '#3b2a20', 1, 0);
+    R(g, 12, 124, 16, 3, '#ffcc2e'); R(g, 14, 122, 12, 3, '#ffcc2e');
+    label(g, 'YOU', 10, 160, '#ffffff');
+    V.v.forEach(function (v2, k) {
+      if (!v2.mood) { D(g, v2.x + 8, 70, 6, '#8b94ad'); D(g, v2.x + 14, 72, 4, '#8b94ad'); D(g, v2.x + 2, 72, 4, '#8b94ad'); R(g, v2.x + 6, 78 + (V.t / 4 + k * 3) % 8, 1, 3, '#7ec8ff'); }
+      personDraw(g, v2.x, 150, v2.shirt, v2.hair, v2.mood, v2.hop);
+      if (v2.mood) heart(g, v2.x + 4, 100 - Math.round(Math.sin(V.t / 10 + k) * 2), 1, '#ff4f6d');
+      if (k === V.sel && !V.busy) { R(g, v2.x + 6, 90 + Math.round(Math.sin(V.t / 8) * 2), 4, 2, INK); R(g, v2.x + 7, 92 + Math.round(Math.sin(V.t / 8) * 2), 2, 2, INK); }
+      label(g, v2.n.toUpperCase(), v2.x + 8 - v2.n.length * 4, 164, '#ffffff');
+    });
+    V.v.forEach(function (v2, k) {
+      if (v2.sayT > 0) bubble(g, v2.say, v2.x + 8, 52);
+      else if (k === V.sel && !V.busy && !v2.mood) bubble(g, actById(v2.need).word, v2.x + 8, 52);
+    });
+    for (i = 0; i < V.fx.length; i++) {
+      f = V.fx[i];
+      if (f.k === 'p') R(g, f.x, f.y, 2, 2, f.c);
+      else if (f.k === 'h') heart(g, f.x, f.y, 1, '#ff4f6d');
+      else if (f.k === 't') { g.fillStyle = INK; g.fillText(f.s, Math.round(f.x) + 1, Math.round(f.y) + 1); g.fillStyle = f.c; g.fillText(f.s, Math.round(f.x), Math.round(f.y)); }
+      else if (f.k === 'g') { var u = f.t / f.dur, gx = f.x0 + (f.x1 - f.x0) * u, gy = 128 - Math.sin(Math.PI * u) * 34; heart(g, gx - 3, gy - 3, 1, f.c); R(g, gx - 1, gy + 4, 2, 2, '#ffffff'); }
+    }
+    label(g, 'HELPED ' + V.helped + '/6', 6, 5, '#231a52');
+  }
+  Loop.add(vcv, vUpdate, vDraw);
+
+  var REAL = [
+    'I smiled at someone and meant it.',
+    'I asked someone how they really are, and listened to the whole answer.',
+    'I taught someone one thing I know.',
+    'I thanked someone who helped me, and asked how I could help them back.'
+  ];
+  (function () {
+    var ul = $('#realacts');
+    REAL.forEach(function (t, i) {
+      var li = el('li'), lab = el('label'), cb = el('input'); cb.type = 'checkbox'; cb.checked = !!ST.real[i]; cb.id = 'real' + i;
+      cb.addEventListener('change', function () {
+        if (cb.checked && !ST.real[i]) { ST.real[i] = true; addPts(5); Snd.collect(i); save(); }
+        else if (!cb.checked) { cb.checked = !!ST.real[i]; }
+      });
+      lab.appendChild(cb); lab.appendChild(el('span', null, t)); li.appendChild(lab); ul.appendChild(li);
+    });
+  })();
+
+  var HELP_POOL = [
+    { q: 'A neighbour asks for a hug, but you offer a snack. What is the best next step?', o: ['Listen to what they need and try again', 'Insist your idea is better', 'Walk away'], e: 'Helping starts with listening.' },
+    { q: 'Why does the chain ask each helped person to help someone else?', o: ['Giving back keeps dignity and spreads help', 'The rules are random', 'To make the game harder'], e: 'Everyone has something to give, and giving feels good too.' },
+    { q: 'Which is a good example of giving back after being helped?', o: ['Teaching a neighbour what you just learned', 'Keeping all the help for yourself', 'Waiting to be asked three times'], e: 'Passing it on turns one act into many.' },
+    { q: 'In health care AI, who should always stay in the loop?', o: ['Clinicians and patients', 'Nobody', 'Only the computer'], e: 'AI assists. People decide.' },
+    { q: 'Why can finding an illness early help?', o: ['Treatment is often simpler and safer', 'It prevents all illness', 'It makes no difference'], e: 'Early care is usually gentler.' },
+    { q: 'Who can help with AI for good?', o: ['Artists, athletes, cooks, teachers and many more', 'Only programmers', 'Only experts'], e: 'Many kinds of hands make a kinder world.' },
+    { q: 'What is a respectful way to help someone?', o: ['Ask what they need and let them give too', 'Decide everything for them', 'Tell everyone how generous you were'], e: 'Respect means partnership, not charity.' }
+  ];
+  var helpQuiz = runQuiz($('#quiz-help'), {
+    title: 'QUICK QUESTION', pool: HELP_POOL, n: 1, pass: 1, reward: 30,
+    passTitle: 'Round 3 complete!', passText: 'You know how to help in a way that lifts people up. Now find your team.', goLabel: 'Open Round 4: Join',
+    onPass: function () { unlock('help', 'connect'); updHelpTest(); }
+  });
+  $('#help-test-btn').addEventListener('click', function () { Snd.unlock(); Snd.pop(); helpQuiz.start(); scrollTo($('#quiz-help'), 'center'); });
+  newVillage(); updHelpTest();
+
+  /* =============== ROUND 4: JOIN (pretend organisations, real ideas) =============== */
+  var COMMUNITY_URL = ''; /* paste a link to a real community (a group, forum or chat) to show a "Join the real community" button */
+  var TEAM_IDEAS = [
+    'build a small project that eases worry in a clinic waiting room',
+    'teach a hundred neighbours one useful health habit',
+    'run a joyful weekend that lifts spirits for a local care charity',
+    'turn one hard idea into something a child would remember',
+    'design a pocket tool that helps someone feel heard'
+  ];
+  var ROLES = [
+    { id: 'Musician', c: '#ff9ad0', gift: 'rhythm and calm', cos: [
+      { n: 'Lullaby Labs', tag: 'Gentle sound for hospital waiting rooms', job: 'Sound designer', q: 'A patient waiting for results feels anxious. What does your first piece sound like?', o: ['Slow, warm notes with room to breathe', 'Loud, fast drums', 'Random static'], win: 'Welcome aboard. First mission: write a 90-second calming loop and try it on three real listeners.' },
+      { n: 'Pocket Orchestra', tag: 'Turn health signals into music', job: 'Composer', q: 'A heartbeat sensor should become music. What matters most?', o: ['The music stays clear, calm and true to the data', 'It is as loud as possible', 'It ignores the data'], win: 'You are in. First mission: map a steady heartbeat to a simple three-note melody anyone can understand.' }] },
+    { id: 'Artist', c: '#ffa94d', gift: 'colour and courage', cos: [
+      { n: 'Colour Clinic', tag: 'Friendly pictures that explain tests to children', job: 'Illustrator', q: 'A child is scared of a scan. Your picture should…', o: ['Show what will happen in a calm, friendly way', 'Show the scariest machine', 'Hide the machine'], win: 'Hired. First mission: draw a four-panel story that walks a child through a scan.' },
+      { n: 'Mural Mission', tag: 'A kindness wall for the whole town', job: 'Lead painter', q: 'Who should decide what goes on the wall?', o: ['The neighbours, with you helping', 'Only you', 'Nobody'], win: 'Welcome. First mission: run a drop-in afternoon where neighbours sketch what kindness looks like.' }] },
+    { id: 'Athlete', c: '#ffd43b', gift: 'energy and teamwork', cos: [
+      { n: 'Stride Society', tag: 'Gentle movement for people recovering from illness', job: 'Movement coach', q: 'Your first class mixes beginners and people recovering. You…', o: ['Offer easier and harder versions of every move', 'Teach only the hardest version', 'Skip the warm-up'], win: 'You are on the team. First mission: design a 15-minute routine with three levels.' },
+      { n: 'Wheel and Heal', tag: 'Charity rides that fund care', job: 'Ride captain', q: 'Planning a charity ride, the first thing to check is…', o: ['Safety and who can take part', 'Who finishes first', 'Nothing'], win: 'Hired. First mission: plan a flat, friendly 10 km route with rest stops.' }] },
+    { id: 'Cook', c: '#69e07f', gift: 'warmth and good food', cos: [
+      { n: 'Pot of Plenty', tag: 'Community meals where everyone brings something', job: 'Head cook', q: 'A guest has an allergy. You…', o: ['Ask, label ingredients and keep dishes separate', 'Hope for the best', 'Skip the labels'], win: 'Welcome to the kitchen. First mission: plan a shared meal with one dish from each guest.' },
+      { n: 'Colour Kitchen', tag: 'Recipes built from colourful food', job: 'Recipe developer', q: 'A good colourful recipe is…', o: ['Simple, affordable and tasty', 'Expensive and complicated', 'Plain beige'], win: 'You are in. First mission: invent a five-colour lunch that costs less than a coffee.' }] },
+    { id: 'Gardener', c: '#38e8d0', gift: 'patience and care', cos: [
+      { n: 'Greenhouse Hearts', tag: 'Healing gardens beside clinics', job: 'Garden designer', q: 'Where should a healing garden begin?', o: ['With places to sit, smell and rest', 'With the tallest fence', 'With concrete'], win: 'Hired. First mission: sketch a garden corner with three seats and four scents.' },
+      { n: 'Seed Swap', tag: 'Share seeds and know-how', job: 'Seed librarian', q: 'A neighbour has never grown anything. You…', o: ['Start with an easy, forgiving plant', 'Hand over a tricky orchid', 'Tell them to read a manual'], win: 'Welcome. First mission: make a starter kit of three easy plants and a one-page guide.' }] },
+    { id: 'Teacher', c: '#66c7ff', gift: 'clear explanations', cos: [
+      { n: 'Tiny Teachers', tag: 'Big ideas explained simply', job: 'Explainer', q: 'To explain overfitting to a ten-year-old you would use…', o: ['The student who memorises last year’s answers', 'A page of equations', 'Silence'], win: 'You are in. First mission: explain one AI idea in 60 seconds with a toy.' },
+      { n: 'Open Classroom', tag: 'Free lessons for anyone', job: 'Lesson host', q: 'A learner looks lost. You…', o: ['Ask what they already know, then build from there', 'Repeat louder', 'Move on'], win: 'Hired. First mission: host a 20-minute beginner session and collect questions.' }] },
+    { id: 'Healer', c: '#ff6b6b', gift: 'listening and care', cos: [
+      { n: 'Care Compass', tag: 'Ask clinicians what slows them down', job: 'Clinical guide', q: 'Before designing a tool for nurses, you first…', o: ['Ask nurses what slows them down', 'Guess', 'Design it alone'], win: 'Welcome. First mission: interview two carers and write down their top three frustrations.' },
+      { n: 'Listening Lantern', tag: 'Peer support that starts with listening', job: 'Listener', q: 'A friend shares something hard. You…', o: ['Listen first and ask how you can help', 'Fix it immediately', 'Change the subject'], win: 'You are in. First mission: practise a ten-minute listening conversation with no advice at all.' }] },
+    { id: 'Maker', c: '#a78bfa', gift: 'building things that work', cos: [
+      { n: 'Tinker Tribe', tag: 'Gadgets that help people do everyday tasks', job: 'Prototype builder', q: 'You are building a gadget for someone with a weak grip. First step?', o: ['Ask them how they use their hands', 'Build the fanciest thing', 'Copy a toy'], win: 'Hired. First mission: prototype a jar opener from cardboard and test it with its future user.' },
+      { n: 'Code Commons', tag: 'Open tools for small clinics', job: 'Open-source maker', q: 'A tool for a small clinic should be…', o: ['Simple, open and easy to fix', 'Closed and secret', 'Needlessly complicated'], win: 'Welcome. First mission: sketch a one-page appointment reminder tool.' }] },
+    { id: 'Writer', c: '#f78fb3', gift: 'plain, kind words', cos: [
+      { n: 'Plain Words Press', tag: 'Health information without jargon', job: 'Plain-language editor', q: 'Which sentence is clearest for a patient?', o: ['"This test looks for signs of infection."', '"The assay interrogates pathogen biomarkers."', '"Test."'], win: 'You are in. First mission: rewrite a clinic leaflet at a reading age of twelve.' },
+      { n: 'Story Seeds', tag: 'Brave stories for nervous children', job: 'Storyteller', q: 'A story for a nervous child should…', o: ['Show someone brave being scared first', 'Pretend nothing is ever scary', 'Be extremely long'], win: 'Hired. First mission: write a 200-word story about a hero who needs a check-up.' }] },
+    { id: 'Dreamer', c: '#ffe27a', gift: 'fresh questions', cos: [
+      { n: 'Question Factory', tag: 'Collect the questions nobody asked', job: 'Question finder', q: 'You notice something odd. You…', o: ['Ask why, kindly and out loud', 'Stay quiet', 'Assume you are wrong'], win: 'Welcome. First mission: write ten questions about how a clinic could feel kinder.' },
+      { n: 'Future Forecast', tag: 'Small ideas for a kinder city', job: 'Idea scout', q: 'A good idea for a kinder city is…', o: ['Small enough to try this month', 'Impossible forever', 'A secret'], win: 'You are in. First mission: pitch one tiny kindness experiment for your street.' }] }
+  ];
+  var modal = $('#modal'), modalBody = $('#modal-body'), lastTile = null;
+  function buildTiles() {
+    var box = $('#tiles'); box.textContent = '';
+    ROLES.forEach(function (r) {
+      var b = el('button', 'tile', r.id.toUpperCase()); b.type = 'button'; b.style.setProperty('--c', r.c);
+      b.addEventListener('click', function () { lastTile = b; openRole(r); });
+      box.appendChild(b);
+    });
+    $('#connect-note').textContent = 'The organisations are pretend, to help you picture where you fit. The skills, the ideas and the kindness are real.';
+    if (COMMUNITY_URL) {
+      var c = $('#community'); c.hidden = false; c.textContent = '';
+      var a = el('a', 'btn btn-coral', 'Join the real community'); a.href = COMMUNITY_URL; a.target = '_blank'; a.rel = 'noopener'; c.appendChild(a);
+    }
+  }
+  function closeModal() { modal.hidden = true; if (lastTile) focusSoft(lastTile); }
+  $('#modal-close').addEventListener('click', function () { Snd.pop(); closeModal(); });
+  modal.addEventListener('pointerdown', function (e) { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !modal.hidden) closeModal(); });
+
+  function openRole(role) {
+    Snd.unlock(); Snd.star();
+    if (!ST.role) { ST.role = true; addPts(5); }
+    $('#modal-title').textContent = 'THE COMMONS | ' + role.id.toUpperCase() + ' QUARTER';
+    modal.hidden = false; focusSoft($('#modal-close'));
+    renderTab(role, 'jobs');
+  }
+  function renderTab(role, tab) {
+    modalBody.textContent = '';
+    var tabs = el('div', 'stabs'); tabs.setAttribute('role', 'tablist');
+    [['jobs', 'Hiring now'], ['team', 'Find a teammate']].forEach(function (t) {
+      var b = el('button', 'stab', t[1]); b.type = 'button'; b.setAttribute('role', 'tab'); b.setAttribute('aria-selected', t[0] === tab ? 'true' : 'false');
+      b.addEventListener('click', function () { Snd.pop(); renderTab(role, t[0]); }); tabs.appendChild(b);
+    });
+    modalBody.appendChild(tabs);
+    if (tab === 'jobs') renderJobs(role); else renderTeam(role);
+  }
+  function renderJobs(role) {
+    modalBody.appendChild(el('h3', null, 'Pretend organisations that need a ' + role.id.toLowerCase()));
+    modalBody.appendChild(el('p', 'fine', 'Choose one and try the interview. These are practice conversations, so nothing is sent to anyone.'));
+    var list = el('div', 'cos');
+    role.cos.forEach(function (co) {
+      var card = el('div', 'co'); card.style.setProperty('--c', '#fff');
+      card.appendChild(el('h4', null, co.n.toUpperCase()));
+      card.appendChild(el('p', 'tag', co.tag + ' | Role: ' + co.job));
+      var area = el('div'); card.appendChild(area);
+      var go = el('button', 'btn btn-sun btn-sm', ST.hired && ST.hired[co.n] ? 'Hired. Interview again' : 'Interview'); go.type = 'button';
+      go.addEventListener('click', function () { go.hidden = true; Snd.pop(); interview(area, co, go); });
+      card.appendChild(go); list.appendChild(card);
+    });
+    modalBody.appendChild(list);
+  }
+  function interview(area, co, goBtn) {
+    area.textContent = '';
+    area.appendChild(el('p', null, '"' + co.q + '"'));
+    var opts = el('div', 'opts'), fb = el('p', 'fb'); fb.setAttribute('role', 'status'); var done = false;
+    shuffle([0, 1, 2]).forEach(function (idx) {
+      var b = el('button', 'opt', co.o[idx]); b.type = 'button';
+      b.addEventListener('click', function () {
+        if (done) return;
+        if (idx === 0) {
+          done = true; $$('.opt', opts).forEach(function (x) { x.disabled = true; }); b.classList.add('good'); Snd.fanfare();
+          if (!ST.hired) ST.hired = {};
+          if (!ST.hired[co.n]) { ST.hired[co.n] = true; addPts(10); }
+          fb.textContent = '';
+          var h = el('div', 'hired'); h.appendChild(el('h4', null, 'YOU ARE HIRED'));
+          h.appendChild(el('p', null, co.win));
+          h.appendChild(el('p', 'fine', 'A pretend job, with a real idea you can try this week.'));
+          area.appendChild(h); goBtn.hidden = false; goBtn.textContent = 'Interview again';
+        } else { b.classList.add('bad'); b.disabled = true; Snd.nope(); fb.textContent = 'Not quite. They are hoping for something more thoughtful. Try another answer.'; }
+      });
+      opts.appendChild(b);
+    });
+    area.appendChild(opts); area.appendChild(fb);
+  }
+  function renderTeam(role) {
+    modalBody.appendChild(el('h3', null, 'Who would you love to team up with?'));
+    modalBody.appendChild(el('p', 'fine', 'Pick another kind of person. You will get an idea that needs both of you.'));
+    var row = el('div', 'stabs'), out = el('div', 'hired'); out.hidden = true;
+    var cur = null;
+    function idea(other) {
+      cur = other; out.hidden = false; out.textContent = '';
+      out.appendChild(el('h4', null, role.id.toUpperCase() + ' + ' + other.id.toUpperCase()));
+      out.appendChild(el('p', null, 'The ' + role.id.toLowerCase() + ' brings ' + role.gift + '. The ' + other.id.toLowerCase() + ' brings ' + other.gift + '. Together you could ' + pick(TEAM_IDEAS) + '.'));
+      var again = el('button', 'btn btn-sm', 'Another idea'); again.type = 'button'; again.addEventListener('click', function () { Snd.pop(); idea(cur); });
+      out.appendChild(again); Snd.star();
+      if (!ST.teamed) { ST.teamed = true; addPts(5); }
+    }
+    ROLES.filter(function (r) { return r.id !== role.id; }).forEach(function (r) {
+      var b = el('button', 'stab', r.id); b.type = 'button'; b.style.background = r.c; b.addEventListener('click', function () { idea(r); }); row.appendChild(b);
+    });
+    modalBody.appendChild(row); modalBody.appendChild(out);
+    modalBody.appendChild(el('p', 'fine', 'Next step in real life: find one person like this near you and say hello.'));
+  }
+
+
+
+  /* =============== ROUND 5: THE FUTURISTIC AI CONFERENCE =============== */
+  var GUESTS = [
+    { id: 'farmer', name: 'Farmer Ade', who: 'A farmer with fields and a basic phone', sp: { skin: '#e8b88a', hair: '#6b4a2a', hat: 'straw', hatCol: '#f2d27a', shirt: '#c0453a', pants: '#3a5fa8' },
+      cares: ['food', 'climate', 'work', 'access'],
+      challenge: 'The weather is wild, pests arrive overnight, and fancy equipment costs far too much.',
+      hope: 'Cheap tools that tell me what my crops need, in plain words.',
+      yes: 'That could save my harvest and a lot of sleepless nights. It would feed my family and my whole village.',
+      ask: 'Would it work on a basic phone with no internet?' },
+    { id: 'gp', name: 'Dr Sam', who: 'A family doctor (GP)', sp: { skin: '#8d5a3a', hair: '#1b1530', shirt: '#ffffff', pants: '#4a5278', extra: 'steth' },
+      cares: ['health', 'access', 'elders'],
+      challenge: 'Ten-minute appointments, mountains of paperwork, and a waiting room that never empties.',
+      hope: 'Help seeing trouble early, and time to actually talk with my patients.',
+      yes: 'That would give me back time and help me catch illness sooner. My patients would feel the difference.',
+      ask: 'Who checks the AI, and can I overrule it?' },
+    { id: 'alien', name: 'Zorp', who: 'A visitor from Planet Zee', sp: { skin: '#7cf0a0', shirt: '#a78bff', pants: '#6a3df0', extra: 'antenna', alien: true },
+      cares: ['communication', 'joy', 'meaning'],
+      challenge: 'Your planet has thousands of languages and not one of them is Zorpish.',
+      hope: 'To understand you, and to be understood. Also snacks.',
+      yes: 'In my galaxy this would count as a first-contact breakthrough. I might stay on Earth another year.',
+      ask: 'Does it work for beings with five arms?' },
+    { id: 'teacher', name: 'Ms Rivera', who: 'A primary school teacher', sp: { skin: '#ffd3a8', hair: '#c9792b', shirt: '#3fb6ff', pants: '#2b3a8c', extra: 'glasses' },
+      cares: ['learning', 'access', 'joy', 'fairness'],
+      challenge: 'Thirty children, thirty different speeds, and only one of me.',
+      hope: 'Tools that help every child feel clever instead of left behind.',
+      yes: 'Every child would get the attention I wish I could give, and I might get my evenings back.',
+      ask: 'Will it keep children’s information private?' },
+    { id: 'grandma', name: 'Grandma Rosa', who: 'A grandmother who lives alone', sp: { skin: '#f3c9a0', hair: '#e8e8f0', shirt: '#ff9ad0', pants: '#6a3df0', extra: 'cane' },
+      cares: ['elders', 'health', 'community', 'meaning'],
+      challenge: 'The screens are tiny, the apps keep changing, and sometimes I feel lonely.',
+      hope: 'Technology that is gentle and patient, and brings my family closer.',
+      yes: 'I would feel safer in my own home, and closer to my grandchildren.',
+      ask: 'Can I just talk to it out loud, and can it speak slowly?' },
+    { id: 'child', name: 'Tomi', who: 'A seven-year-old with a balloon', sp: { skin: '#ffd3a8', hair: '#222222', shirt: '#ffcc2e', pants: '#ff4f6d', extra: 'balloon', small: true },
+      cares: ['learning', 'joy', 'creativity'],
+      challenge: 'Grown-ups say "later" when I ask why.',
+      hope: 'Answers to all my whys, and games that never get boring.',
+      yes: 'Yay! I could learn anything and make my own stories. Can we do it now?',
+      ask: 'Will it be fun? Please say it will be fun.' },
+    { id: 'artist', name: 'Nia', who: 'A painter and musician', sp: { skin: '#c68642', hair: '#222222', hat: 'beret', hatCol: '#ff4f6d', shirt: '#2ee6a6', pants: '#231a52', extra: 'palette' },
+      cares: ['creativity', 'meaning', 'community', 'work'],
+      challenge: 'People keep asking whether AI will replace me.',
+      hope: 'Tools that amplify my voice, and credit when my work helps.',
+      yes: 'I could try a hundred ideas before lunch, and my name would stay on what I make.',
+      ask: 'Who owns what we create together?' },
+    { id: 'fisher', name: 'Captain Lin', who: 'A fisher who works the sea', sp: { skin: '#e0ac80', hair: '#333333', hat: 'rain', hatCol: '#ffcc2e', shirt: '#ffcc2e', pants: '#2a6f4e', extra: 'fish' },
+      cares: ['climate', 'nature', 'work', 'food'],
+      challenge: 'Fewer fish, rougher seas, and fuel that costs a fortune.',
+      hope: 'Early storm warnings, and ways to fish that leave something for tomorrow.',
+      yes: 'That could keep my crew safe and keep the sea healthy for my kids.',
+      ask: 'Will it work out at sea, far from any signal?' }
+  ];
+  var TOPICS = [
+    { title: 'In an age when AI can write code and papers, what is more valuable for human flourishing?', tags: ['meaning', 'community', 'creativity', 'joy'],
+      slides: ['AI is getting very good at writing code, reports and papers.', 'So what is scarce has changed: choosing which problems matter, and truly listening to the people who have them.', 'And the things we give each other: care, trust, joy and a sense of purpose. Let us design AI to protect those.'] },
+    { title: 'AI that spots illness early, even far from a hospital', tags: ['health', 'access', 'elders'],
+      slides: ['A cheap scanner and a phone camera look for early signs of illness.', 'A doctor in the next town checks what the AI flags and talks with the patient.', 'Earlier care means gentler treatment and less worry for families.'] },
+    { title: 'Farming with fewer chemicals and bigger harvests', tags: ['food', 'climate', 'work', 'access'],
+      slides: ['Low-cost cameras spot thirsty plants and early pests.', 'Advice arrives as a simple message in the farmer’s own language.', 'Fewer chemicals, less water and a steadier income.'] },
+    { title: 'A patient AI tutor for every child, in every language', tags: ['learning', 'access', 'joy'],
+      slides: ['An AI tutor explains things in a child’s language, at the child’s pace.', 'Teachers get time back for what only humans do best: encouraging.', 'No child gets left behind because the class moved on.'] },
+    { title: 'Fairer AI that checks itself for bias', tags: ['fairness', 'community'],
+      slides: ['Before an AI makes decisions, we test it on people of every kind.', 'If it treats someone unfairly, it is fixed or switched off.', 'Communities help decide what "fair" means.'] },
+    { title: 'Helping older people stay independent and connected', tags: ['elders', 'health', 'community'],
+      slides: ['Gentle assistants remind, reassure and call family with a single tap.', 'They learn each person’s routine and notice when something changes.', 'Technology that brings people closer, never instead of them.'] },
+    { title: 'Talking with anyone, in any language, including aliens', tags: ['communication', 'joy', 'access'],
+      slides: ['Translation AI learns the patterns of a language from very few examples.', 'It helps speakers of rare languages be heard.', 'And one day, maybe, a first conversation with someone from another planet.'] },
+    { title: 'Cleaner oceans and skies, with AI as the lookout', tags: ['climate', 'nature', 'work'],
+      slides: ['Satellites and sensors watch for pollution, storms and illegal fishing.', 'AI turns the signals into early warnings for communities.', 'Healthier seas and safer boats.'] },
+    { title: 'New music, art and play, made by everyone', tags: ['creativity', 'joy', 'community'],
+      slides: ['Creative AI lowers the barrier: hum a tune, get an orchestra.', 'Artists stay in charge, and are credited and rewarded.', 'More people making things means a happier world.'] },
+    { title: 'AI small enough to run on a basic phone', tags: ['access', 'work', 'food'],
+      slides: ['Smaller models run without internet and without a big bill.', 'Villages, boats and farms can use them offline.', 'The best tools go where the need is, not only where the money is.'] }
+  ];
+  var KEYWORDS = { health: ['health', 'doctor', 'ill', 'disease', 'hospital', 'medic', 'pain'], food: ['food', 'farm', 'crop', 'hunger'], climate: ['climate', 'ocean', 'weather', 'planet', 'environment', 'earth'], nature: ['nature', 'animal', 'forest', 'sea'],
+    learning: ['school', 'learn', 'teach', 'educat', 'child', 'kid', 'student'], creativity: ['art', 'music', 'creativ', 'paint', 'story'], elders: ['old', 'elder', 'lonely', 'grand'], communication: ['language', 'translat', 'talk', 'alien', 'speak'],
+    fairness: ['fair', 'bias', 'justice', 'equal'], meaning: ['meaning', 'flourish', 'purpose', 'happy', 'happiness', 'wellbeing', 'value'], work: ['job', 'work', 'money', 'income'], joy: ['joy', 'fun', 'play', 'game'], access: ['cheap', 'afford', 'access', 'free'], community: ['communit', 'neighbour', 'together', 'friend'] };
+  function guessTags(text) {
+    var t = text.toLowerCase(), out = [];
+    Object.keys(KEYWORDS).forEach(function (k) { if (KEYWORDS[k].some(function (w) { return t.indexOf(w) >= 0; })) out.push(k); });
+    return out;
+  }
+
+  function drawFig(g, sp, s, bob, ox) {
+    ox = ox || 0;
+    var yo = sp.small ? 3 : 0;
+    function P(x, y, w, h, col) { g.fillStyle = col; g.fillRect(Math.round(x * s + ox), Math.round((y + yo + bob) * s), w * s, h * s); }
+    P(5, 17, 2, 4, sp.pants); P(9, 17, 2, 4, sp.pants); P(5, 21, 2, 1, INK); P(9, 21, 2, 1, INK);
+    P(4, 10, 8, 7, sp.shirt); P(3, 11, 1, 5, sp.skin); P(12, 11, 1, 5, sp.skin);
+    if (sp.extra === 'steth') { P(7, 10, 1, 5, '#3fb6ff'); P(6, 14, 3, 1, '#3fb6ff'); }
+    P(4, 3, 8, 7, sp.skin);
+    if (sp.hair) { P(4, 2, 8, 2, sp.hair); P(3, 3, 1, 4, sp.hair); P(12, 3, 1, 4, sp.hair); }
+    if (sp.alien) { P(4, 2, 8, 1, sp.skin); P(5, 5, 2, 3, INK); P(9, 5, 2, 3, INK); P(7, 8, 2, 1, INK); P(5, 0, 1, 3, '#7cf0a0'); P(10, 0, 1, 3, '#7cf0a0'); P(4, 0, 3, 1, '#ff4f6d'); P(9, 0, 3, 1, '#ff4f6d'); }
+    else { P(6, 6, 1, 2, INK); P(9, 6, 1, 2, INK); P(7, 8, 2, 1, '#c0392b'); }
+    if (sp.hat === 'straw') { P(2, 2, 12, 1, sp.hatCol); P(4, 0, 8, 2, sp.hatCol); P(4, 1, 8, 1, '#c0453a'); }
+    if (sp.hat === 'beret') { P(3, 1, 9, 2, sp.hatCol); P(10, 0, 2, 1, sp.hatCol); }
+    if (sp.hat === 'rain') { P(3, 1, 10, 2, sp.hatCol); P(2, 3, 12, 1, sp.hatCol); }
+    if (sp.extra === 'glasses') { P(5, 5, 2, 3, INK); P(9, 5, 2, 3, INK); P(6, 6, 1, 1, '#ffffff'); P(9, 6, 1, 1, '#ffffff'); P(7, 6, 2, 1, INK); }
+    if (sp.extra === 'balloon') { P(13, 0, 3, 4, '#ff4f6d'); P(14, 4, 1, 8, INK); }
+    if (sp.extra === 'palette') { P(12, 13, 3, 2, '#ffcc2e'); P(13, 13, 1, 1, '#ff4f6d'); }
+    if (sp.extra === 'cane') { P(13, 12, 1, 9, '#7d3c28'); }
+    if (sp.extra === 'fish') { P(12, 13, 3, 2, '#3fb6ff'); P(14, 12, 1, 1, '#3fb6ff'); }
+  }
+  function figCanvas(sp) {
+    var c = el('canvas', 'fig'); c.width = 48; c.height = 66; c.setAttribute('aria-hidden', 'true');
+    drawFig(c.getContext('2d'), sp, 3, 0); return c;
+  }
+  function guestById(id) { return GUESTS.filter(function (g) { return g.id === id; })[0]; }
+
+  var CF = { rooms: [{ t: null, g: [] }, { t: null, g: [] }, { t: null, g: [] }], sel: 0, guest: null, sessions: 0, done: {}, party: 0, ht: 0, conf: [], partied: false };
+
+  function roomOf(id) { for (var i = 0; i < 3; i++) if (CF.rooms[i].g.indexOf(id) >= 0) return i; return -1; }
+  function renderRooms() {
+    var box = $('#cf-rooms'); box.textContent = '';
+    CF.rooms.forEach(function (r, i) {
+      var room = el('div', 'room'); room.setAttribute('data-sel', i === CF.sel ? 'true' : 'false');
+      room.appendChild(el('h4', null, 'ROOM ' + (i + 1)));
+      room.appendChild(el('p', 'topic' + (r.t ? '' : ' empty'), r.t ? r.t.title : 'Empty. Throw a topic in.'));
+      var seats = el('div', 'seats');
+      for (var k = 0; k < 4; k++) {
+        var s = el('button', 'seat'); s.type = 'button';
+        if (r.g[k]) {
+          (function (gid) { s.classList.add('full'); s.appendChild(figCanvas(guestById(gid).sp)); s.setAttribute('aria-label', 'Remove ' + guestById(gid).name + ' from room ' + (i + 1));
+            s.addEventListener('click', function () { r.g.splice(r.g.indexOf(gid), 1); Snd.pop(); renderRooms(); renderGuestCard(); }); })(r.g[k]);
+        } else { s.textContent = '+'; s.setAttribute('aria-label', 'Empty seat'); s.addEventListener('click', function () { CF.sel = i; Snd.pop(); renderRooms(); renderSel(); }); }
+        seats.appendChild(s);
+      }
+      room.appendChild(seats);
+      var row = el('div', 'btnrow');
+      var pickB = el('button', 'btn btn-sm', i === CF.sel ? 'Selected' : 'Use this room'); pickB.type = 'button';
+      pickB.addEventListener('click', function () { CF.sel = i; Snd.pop(); renderRooms(); renderSel(); });
+      var go = el('button', 'btn btn-sm btn-coral', 'Start session'); go.type = 'button'; go.disabled = !(r.t && r.g.length);
+      go.addEventListener('click', function () { Snd.unlock(); startSession(i); });
+      row.appendChild(pickB); row.appendChild(go); room.appendChild(row);
+      box.appendChild(room);
+    });
+    renderSel();
+  }
+  function renderSel() { $('#cf-sel-name').textContent = 'Room ' + (CF.sel + 1); }
+  function throwTopic(t) {
+    CF.rooms[CF.sel].t = t; Snd.unlock(); Snd.star(); renderRooms();
+  }
+  $('#cf-throw').addEventListener('click', function () {
+    var used = CF.rooms.map(function (r) { return r.t; }), fresh = TOPICS.filter(function (t) { return used.indexOf(t) < 0; });
+    CF.thrown = (CF.thrown || 0) + 1;
+    throwTopic(CF.thrown === 1 && used.indexOf(TOPICS[0]) < 0 ? TOPICS[0] : pick(fresh.length ? fresh : TOPICS));
+  });
+  $('#cf-add').addEventListener('click', function () {
+    var inp = $('#cf-own'), text = inp.value.trim();
+    if (!text) { inp.focus(); Snd.nope(); return; }
+    throwTopic({ title: text, tags: guessTags(text), custom: true, slides: ['Here is the big question: ' + text, 'The research team starts by listening to the people it is meant to help.', 'Then they build something small, test it with real people, and keep improving it together.'] });
+    inp.value = '';
+  });
+  $('#cf-own').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); $('#cf-add').click(); } });
+
+  function renderGuests() {
+    var box = $('#cf-guests'); box.textContent = '';
+    GUESTS.forEach(function (gst) {
+      var b = el('button', 'guest'); b.type = 'button'; b.setAttribute('aria-pressed', CF.guest === gst.id ? 'true' : 'false');
+      b.appendChild(figCanvas(gst.sp)); b.appendChild(document.createTextNode(gst.name.toUpperCase()));
+      b.addEventListener('click', function () { CF.guest = gst.id; Snd.unlock(); Snd.squeak(); renderGuests(); renderGuestCard(); });
+      box.appendChild(b);
+    });
+  }
+  function renderGuestCard() {
+    var c = $('#cf-card'); c.textContent = '';
+    if (!CF.guest) { c.hidden = true; return; }
+    var gst = guestById(CF.guest); c.hidden = false;
+    c.appendChild(el('h4', null, gst.name.toUpperCase() + ': ' + gst.who));
+    c.appendChild(el('p', null, 'What I struggle with: ' + gst.challenge));
+    c.appendChild(el('p', null, 'What I hope for: ' + gst.hope));
+    var row = el('div', 'btnrow'), at = roomOf(gst.id);
+    for (var i = 0; i < 3; i++) {
+      (function (i) {
+        var b = el('button', 'btn btn-sm' + (at === i ? ' btn-mint' : ''), at === i ? 'Seated in Room ' + (i + 1) : 'Seat in Room ' + (i + 1)); b.type = 'button';
+        b.disabled = at === i || CF.rooms[i].g.length >= 4;
+        b.addEventListener('click', function () {
+          if (at >= 0) CF.rooms[at].g.splice(CF.rooms[at].g.indexOf(gst.id), 1);
+          CF.rooms[i].g.push(gst.id); Snd.collect(CF.rooms[i].g.length); renderRooms(); renderGuestCard();
+        });
+        row.appendChild(b);
+      })(i);
+    }
+    c.appendChild(row);
+  }
+
+  /* ---- a session: three slides, then the guests respond ---- */
+  var SS = null;
+  function startSession(ri) {
+    var r = CF.rooms[ri]; if (!r.t || !r.g.length) return;
+    SS = { ri: ri, i: 0, heard: {} };
+    renderSession();
+    var st = $('#cf-stage'); st.hidden = false; scrollTo(st, 'center');
+  }
+  function renderSession() {
+    var r = CF.rooms[SS.ri], st = $('#cf-stage'); st.textContent = '';
+    st.appendChild(el('p', 'eyebrow', 'ROOM ' + (SS.ri + 1) + ' | NOW PRESENTING'));
+    st.appendChild(el('h3', null, r.t.title));
+    var aud = el('div', 'aud');
+    r.g.forEach(function (gid) {
+      var gst = guestById(gid), b = el('button', 'guest'); b.type = 'button';
+      b.appendChild(figCanvas(gst.sp)); b.appendChild(document.createTextNode(gst.name.toUpperCase()));
+      b.disabled = SS.i < r.t.slides.length;
+      b.addEventListener('click', function () { respond(gst); });
+      aud.appendChild(b);
+    });
+    if (SS.i < r.t.slides.length) {
+      st.appendChild(el('p', 'qz-meta', 'SLIDE ' + (SS.i + 1) + ' OF ' + r.t.slides.length));
+      st.appendChild(el('div', 'slide', r.t.slides[SS.i]));
+      st.appendChild(aud);
+      var nx = el('button', 'btn btn-sun', SS.i < r.t.slides.length - 1 ? 'Next slide' : 'Open the floor'); nx.type = 'button';
+      nx.addEventListener('click', function () { Snd.pop(); SS.i++; renderSession(); }); st.appendChild(nx); focusSoft(nx);
+    } else {
+      st.appendChild(el('p', 'fine', 'The talk is over. Tap each guest to hear what it means for their life.'));
+      st.appendChild(aud);
+      var says = el('div', 'says'); says.id = 'cf-says'; says.setAttribute('aria-live', 'polite'); st.appendChild(says);
+      Object.keys(SS.heard).forEach(function (id) { says.appendChild(SS.heard[id]); });
+      var wrap = el('button', 'btn btn-coral', 'Wrap up the session'); wrap.type = 'button'; wrap.id = 'cf-wrap';
+      wrap.disabled = Object.keys(SS.heard).length < r.g.length;
+      wrap.addEventListener('click', function () { wrapUp(); }); st.appendChild(wrap);
+    }
+  }
+  function respond(gst) {
+    var r = CF.rooms[SS.ri]; if (SS.heard[gst.id]) return;
+    var fit = gst.cares.some(function (c) { return r.t.tags.indexOf(c) >= 0; });
+    var box = el('div', 'say' + (fit ? ' yes' : ''));
+    box.appendChild(el('b', null, gst.name.toUpperCase() + (fit ? ' SAYS: THIS MATTERS TO ME' : ' ASKS A QUESTION')));
+    box.appendChild(el('span', null, fit ? gst.yes : gst.ask + ' The research team writes that down. Good questions make better research.'));
+    SS.heard[gst.id] = box; fit ? Snd.heal() : Snd.squeak();
+    renderSession();
+    var s = $('#cf-says'); if (s) { var last = s.lastChild; if (last && last.scrollIntoView) { try { last.scrollIntoView({ block: 'nearest' }); } catch (e) {} } }
+    var w = $('#cf-wrap'); if (w && !w.disabled) focusSoft(w);
+  }
+  function wrapUp() {
+    var r = CF.rooms[SS.ri], yes = Object.keys(SS.heard).filter(function (id) { return SS.heard[id].classList.contains('yes'); }).length, n = r.g.length;
+    var st = $('#cf-stage'); st.textContent = '';
+    st.appendChild(el('p', 'eyebrow', 'SESSION COMPLETE'));
+    st.appendChild(el('h3', null, yes + ' of ' + n + ' guests said it changes their life.'));
+    st.appendChild(el('p', null, yes === n ? 'A full room of nodding heads. Real research starts with real needs like these.' : 'The others asked questions, and that is the best part. Those questions become the next research project.'));
+    if (!CF.done[r.t.title]) { CF.done[r.t.title] = true; addPts(10); }
+    CF.sessions++; Snd.fanfare();
+    var again = el('button', 'btn btn-sun', 'Run another session'); again.type = 'button'; again.addEventListener('click', function () { st.hidden = true; Snd.pop(); scrollTo($('#cf-rooms'), 'center'); });
+    st.appendChild(again);
+    var pb = $('#cf-party'); pb.disabled = false; $('#cf-note').textContent = 'Sessions run: ' + CF.sessions + '. Ready to celebrate?';
+  }
+  $('#cf-party').addEventListener('click', function () {
+    Snd.unlock(); Snd.fanfare(); CF.party = 420; CF.partied = true;
+    var i; for (i = 0; i < 90; i++) CF.conf.push({ x: Math.random() * 320, y: -Math.random() * 90, vx: (Math.random() - 0.5) * 1.2, vy: 0.6 + Math.random() * 1.2, c: ['#ff4f6d', '#ffcc2e', '#2ee6a6', '#3fb6ff', '#a78bff', '#ffffff'][i % 6] });
+    if (!ST.partied) { ST.partied = true; addPts(15); }
+    $('#cf-note').textContent = 'You did it. AI for good, by everyone, for everyone.';
+    scrollTo($('#cf-hall'), 'center');
+  });
+
+  /* ---- the hall ---- */
+  var hcv = $('#cf-hall'), hg = hcv.getContext('2d');
+  function hallUpdate() {
+    CF.ht++; if (CF.party > 0) CF.party--;
+    CF.conf = CF.conf.filter(function (p) { p.x += p.vx; p.y += p.vy; return p.y < 94; });
+  }
+  function hallDraw() {
+    var g = hg, i, t = CF.ht;
+    setFont(g);
+    for (i = 0; i < 9; i++) R(g, 0, i * 10, 320, 10, ['#ffe8c4', '#ffe0b4', '#ffd8a4', '#ffd0a0', '#ffc8a0', '#ffc0a0', '#ffb8a0', '#ffb0a0', '#ffa8a0'][i]);
+    R(g, 0, 74, 320, 16, '#8a5a3a'); R(g, 0, 74, 320, 3, '#a8703f');
+    for (i = 0; i < 20; i++) {
+      var bx = i * 17 - 4, by = 4 + Math.round(Math.sin(i * 0.8) * 3);
+      R(g, bx, by, 17, 1, INK);
+      g.fillStyle = ['#ff4f6d', '#ffcc2e', '#2ee6a6', '#3fb6ff', '#a78bff'][i % 5];
+      var sw = Math.round(Math.sin(t / 25 + i) * 1.5);
+      g.fillRect(bx + 3, by + 1, 11, 2); g.fillRect(bx + 4, by + 3, 9, 2); g.fillRect(bx + 5 + sw, by + 5, 7, 2); g.fillRect(bx + 7 + sw, by + 7, 3, 2);
+    }
+    var msg = CF.party > 0 ? 'AI4GOOD!!!' : 'FUTURISTIC AI CONFERENCE';
+    label(g, msg, 160 - msg.length * 4, 17, CF.party > 0 && t % 20 < 10 ? '#ffffff' : '#231a52');
+    label(g, 'EVERYONE WELCOME', 96, 28, '#c0453a');
+    GUESTS.forEach(function (gst, k) {
+      var jump = CF.party > 0 ? Math.abs(Math.sin(t / 8 + k)) * 14 : Math.sin(t / 30 + k) * 1.2;
+      drawFig(g, gst.sp, 2, 19 - jump / 2, 6 + k * 39);
+    });
+    for (i = 0; i < CF.conf.length; i++) R(g, CF.conf[i].x, CF.conf[i].y, 3, 2, CF.conf[i].c);
+  }
+  Loop.add(hcv, hallUpdate, hallDraw);
+  renderRooms(); renderGuests(); renderGuestCard();
+  /* =============== TERMS NOTICE =============== */
+  (function () {
+    var tm = $('#terms'), ok = $('#terms-ok'), go = $('#terms-go'), shell = [$('main'), $('header'), $('footer')];
+    function setInert(v) { shell.forEach(function (n) { if (!n) return; try { if (v) n.setAttribute('inert', ''); else n.removeAttribute('inert'); } catch (e) {} }); }
+    function show() { ok.checked = false; go.disabled = true; tm.hidden = false; setInert(true); focusSoft(ok); }
+    ok.addEventListener('change', function () { go.disabled = !ok.checked; });
+    go.addEventListener('click', function () {
+      if (!ok.checked) return;
+      ST.accepted = true; save(); tm.hidden = true; setInert(false); Snd.unlock(); Snd.pop();
+    });
+    $('#terms-open').addEventListener('click', function () { show(); });
+    if (!ST.accepted) show();
+  })();
+
+  /* =============== BOOT =============== */
+  (function () {
+    var armed = false, tm = null, b = $('#reset-all');
+    b.addEventListener('click', function () {
+      if (!armed) { armed = true; b.textContent = 'Sure? Click again'; tm = setTimeout(function () { armed = false; b.textContent = 'Start over'; }, 3500); return; }
+      clearTimeout(tm); armed = false; b.textContent = 'Start over';
+      ST = defaults(); save(); try { window.location.reload(); } catch (e) {}
+    });
+  })();
+  buildTiles(); renderJargon(); applyLocks(); updHud(); refreshPlayCheck();
+  if (ST.pass.play) startLearn();
+  if (window.__TEST__) { window.__t = { get ST() { return ST; }, CON: CON, ANIMALS: ANIMALS, get Z() { return Z; }, get RD() { return RD; }, get CS() { return CS; }, get V() { return V; }, WONDERS: WONDERS, get LR() { return LR; }, PLAY_POOL: PLAY_POOL, HELP_POOL: HELP_POOL, CF: CF, GUESTS: GUESTS, TOPICS: TOPICS }; }
+})();
+</script>
+</body>
+</html>
