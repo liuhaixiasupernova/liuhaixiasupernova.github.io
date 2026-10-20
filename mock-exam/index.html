@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script src="../ai2/gate.js"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Mock exam questions for AI2: six written-answer questions, 40 marks. Practice only.">
+<title>Mock Exam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&family=Press+Start+2P&display=swap">
+<link rel="stylesheet" href="../ai2/ai2.css">
+<style>
+.mx-q{background:#fff;border:4px solid #231a52;box-shadow:6px 6px 0 #231a52;padding:clamp(14px,3vw,24px);display:grid;gap:14px;min-width:0}
+.mx-q h2{margin:0;font:400 .8rem/1.6 "Press Start 2P",monospace;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.mx-q .marks{color:#6a3df0}
+.mx-q p{margin:0;font-weight:700;line-height:1.55}
+.mx-pad{display:grid;gap:8px}.mx-pad canvas{width:100%;height:auto;display:block;background:#fff;border:3px solid #231a52;touch-action:none;cursor:crosshair;background-image:linear-gradient(#e6e9f5 1px,transparent 1px);background-size:100% 28px}.mx-bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.mx-bar button{font:800 .85rem Nunito,system-ui,sans-serif;padding:.4rem .7rem;border:3px solid #231a52;background:#fff;color:#231a52;cursor:pointer}.mx-bar button[aria-pressed=true]{background:#ffd23f}.mx-bar .sw{width:28px;height:28px;padding:0;border-radius:50%}.mx-bar .sw[aria-pressed=true]{outline:3px solid #231a52;outline-offset:2px}.mx-how{display:grid;gap:8px}.mx-how ol{margin:0;padding-left:1.3rem;font-weight:700;line-height:1.55}.mx-talk{background:#e9fbea;border:3px solid #231a52;padding:.6rem .8rem;font-weight:700;line-height:1.5}.mx-q textarea{width:100%;box-sizing:border-box;min-height:140px;padding:.7rem;font:600 1rem/1.5 Nunito,system-ui,sans-serif;border:3px solid #231a52}
+.mx-q details{border:3px dashed #231a52;padding:.6rem .8rem;background:#fff7d1}
+.mx-q summary{cursor:pointer;font-weight:800}
+.mx-q ul{margin:.5rem 0 0;padding-left:1.2rem;font-weight:700;line-height:1.5}
+.mx-fig{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.mx-fig figure{margin:0;border:3px solid #231a52;background:#f4fbff;padding:6px}
+.mx-fig figcaption{font-weight:800;text-align:center;padding:4px}
+.mx-fig svg{width:100%;height:auto;display:block}
+.mx-wrap{overflow-x:auto}
+.mx-tbl{border-collapse:collapse;font-weight:800}
+.mx-tbl th,.mx-tbl td{border:3px solid #231a52;padding:.45rem .8rem;text-align:center}
+.mx-tbl th{background:#e9e4ff}
+.mx-total{font:400 .75rem/1.6 "Press Start 2P",monospace}
+.mx-note{background:#fff7d1;border:3px solid #231a52;padding:.7rem .9rem;font-weight:800;line-height:1.45}
+@media print{.plab-links,.mx-q details,.mx-actions,footer{display:none!important}.mx-q{box-shadow:none}}
+</style>
+</head>
+<body class="plain">
+<header class="top plab">
+  <p class="kicker">Practice only</p>
+  <h1>Mock Exam</h1>
+  <p class="lede">Six written-answer questions, 40 marks in total. There are no multiple-choice questions. Work with pen and paper like in the exam: write in full sentences, draw your diagrams, then compare and mark with others. Talking through why an answer earns marks is where most of the learning happens.</p>
+  <p class="lede notice-practice"><strong>Practice only. Doing well here does not predict your exam mark, and the real exam will contain different questions.</strong></p>
+  <p class="plab-links"><a class="btn btn-sun" href="marking.html">How marks are earned (worked example)</a> <a class="btn" href="../ai2/index.html">Back to AI2 World</a> <a class="btn" href="../ai2/practice.html">Practice Lab</a></p>
+</header>
+<main class="wrap plab-main" id="app" style="display:grid;gap:22px">
+
+<section class="mx-q mx-how" id="how">
+  <h2><span>How to use this mock exam</span></h2>
+  <ol>
+    <li><b>Attempt it alone first, on paper.</b> Use a pen, work in exam conditions, and leave nothing blank. Wrong attempts teach more than empty pages. The sketch pads below are for quick diagrams if you are on a tablet or phone, but paper is best.</li>
+    <li><b>Peer-mark.</b> Swap papers with a partner. Mark in a different colour of pen. For each answer, write what earned marks and what is missing, in words, not just a number. Explaining a mark to someone else tests your own understanding.</li>
+    <li><b>Group-mark and discuss.</b> Join another pair. For every question, compare your answers and diagrams and agree what a full-mark answer contains. Disagree politely: ask "why does that earn a mark?" and "what would change if the problem were different?".</li>
+    <li><b>Check against the hints last.</b> Open the "Hints and marking prompts" only after you have discussed, then add anything the group missed.</li>
+    <li><b>Teach it back.</b> Pick the question you found hardest and explain it to someone without looking at your notes. If you get stuck, that is exactly what to revise.</li>
+  </ol>
+  <p>Marking is not about matching phrases. Examiners give marks for correct ideas, applied to the problem in the question, with a reason. The aim is not a high score on this page, it is to understand why each answer works.</p>
+</section>
+
+<section class="mx-q" id="q1">
+  <h2><span>Question 1</span><span class="marks">[5 marks]</span></h2>
+  <p>Using diagrams, show how a random hillclimber can experience difficulties searching a problem space and then describe a way you can improve upon its simple approach.</p>
+  <div class="mx-pad" data-k="q1" data-h="320"></div>
+  <p class="mx-talk"><b>Peer and group discussion:</b> Compare diagrams with your partner. Do you both show a hill the climber cannot get off? Whose improvement is easiest to explain, and why does it help?</p>
+  <details><summary>Hints and marking prompts (open after you have discussed)</summary><ul><li>Draw a landscape with more than one peak and show where the climber starts and stops.</li><li>What does it do when no neighbouring move is better?</li><li>Name a way to change how it starts, how it moves, or what it accepts.</li></ul></details>
+</section>
+
+<section class="mx-q" id="q2">
+  <h2><span>Question 2</span><span class="marks">[10 marks]</span></h2>
+  <p>Consider the following population of solutions being manipulated by a standard evolutionary algorithm for a maximisation problem:</p>
+  <div class="mx-wrap"><table class="mx-tbl" aria-label="Population of four solutions">
+    <thead><tr><th>No.</th><th colspan="5">Genome</th><th>Fitness</th></tr></thead>
+    <tbody>
+      <tr><td>1.</td><td>1</td><td>2</td><td>9</td><td>6</td><td>8</td><td>30</td></tr>
+      <tr><td>2.</td><td>7</td><td>9</td><td>9</td><td>1</td><td>5</td><td>40</td></tr>
+      <tr><td>3.</td><td>0</td><td>6</td><td>2</td><td>4</td><td>0</td><td>20</td></tr>
+      <tr><td>4.</td><td>0</td><td>5</td><td>1</td><td>3</td><td>1</td><td>10</td></tr>
+    </tbody></table></div>
+  <p>Show a likely population of four parents after selection using the roulette-wheel scheme, indicating why. How might the population look if you use another form of selection? Indicate why.</p>
+  <div class="mx-pad" data-k="q2" data-h="360"></div>
+  <p class="mx-talk"><b>Peer and group discussion:</b> Check each other\'s working: do your wheel slices match the fitness shares? Is "likely" different from "certain" in your answers? Agree why another selection method would change the population.</p>
+  <details><summary>Hints and marking prompts (open after you have discussed)</summary><ul><li>Work out each solution's share of the total fitness. That is the size of its slice of the wheel.</li><li>The result is random, so give a likely outcome and say why it is likely, not a certain one.</li><li>Compare with a method that depends on rank or on small contests, and say what changes.</li></ul></details>
+</section>
+
+<section class="mx-q" id="q3">
+  <h2><span>Question 3</span><span class="marks">[5 marks]</span></h2>
+  <p>How well might you expect Particle Swarm Optimisation to perform on each of the two problem spaces below and why?</p>
+  <div class="mx-fig" id="fig3"></div>
+  <div class="mx-pad" data-k="q3" data-h="300"></div>
+  <p class="mx-talk"><b>Peer and group discussion:</b> Take one problem space each and argue for or against good performance, then swap. Which statement would convince a sceptic, and what evidence would you want?</p>
+  <details><summary>Hints and marking prompts (open after you have discussed)</summary><ul><li>What do the particles do as they move toward each other and toward the best place found so far?</li><li>Where can that take them in each picture?</li><li>Is there a way to change who sees whom, or another method that makes bigger jumps?</li></ul></details>
+</section>
+
+<section class="mx-q" id="q4">
+  <h2><span>Question 4</span><span class="marks">[5 marks]</span></h2>
+  <p>Using two examples, describe the basic principles behind swarm intelligence algorithms.</p>
+  <div class="mx-pad" data-k="q4" data-h="320"></div>
+  <p class="mx-talk"><b>Peer and group discussion:</b> Each person picks a different example and describes it without the words "leader" or "controller". Then compare: what do your two examples have in common?</p>
+  <details><summary>Hints and marking prompts (open after you have discussed)</summary><ul><li>Who is in control? What does a single agent know?</li><li>How do the agents influence one another, directly or through the world?</li><li>What appears at the level of the whole group that no single agent contains?</li></ul></details>
+</section>
+
+<section class="mx-q" id="q5">
+  <h2><span>Question 5</span><span class="marks">[10 marks]</span></h2>
+  <p>The table below shows a set of results from running an algorithm with the values of two of its learning parameters varied three times, giving nine combinations. Each result in the table is the average performance over ten runs for a maximisation problem:</p>
+  <div class="mx-wrap"><table class="mx-tbl" aria-label="Results for nine parameter combinations">
+    <thead><tr><th rowspan="2">Algorithm<br>Parameter 2</th><th colspan="3">Algorithm Parameter 1</th></tr>
+    <tr><th>0.01</th><th>0.02</th><th>0.03</th></tr></thead>
+    <tbody>
+      <tr><th>0.1</th><td>28.7</td><td>31.5</td><td>33.2</td></tr>
+      <tr><th>0.2</th><td>35.9</td><td>39.6</td><td>41.8</td></tr>
+      <tr><th>0.3</th><td>33.4</td><td>29.7</td><td>27.5</td></tr>
+    </tbody></table></div>
+  <p>Based on these results, what set of parameter values would you suggest are explored next, show the table to be filled and briefly state your reasoning.</p>
+  <div class="mx-pad" data-k="q5" data-h="400"></div>
+  <p class="mx-talk"><b>Peer and group discussion:</b> Compare the tables you would fill in. Why did you choose those values? Would a group member choose different step sizes, and what would each choice find out?</p>
+  <details><summary>Hints and marking prompts (open after you have discussed)</summary><ul><li>Where is the best result, and is it in the middle of the table or at an edge?</li><li>If it is at an edge, what lies beyond it that has not been tested?</li><li>Should the next steps be the same size, or smaller? Why?</li></ul></details>
+</section>
+
+<section class="mx-q" id="q6">
+  <h2><span>Question 6</span><span class="marks">[5 marks]</span></h2>
+  <p>The graph below shows the performance over time of an evolutionary algorithm on a maximization problem. What parameter or parameters would you change to try to improve the quality of the final solution found and why?</p>
+  <div class="mx-fig"><figure><svg id="fig6" viewBox="0 0 480 280" role="img" aria-label="Line graph: best fitness rises quickly then stays flat; average fitness rises and gets close to the best"></svg><figcaption>Fitness over generations</figcaption></figure></div>
+  <div class="mx-pad" data-k="q6" data-h="320"></div>
+  <p class="mx-talk"><b>Peer and group discussion:</b> Describe what each curve does to a partner who cannot see the graph. Then agree on one change and the effect it should have, and say how you could test it.</p>
+  <details><summary>Hints and marking prompts (open after you have discussed)</summary><ul><li>Describe what each curve is doing, and what the gap between them tells you.</li><li>Link the pattern to a setting: mutation, selection pressure, population size, elitism.</li><li>Say which way you would change it and what you expect to happen.</li></ul></details>
+</section>
+
+<section class="mx-q mx-actions">
+  <p class="mx-total">Total: 40 marks</p>
+  <p>Anything you sketch on the pads is saved only in this browser. Nothing is sent anywhere. Your real answers belong on paper.</p>
+  <div><button class="btn btn-sun" type="button" id="print">Print this page</button> <button class="btn" type="button" id="clear">Clear all sketches</button></div>
+</section>
+</main>
+<footer><div class="wrap"><p class="px">AI4Good: by everyone, for everyone.</p></div></footer>
+<script>
+(function(){
+  /* Figures */
+  var NS='http://www.w3.org/2000/svg';
+  function el(n,a,p){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+  function text(p,x,y,t,o){var e=el('text',Object.assign({x:x,y:y,'font-family':'Nunito,sans-serif','font-weight':800,'font-size':12,fill:'#231a52'},o||{}),p);e.textContent=t;return e}
+  function axes(s,w,h,xl,yl){el('line',{x1:40,y1:h-30,x2:w-10,y2:h-30,stroke:'#231a52','stroke-width':2},s);el('line',{x1:40,y1:10,x2:40,y2:h-30,stroke:'#231a52','stroke-width':2},s);text(s,(w+30)/2,h-8,xl,{'text-anchor':'middle'});var t=text(s,12,(h-30)/2,yl,{'text-anchor':'middle'});t.setAttribute('transform','rotate(-90 12 '+((h-30)/2)+')')}
+  var f3=document.getElementById('fig3');
+  function land(label,peaks,noise){
+    var fg=document.createElement('figure'),cap=document.createElement('figcaption');cap.textContent=label;
+    var s=el('svg',{viewBox:'0 0 300 200',role:'img','aria-label':label}),w=300,h=200;fg.appendChild(s);fg.appendChild(cap);f3.appendChild(fg);axes(s,w,h,'position in the problem space','quality');
+    var d='',x;for(x=0;x<=1.0001;x+=0.004){var y=0;peaks.forEach(function(p){y+=p[2]*Math.exp(-Math.pow((x-p[0])/p[1],2))});y+=noise(x);y=Math.max(0,Math.min(1,y));d+=(d?'L':'M')+(40+x*250).toFixed(1)+' '+(h-30-y*(h-50)).toFixed(1)}
+    el('path',{d:d,fill:'none',stroke:'#6a3df0','stroke-width':3},s)}
+  land('Problem space A',[[.55,.28,1]],function(){return 0});
+  var pk=[],r=7;function rnd(){r=(r*16807)%2147483647;return r/2147483647}
+  for(var i=0;i<26;i++)pk.push([i/25*0.98+0.01+(rnd()-.5)*.02,.018+rnd()*.012,.35+rnd()*.6]);
+  land('Problem space B',pk,function(x){return 0});
+  var s6=document.getElementById('fig6'),W=480,H=280;axes(s6,W,H,'generation','fitness');
+  function line(f,c){var d='';for(var g=0;g<=100;g++){var y=f(g);d+=(d?'L':'M')+(40+g/100*430).toFixed(1)+' '+(H-30-y*(H-50)).toFixed(1)}el('path',{d:d,fill:'none',stroke:c,'stroke-width':3},s6)}
+  line(function(g){return g<22?0.25+0.42*(1-Math.exp(-g/6)):0.66+(g>=60?0:0)+Math.min(0.01,(g-22)*0.0003)},'#e8365d');
+  line(function(g){var b=g<22?0.25+0.42*(1-Math.exp(-g/6)):0.665;return Math.min(b-0.01,0.2+ (b-0.2)*(1-Math.exp(-g/18))-0.01)},'#2e9e5b');
+  el('rect',{x:300,y:20,width:12,height:4,fill:'#e8365d'},s6);text(s6,318,26,'best in population');
+  el('rect',{x:300,y:38,width:12,height:4,fill:'#2e9e5b'},s6);text(s6,318,44,'average of population');
+  /* Sketch pads */
+  var KEY='ai2-mockexam-pads-v1',store={};
+  try{store=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){}}
+  var pads=[];
+  [].forEach.call(document.querySelectorAll('.mx-pad'),function(box){
+    var k=box.dataset.k,H=+box.dataset.h,W=900,cv=document.createElement('canvas');cv.width=W;cv.height=H;cv.setAttribute('aria-label','Sketch pad for question '+k.slice(1)+'. You can also draw on paper.');
+    var c=cv.getContext('2d'),colour='#231a52',size=3,erase=false,strokes=[],cur=null,base=null;
+    c.lineCap='round';c.lineJoin='round';
+    function redraw(){c.clearRect(0,0,W,H);if(base)c.drawImage(base,0,0);strokes.forEach(draw)}
+    function draw(s){c.strokeStyle=s.e?'#ffffff':s.c;c.lineWidth=s.e?s.w*5:s.w;c.beginPath();s.p.forEach(function(p,i){i?c.lineTo(p[0],p[1]):c.moveTo(p[0],p[1])});if(s.p.length===1)c.lineTo(s.p[0][0]+0.1,s.p[0][1]);c.stroke()}
+    function pos(e){var r=cv.getBoundingClientRect();return [(e.clientX-r.left)*W/r.width,(e.clientY-r.top)*H/r.height]}
+    cv.addEventListener('pointerdown',function(e){e.preventDefault();cv.setPointerCapture(e.pointerId);cur={c:colour,w:size,e:erase,p:[pos(e)]};strokes.push(cur);draw(cur)});
+    cv.addEventListener('pointermove',function(e){if(!cur)return;e.preventDefault();cur.p.push(pos(e));redraw()});
+    function end(){if(!cur)return;cur=null;store[k]=cv.toDataURL('image/png');save()}
+    cv.addEventListener('pointerup',end);cv.addEventListener('pointercancel',end);
+    if(store[k]){base=new Image();base.onload=redraw;base.src=store[k]}
+    var bar=document.createElement('div');bar.className='mx-bar';
+    function btn(label,fn,cls,aria){var b=document.createElement('button');b.type='button';b.textContent=label;if(cls)b.className=cls;b.onclick=fn;if(aria)b.setAttribute('aria-pressed','false');bar.appendChild(b);return b}
+    var sws=[];
+    [['#231a52','Black pen'],['#1f5fd1','Blue pen'],['#d6254d','Red pen (for marking)']].forEach(function(p){var b=btn('',function(){colour=p[0];erase=false;sws.forEach(function(x){x.setAttribute('aria-pressed','false')});b.setAttribute('aria-pressed','true');er.setAttribute('aria-pressed','false')},'sw',true);b.style.background=p[0];b.setAttribute('aria-label',p[1]);b.title=p[1];sws.push(b);if(p[0]===colour)b.setAttribute('aria-pressed','true')});
+    var er=btn('Eraser',function(){erase=!erase;er.setAttribute('aria-pressed',String(erase))},'',true);
+    btn('Undo',function(){if(strokes.length){strokes.pop();redraw();store[k]=cv.toDataURL('image/png');save()}});
+    btn('Clear',function(){if(confirm('Clear this sketch pad?')){strokes=[];base=null;c.clearRect(0,0,W,H);delete store[k];save()}});
+    btn('Save picture',function(){var a=document.createElement('a');a.href=cv.toDataURL('image/png');a.download='mock-exam-'+k+'.png';a.click()});
+    box.appendChild(bar);box.appendChild(cv);pads.push({k:k});
+  });
+  document.getElementById('print').onclick=function(){window.print()};
+  document.getElementById('clear').onclick=function(){if(confirm('Clear all sketch pads on this page?')){try{localStorage.removeItem(KEY)}catch(e){}location.reload()}};
+})();
+</script>
+</body>
+</html>
