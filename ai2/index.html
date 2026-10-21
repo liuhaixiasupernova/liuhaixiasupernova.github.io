@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script src="gate.js"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="AI2 World: explore evolutionary computing, swarm intelligence and machine learning evaluation with animated demos, tests and reflection.">
+<title>AI2 World</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&family=Press+Start+2P&display=swap">
+<link rel="stylesheet" href="ai2.css">
+</head>
+<body>
+<div class="world" id="world">
+  <div class="scenery" id="scenery" aria-hidden="true">
+    <div class="ground"></div>
+    <div class="pole"></div>
+    <div class="flag"></div>
+  </div>
+
+  <header class="top">
+    <p class="kicker">Learning journey</p>
+    <h1>AI2 World</h1>
+    <p class="lede">Three worlds. In each one you explore an idea, test yourself, reflect, then go further. Click a block to enter.</p>
+    <p><a class="btn btn-sun" href="practice.html">Practice Lab: practice only, not a mock test</a></p>
+    <p class="lede notice-practice"><strong>Practice only. This is not a mock test and not a mock exam. The real exam has no multiple-choice questions, so the multiple-choice items here are just to help you think and check your understanding. Do not use your score here to predict your exam mark.</strong></p>
+    <div class="hud" role="group" aria-label="Progress">
+      <dl>
+        <div class="stat"><dt>WORLD</dt><dd>AI2</dd></div>
+        <div class="stat"><dt>CLEARED</dt><dd id="hud-clear" aria-live="polite">0/3</dd></div>
+        <div class="stat"><dt>COINS</dt><dd id="hud-coins">x000</dd></div>
+      </dl>
+      <button class="snd" id="snd" type="button" aria-pressed="false">SOUND OFF</button>
+    </div>
+    <div class="clear" id="clear" role="status" hidden>
+      <strong>ALL WORLDS CLEARED!</strong>
+      <span>You explored, tested and reflected on all three. Pick the one you want to master next and play with it again.</span>
+    </div>
+  </header>
+
+  <main class="stage">
+    <ol class="levels" id="levels"></ol>
+  </main>
+</div>
+
+<section class="lv" id="lv" hidden aria-labelledby="lv-title">
+  <div class="wrap">
+    <div class="lv-head">
+      <div class="tile"><span class="lvn" id="lv-n"></span></div>
+      <div class="who">
+        <h2 id="lv-title"></h2>
+        <p id="lv-short"></p>
+      </div>
+      <button class="btn lv-back" id="lv-back" type="button">Back to map</button>
+    </div>
+    <div class="steps" id="steps" role="tablist" aria-label="Steps"></div>
+    <div class="pane" id="pane-0" role="tabpanel"></div>
+    <div class="pane" id="pane-1" role="tabpanel" hidden></div>
+    <div class="pane" id="pane-2" role="tabpanel" hidden></div>
+    <div class="pane" id="pane-3" role="tabpanel" hidden></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="px">AI4Good: by everyone, for everyone.</p>
+    <p class="fine">Your progress and notes are saved only in this browser. Nothing is sent anywhere.</p>
+    <button class="reset" id="reset" type="button">Start over</button>
+  </div>
+</footer>
+
+<script src="../nav.js"></script>
+<script src="core.js"></script>
+<script src="ea.js"></script>
+<script src="pso.js"></script>
+<script src="flock.js"></script>
+<script src="aco.js"></script>
+<script src="swarm.js"></script>
+<script src="knn-lib.js"></script>
+<script src="knn.js"></script>
+<script src="knn-cv.js"></script>
+<script>AI2.start();</script>
+</body>
+</html>
