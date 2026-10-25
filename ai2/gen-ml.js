@@ -9,7 +9,7 @@
 
   /* ---------- fitting curves ---------- */
   PR.family({
-    id: 'fit', label: 'Training and overfitting', world: 'World 1-3 Predict', tip: 'World 1-3 Predict, panel 2 (Overfitting): compare training and test accuracy as you change k and the number of useless features.',
+    id: 'fit', label: 'Training and overfitting', world: 'World 1-3 Predict', tip: 'World 1-3 Predict, panel 2 (Overfitting): drag the epoch slider and watch training loss fall while validation loss rises.',
     blurb: 'Read training and validation curves and fix the problem.',
     forms: [{ id: 'curves', marks: 10, gen: function (r) {
       var kind = r.pick(['over', 'over', 'under', 'good']), E = 60, tr = [], va = [], i, E0 = r.int(14, 28);
@@ -146,7 +146,7 @@
 
   /* ---------- KNN by hand and honest comparison ---------- */
   PR.family({
-    id: 'evalq', label: 'KNN and honest evaluation', world: 'World 1-3 Predict', tip: 'World 1-3 Predict, panel 3: run 1-NN against 9-NN and compare the two p-values.',
+    id: 'evalq', label: 'KNN and honest evaluation', world: 'World 1-3 Predict', tip: 'World 1-3 Predict, panel 3: run 100 against 300 epochs and compare the two p-values.',
     blurb: 'Work a tiny KNN by hand and judge a comparison of two models.',
     forms: [
       { id: 'knn-hand', marks: 5, gen: function (r) {
